@@ -3,7 +3,7 @@ title: 'Junior 42 Paris'
 date: '2022-05-12'
 ---
 
-Junior 42 Paris is a junior company created in 2019. A junior company is both a company and a non-profit. This special status unables students to perform missions for clients, and get a another sense of the professionnal world.
+[Junior 42 Paris](https://junior42.com/) is a junior company created in 2019. A junior company is both a company and a non-profit. This special status unables students to perform missions for clients, and get a another sense of the professionnal world.
 
 **Business Manager :** my role was to form, help, and manage a team of 12 Project Leaders and 4 Technical Experts, during the first phase of interactions with the clients, a phase we called **Client Qualification**. 
 
