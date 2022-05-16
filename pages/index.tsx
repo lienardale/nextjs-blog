@@ -3,15 +3,62 @@
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
-import Link from 'next/link'
-import Date from '../components/date'
+import { getSortedPostData } from '../lib/posts'
+import Section from '../components/section'
 import { GetStaticProps } from 'next'
 
 export default function Home({
-  allPostsData
+  allExpData,
+  allEducData,
+  allPostData,
+  allHobbiesData,
+  allInfosData,
+  allLanguagesData,
+  allProjectsData,
+  allSoftData,
+  allStackData
 }: {
-  allPostsData: {
+  allExpData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allEducData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allPostData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allHobbiesData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allInfosData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allLanguagesData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allProjectsData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allSoftData: {
+    date: string
+    title: string
+    id: string
+  }[],
+  allStackData: {
     date: string
     title: string
     id: string
@@ -31,34 +78,71 @@ export default function Home({
         </p>
         <p>
           (This is a sample website - you’ll be building a site like this in{' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+          <a href="https://nextjs.org/learn">Next.js' tutorial</a>.)
         </p>
       </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Professionnal Experience</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Section 
+        data={allExpData}
+        name='Professionnal Experience'
+        dir='posts/experience' />
+      <Section 
+        data={allEducData}
+        name='Education'
+        dir='posts/education' />
+      <Section 
+        data={allStackData}
+        name='Stack'
+        dir='posts/stack' />
+      <Section 
+        data={allProjectsData}
+        name='Projects'
+        dir='posts/projects' />
+      <Section 
+        data={allSoftData}
+        name='Soft Skills'
+        dir='posts/soft_skills' />
+      <Section 
+        data={allLanguagesData}
+        name='Languages'
+        dir='posts/languages' />
+      <Section 
+        data={allHobbiesData}
+        name='Hobbies'
+        dir='posts/hobbies' />
+      <Section 
+        data={allInfosData}
+        name='Infos'
+        dir='posts/infos' />
+      <Section 
+        data={allPostData}
+        name='Posts'
+        dir='posts/posts' />
+      
     </Layout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
+  const allExpData = getSortedPostData({dir : 'posts/experience'});
+  const allEducData = getSortedPostData({dir : 'posts/education'});
+  const allPostData = getSortedPostData({dir : 'posts/posts'});
+  const allHobbiesData = getSortedPostData({dir : 'posts/hobbies'});
+  const allInfosData = getSortedPostData({dir : 'posts/infos'});
+  const allLanguagesData = getSortedPostData({dir : 'posts/languages'});
+  const allProjectsData = getSortedPostData({dir : 'posts/projects'});
+  const allSoftData = getSortedPostData({dir : 'posts/soft_skills'});
+  const allStackData = getSortedPostData({dir : 'posts/stack'});
   return {
     props: {
-      allPostsData
+      allExpData,
+      allEducData,
+      allPostData,
+      allHobbiesData,
+      allInfosData,
+      allLanguagesData,
+      allProjectsData,
+      allSoftData,
+      allStackData
     }
   }
 }
