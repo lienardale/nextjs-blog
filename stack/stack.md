@@ -4,8 +4,11 @@ date: '2022-05-12'
 ---
 
 C, C++,
-NodeJS, ExpressJS, ReactJS,
-Postgres, MySQL
-Typescript, Bash
-Docker
+NodeJS, ExpressJS, 
+ReactJS, NextJs
+Prisma, TypeOrm,
+Postgres, MySQL,
+Typescript, 
+Bash,
+Docker, Kubernetes,
 Git (command-line, Github, Gitlab)	

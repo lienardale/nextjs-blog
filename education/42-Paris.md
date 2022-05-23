@@ -3,6 +3,8 @@ title: '42 Paris'
 date: '2022-05-12'
 ---
 
+For 3 years, I studied software engineering, sofware development, software architecture, all in one word : coding.
+
 [42](https://42.fr/) is a future-proof computer science training to educate the next generation of software engineers. The 42 program takes a project-based approach to progress and is designed to develop technical and people skills that match the expectations of the labor market.
 
 **NO COURSES. NO TEACHERS. NO CLASSES.** 
