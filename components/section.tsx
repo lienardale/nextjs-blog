@@ -75,7 +75,10 @@ export default function Section({data, title, dir}){
     }
 
     return (
-
+      <section
+          className="container flex items-center justify-center h-30 m-auto m-3 bg-fixed bg-center bg-cover custom-img"
+        >
+        <div className="p-5 text-2xl text-white rounded-xl">
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <Menu>
         {({ open }) => (
@@ -127,5 +130,7 @@ export default function Section({data, title, dir}){
       )}
         </Menu>
       </section>
+    </div>
+  </section>
     )
 }

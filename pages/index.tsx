@@ -78,6 +78,13 @@ export default function Home({
       <Head>
         <title>{siteTitle}</title>
       </Head>
+      <header
+        className="flex items-center justify-center h-30 mb-5 bg-fixed bg-center bg-cover custom-img"
+      >
+        <div className="p-5 h-15 text-2xl text-white rounded-xl">
+          Welcome to my site!
+        </div>
+      </header>
       <section className={utilStyles.headingMd}>
         <p>
           Software developer with a background in marketing.
@@ -98,7 +105,7 @@ export default function Home({
       </section>
       <Section 
         data={allExpData}
-        title='Professionnal Experience'
+        title='Experience'
         dir='experience' />
       <Section 
         data={allEducData}
