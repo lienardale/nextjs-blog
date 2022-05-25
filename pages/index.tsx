@@ -89,6 +89,12 @@ export default function Home({
           (This is a sample website - you’ll be building a site like this in{' '}
           <a href="https://nextjs.org/learn">Next.js' tutorial</a>.)
         </p>
+        <br></br>
+        <p>
+          Each section below will allow you to navigate to different sections about the things I did, am, and enjoy doing.
+          Feel free to browse and to contact me.
+        </p>
+        <br></br>
       </section>
       <Section 
         data={allExpData}
