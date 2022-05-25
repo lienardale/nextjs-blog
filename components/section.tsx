@@ -2,12 +2,19 @@ import Link, { LinkProps } from 'next/link'
 import Date from '../components/date'
 import utilStyles from '../styles/utils.module.css'
 import { Menu, Transition } from '@headlessui/react'
-import { forwardRef } from 'react'
+import { Fragment, forwardRef } from 'react'
+import { ChevronDownIcon, DocumentIcon, AcademicCapIcon, BriefcaseIcon, CodeIcon, TerminalIcon, UserGroupIcon, ChatIcon, PuzzleIcon, MailIcon } from '@heroicons/react/solid'
 
 // trying to implement https://headlessui.dev/react/menu
 
-const MyLink = forwardRef((props, ref) => {
-  let { href, children, ...rest } = props
+type ButtonProps = React.HTMLProps<HTMLAnchorElement>
+
+const MyLink = forwardRef<HTMLAnchorElement, ButtonProps>((props, ref) => {
+  // let href : HTMLAnchorElement = props.href;
+  // let children : Element = props.children;
+  // let rest = props.rest;
+  let { href, children, ...rest } = props;
+  // const ref = React.createRef<HTMLButtonElement>()
   return (
     <Link href={href}>
       <a ref={ref} {...rest}>
@@ -18,29 +25,110 @@ const MyLink = forwardRef((props, ref) => {
 })
 
 export default function Section({data, title, dir}){
+
+    let icon = <DocumentIcon
+      className="mr-2 h-5 w-5"
+      aria-hidden="true"
+    />
+
+    if (title === "Professionnal Experience"){
+      icon = <BriefcaseIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Education"){
+      icon = <AcademicCapIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Stack"){
+      icon = <CodeIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Projects"){
+      icon = <TerminalIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Soft Skills"){
+      icon = <UserGroupIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Languages"){
+      icon = <ChatIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Hobbies"){
+      icon = <PuzzleIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Infos"){
+      icon = <MailIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    } else if (title === "Posts"){
+      icon = <DocumentIcon
+        className="mr-2 h-5 w-5"
+        aria-hidden="true"
+      />
+    }
+
     return (
 
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <Menu>
-          <Menu.Button>{title}</Menu.Button>
-          <Menu.Items>
-            <ul className={utilStyles.list}>
-              {data.map(({ id, date, title }) => (
-                <li className={utilStyles.listItem} key={id}>
-                  <Menu.Item>
-                    <MyLink href={`/${dir}/${id}`}>{title}</MyLink>
-                    {/* <Link href={`/${dir}/${id}`}>
-                      <a>{title}</a>
-                    </Link> */}
-                    <br />
-                    <small className={utilStyles.lightText}>
-                      <Date dateString={date} />
-                    </small>
-                  </Menu.Item>
-                </li>
-              ))}
-            </ul>
-          </Menu.Items>
+        {({ open }) => (
+           <>
+          <Menu.Button className="inline-flex m-1 justify-center rounded-md bg-gray-700 bg-opacity-80 px-4 py-2 text-xlg text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            {title}
+            <ChevronDownIcon
+              className="ml-2 -mr-1 h-5 w-5 text-gray-200 hover:text-gray-100"
+              aria-hidden="true"
+            />
+          </Menu.Button>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+            >
+            <Menu.Items static className=" mt-2 w-fit divide-y divide-gray-100 rounded-md bg-gray-100 shadow-lg ring-1 ring-gray-700 ring-opacity-5 focus:outline-none">
+              <ul className={utilStyles.list}>
+                {data.map(({ id, date, title }) => (
+                  <MyLink href={`/${dir}/${id}`}>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          className={`${
+                            active ? 'bg-gray-500 text-white' : 'text-gray-900'
+                          } group flex w-full items-start justify-begin rounded-md px-2 py-2 text-sm`}
+                        >
+                          {icon}
+                            <li className={utilStyles.listItem} key={id}>
+                                {title}
+                                <br />
+                                <small>
+                                  <Date dateString={date} />
+                                </small>
+                            </li>
+                          </button>
+                      )}
+                    </Menu.Item>
+                  </MyLink>
+                ))}
+              </ul>
+            </Menu.Items>
+          </Transition>
+          </>
+      )}
         </Menu>
       </section>
     )
