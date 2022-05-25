@@ -5,16 +5,12 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, forwardRef } from 'react'
 import { ChevronDownIcon, DocumentIcon, AcademicCapIcon, BriefcaseIcon, CodeIcon, TerminalIcon, UserGroupIcon, ChatIcon, PuzzleIcon, MailIcon } from '@heroicons/react/solid'
 
-// trying to implement https://headlessui.dev/react/menu
+// implemented https://headlessui.dev/react/menu
 
-type ButtonProps = React.HTMLProps<HTMLAnchorElement>
+type AnchorProps = React.HTMLProps<HTMLAnchorElement>
 
-const MyLink = forwardRef<HTMLAnchorElement, ButtonProps>((props, ref) => {
-  // let href : HTMLAnchorElement = props.href;
-  // let children : Element = props.children;
-  // let rest = props.rest;
+const MyLink = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref) => {
   let { href, children, ...rest } = props;
-  // const ref = React.createRef<HTMLButtonElement>()
   return (
     <Link href={href}>
       <a ref={ref} {...rest}>
