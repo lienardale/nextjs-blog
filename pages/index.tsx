@@ -85,12 +85,6 @@ export default function Home({
         <div className="p-5 h-15 text-2xl text-white rounded-xl">
           Welcome to my website!
         </div>
-        <Link href="/" locale="en">
-          <h2 className="p-5 h-15 text-2xl text-white rounded-xl" >Anglais</h2>
-        </Link>
-        <Link href="/" locale="fr">
-          <h2 className="p-5 h-15 text-2xl text-white rounded-xl">Français</h2>
-        </Link>
       </header>
       <section className={utilStyles.headingMd}>
         <p>
