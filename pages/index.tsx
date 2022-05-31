@@ -83,7 +83,7 @@ export default function Home({
         className="flex items-center justify-center h-30 mb-5 bg-fixed bg-center bg-cover custom-img"
       >
         <div className="p-5 h-15 text-2xl text-white rounded-xl">
-          Welcome to my website!
+          {t('title')}
         </div>
       </header>
       <section className={utilStyles.headingMd}>
