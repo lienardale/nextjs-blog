@@ -1,0 +1,8 @@
+{
+    "metaTitle": "Next.js Localization with Next-Translate, Typescript, TailwindCss",
+    "title": "Welcome to Alexandre Lienard's NextJS application!",
+    "description": "I'm using the Next-Translate library to translate this page.",
+    "intro": "Software developer with a background in marketing. Experience in teamwork & project coordination. Looking for the company that will make me a better developer, the projects I will contribute to & the team I’ll grow with.",
+    "intro1": "(This is a sample website - you’ll be building a site like this in Next.js' tutorial.)\n",
+    "intro2": "Each section below will allow you to navigate to different sections about the things I did, am, and enjoy doing. Feel free to browse and to contact me."
+}

@@ -1,5 +1,3 @@
-
-  
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
@@ -10,11 +8,13 @@ import Section from '../components/section'
 import { getSortedEducsData } from '../lib/educ'
 import { getSortedHobbiesData } from '../lib/hob'
 import { getSortedInfosData } from '../lib/info'
-
 import { getSortedLangsData } from '../lib/lang'
 import { getSortedProjsData } from '../lib/proj'
 import { getSortedSoftsData } from '../lib/soft'
 import { getSortedStacksData } from '../lib/stack'
+import Link, { LinkProps } from 'next/link'
+
+import useTranslation from 'next-translate/useTranslation';
 
 export default function Home({
   allExpData,
@@ -73,24 +73,28 @@ export default function Home({
     id: string
   }[]
 }) {
+  const { t } = useTranslation('common');
   return (
     <Layout home>
       <Head>
-        <title>{siteTitle}</title>
+        <title>{t('metaTitle')}</title>
       </Head>
       <header
         className="flex items-center justify-center h-30 mb-5 bg-fixed bg-center bg-cover custom-img"
       >
         <div className="p-5 h-15 text-2xl text-white rounded-xl">
-          Welcome to my site!
+          Welcome to my website!
         </div>
+        <Link href="/" locale="en">
+          <h2 className="p-5 h-15 text-2xl text-white rounded-xl" >Anglais</h2>
+        </Link>
+        <Link href="/" locale="fr">
+          <h2 className="p-5 h-15 text-2xl text-white rounded-xl">Français</h2>
+        </Link>
       </header>
       <section className={utilStyles.headingMd}>
         <p>
-          Software developer with a background in marketing.
-          Experience in teamwork & project coordination.
-          Looking for the company that will make me a better developer, 
-          the projects I will contribute to & the team I’ll grow with.
+          {t('intro')}
         </p>
         <p>
           (This is a sample website - you’ll be building a site like this in{' '}
@@ -98,8 +102,7 @@ export default function Home({
         </p>
         <br></br>
         <p>
-          Each section below will allow you to navigate to different sections about the things I did, am, and enjoy doing.
-          Feel free to browse and to contact me.
+          {t('intro2')}
         </p>
         <br></br>
       </section>

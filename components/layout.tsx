@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import useTranslation from 'next-translate/useTranslation';
 
 const name = 'Alexandre Lienard'
 export const siteTitle = 'alienard'
@@ -14,13 +15,14 @@ export default function Layout({
   children: React.ReactNode
   home?: boolean
 }) {
+  const { t } = useTranslation('common');
   return (
     <div className={styles.container}>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/hardlink.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="Alexandre Lienard's personal website using Next.js"
         />
         <meta
           property="og:image"
