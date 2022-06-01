@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { useRouter } from 'next/router';
 
 export default function Proj({
   postData
@@ -14,6 +15,7 @@ export default function Proj({
     contentHtml: string
   }
 }) {
+  const { locale } = useRouter();
   return (
     <Layout>
       <Head>

@@ -5,7 +5,7 @@ import { remark } from 'remark';
 import html from 'remark-html';
 
 const educDirectory = path.join(process.cwd(), 'srcs/education');
-const { defaultLocale } = require('../../i18n.json');
+const { defaultLocale } = require('../../../i18n.json');
 
 export function getSortedEducsData() {
   // Get file names under /educ
