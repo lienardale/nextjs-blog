@@ -15,6 +15,9 @@ import { getSortedStacksData } from '../lib/stack'
 import Link, { LinkProps } from 'next/link'
 
 import useTranslation from 'next-translate/useTranslation';
+import Trans from 'next-translate/Trans'
+import TransText from 'next-translate/TransText'
+
 
 export default function Home({
   allExpData,
@@ -74,6 +77,63 @@ export default function Home({
   }[]
 }) {
   const { t } = useTranslation('common');
+  const sections = [
+    {
+      id:'0',
+      data:allExpData,
+      title:'Experience',
+      dir:'experience',
+    },
+    {
+      id:'1',
+      data:allEducData,
+      title:'Education',
+      dir:'education',
+    },
+    {
+      id:'2',
+      data:allStackData,
+      title:'Stack',
+      dir:'stack',
+    },
+    {
+      id:'3',
+      data:allProjectsData,
+      title:'Projects',
+      dir:'projects',
+    },
+    {
+      id:'4',
+      data:allSoftData,
+      title:'Soft Skills',
+      dir:'soft_skills',
+    },
+    {
+      id:'5',
+      data:allLanguagesData,
+      title:'Languages',
+      dir:'languages',
+    },
+    {
+      id:'6',
+      data:allHobbiesData,
+      title:'Hobbies',
+      dir:'hobbies',
+    },
+    {
+      id:'7',
+      data:allInfosData,
+      title:'Infos',
+      dir:'infos',
+    },
+    {
+      id:'8',
+      data:allPostData,
+      title:'Posts',
+      dir:'posts',
+    }
+  ]
+
   return (
     <Layout home>
       <Head>
@@ -91,8 +151,21 @@ export default function Home({
           {t('intro')}
         </p>
         <p>
-          (This is a sample website - you’ll be building a site like this in{' '}
-          <a href="https://nextjs.org/learn">Next.js' tutorial</a>.)
+          {/* <Trans 
+            i18nKey="common:intro1"
+            components={{
+              component: <Component />,
+              b: <b className="red" />,
+            }}
+            values={{ count: 42 }}
+            defaultTrans="<component>The number is <b>{{count}}</b></component>"
+          /> */}
+            <TransText
+              text={t('intro1')}
+              components={{
+                link: <a href="https://nextjs.org/learn" />,
+              }}
+            />
         </p>
         <br></br>
         <p>
@@ -100,42 +173,12 @@ export default function Home({
         </p>
         <br></br>
       </section>
-      <Section 
-        data={allExpData}
-        title='Experience'
-        dir='experience' />
-      <Section 
-        data={allEducData}
-        title='Education'
-        dir='education' />
-      <Section 
-        data={allStackData}
-        title='Stack'
-        dir='stack' />
-      <Section 
-        data={allProjectsData}
-        title='Projects'
-        dir='projects' />
-      <Section 
-        data={allSoftData}
-        title='Soft Skills'
-        dir='soft_skills' />
-      <Section 
-        data={allLanguagesData}
-        title='Languages'
-        dir='languages' />
-      <Section 
-        data={allHobbiesData}
-        title='Hobbies'
-        dir='hobbies' />
-      <Section 
-        data={allInfosData}
-        title='Infos'
-        dir='infos' />
-      <Section 
-        data={allPostData}
-        title='Posts'
-        dir='posts' />
+      {sections.map(({id, data, title, dir}) => (
+        <Section
+          data={data}
+          title={title}
+          dir={dir} />
+      ))}
     </Layout>
   )
 }
