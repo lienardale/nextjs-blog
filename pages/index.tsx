@@ -13,6 +13,7 @@ import { getSortedProjsData } from '../lib/proj'
 import { getSortedSoftsData } from '../lib/soft'
 import { getSortedStacksData } from '../lib/stack'
 import Link, { LinkProps } from 'next/link'
+import { useRouter } from 'next/router';
 
 import useTranslation from 'next-translate/useTranslation';
 import Trans from 'next-translate/Trans'
@@ -77,6 +78,9 @@ export default function Home({
   }[]
 }) {
   const { t } = useTranslation('common');
+  const router = useRouter();
+  const { locale, locales, defaultLocale } = router;
+
   const sections = [
     {
       id:'0',
@@ -183,8 +187,8 @@ export default function Home({
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allExpData = getSortedExpsData();
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  const allExpData = getSortedExpsData(locale);
   const allEducData = getSortedEducsData();
   const allPostData = getSortedPostsData();
   const allHobbiesData = getSortedHobbiesData();

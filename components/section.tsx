@@ -4,6 +4,7 @@ import utilStyles from '../styles/utils.module.css'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, forwardRef } from 'react'
 import { ChevronDownIcon, DocumentIcon, AcademicCapIcon, BriefcaseIcon, CodeIcon, TerminalIcon, UserGroupIcon, ChatIcon, PuzzleIcon, MailIcon } from '@heroicons/react/solid'
+import { useRouter } from 'next/router';
 
 // implemented https://headlessui.dev/react/menu
 
@@ -73,7 +74,8 @@ export default function Section({data, title, dir}){
         aria-hidden="true"
       />
     }
-
+    const router = useRouter();
+    const { locale, locales, defaultLocale } = router;
   //  className="container flex items-center justify-center h-30 m-auto m-3 bg-fixed bg-center bg-cover custom-img"
     return (
       <section
@@ -103,7 +105,7 @@ export default function Section({data, title, dir}){
             <Menu.Items static className=" mt-2 w-fit divide-y divide-gray-100 rounded-md bg-gray-100 shadow-lg ring-1 ring-gray-700 ring-opacity-5 focus:outline-none">
               <ul className={utilStyles.list}>
                 {data.map(({ id, date, title }) => (
-                  <MyLink href={`/${dir}/${id}`}>
+                  <MyLink href={`/srcs/${dir}/${id}`}>
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -116,7 +118,7 @@ export default function Section({data, title, dir}){
                                 {title}
                                 <br />
                                 <small>
-                                  <Date dateString={date} />
+                                  <Date dateString={date} locale={locale} />
                                 </small>
                             </li>
                           </button>
