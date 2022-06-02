@@ -1,5 +1,5 @@
 ---
-title: 'When to Use Static Generation v.s. Server-side Rendering'
+title: 'Cuándo utilizar la generación estática frente a la renderización del lado del servidor'
 date: '2020-01-02'
 ---
 

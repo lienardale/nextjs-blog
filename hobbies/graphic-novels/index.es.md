@@ -1,5 +1,5 @@
 ---
-title: 'Graphic Novels'
+title: 'Novelas gráficas'
 date: '2022-05-12'
 ---
 

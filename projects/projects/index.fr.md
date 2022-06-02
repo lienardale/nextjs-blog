@@ -1,5 +1,5 @@
 ---
-title: 'Projects'
+title: 'Projets'
 date: '2022-05-12'
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 'Biking'
+title: 'Vélo'
 date: '2022-05-12'
 ---
 
