@@ -4,5 +4,15 @@
     "description": "J'utilise la bibliothèque Next-Translate pour traduire cette page.",
     "intro": "Développeur informatique avec une expérience en marketing. Rompu au travail d'équipe et à la coordination de projets. A la recherche de l’entreprise qui fera de moi un meilleur développeur, de projets auxquels contribuer, et de l'équipe avec laquelle grandir.",
     "intro1": "(Ceci est un site exemple - vous pouvez coder le votre grace au <link>tutoriel Next.js</link>.)",
-    "intro2": "Chaque section ci-dessous vous permettra de naviguer au sein de sections différentes à propos des choses que j'ai fait, fait, et apprécie faire. N'hésitez pas à naviguer et à me contacter."
+    "intro2": "Chaque section ci-dessous vous permettra de naviguer au sein de sections différentes à propos des choses que j'ai fait, fait, et apprécie faire. N'hésitez pas à naviguer et à me contacter.",
+    "categ0" : "Expérience",
+    "categ1" : "Education",
+    "categ2" : "Stack",
+    "categ3" : "Projets",
+    "categ4" : "Soft Skills",
+    "categ5" : "Langues",
+    "categ6" : "Hobbies",
+    "categ7" : "Infos",
+    "categ8" : "Posts",
+    "trad_button":"langue"
 }
