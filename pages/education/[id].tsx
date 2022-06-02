@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { useRouter } from 'next/router';
 
 export default function Educ({
   postData
@@ -14,6 +15,8 @@ export default function Educ({
     contentHtml: string
   }
 }) {
+  const { locale } = useRouter();
+
   return (
     <Layout>
       <Head>
@@ -22,7 +25,7 @@ export default function Educ({
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
+          <Date dateString={postData.date} locale={locale} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
@@ -30,16 +33,16 @@ export default function Educ({
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllEducIds()
+export const getStaticPaths: GetStaticPaths = async ({locales}) => {
+  const paths = getAllEducIds(locales)
   return {
     paths,
     fallback: false
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getEducData(params.id as string)
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  const postData = await getEducData(params.id as string, locale)
   return {
     props: {
       postData

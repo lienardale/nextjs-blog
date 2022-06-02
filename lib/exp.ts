@@ -5,16 +5,18 @@ import { remark } from 'remark';
 import html from 'remark-html';
 
 const expDirectory = path.join(process.cwd(), 'experience');
+const { defaultLocale } = require('../i18n.js');
 
-export function getSortedExpsData() {
+export function getSortedExpsData(locale: string) {
   // Get file names under /exp
-  const fileNames = fs.readdirSync(expDirectory);
-  const allExpsData = fileNames.map((fileName) => {
+  const fileIds = fs.readdirSync(expDirectory);
+  const allExpsData = fileIds.map((id) => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+    const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
 
     // Read markdown file as string
-    const fullPath = path.join(expDirectory, fileName);
+    const fullPath = path.join(expDirectory, id, filename);
+
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
@@ -23,7 +25,7 @@ export function getSortedExpsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
   });
   // Sort exp by date
@@ -38,10 +40,9 @@ export function getSortedExpsData() {
   });
 }
 
-export function getAllExpIds() {
-  const fileNames = fs.readdirSync(expDirectory);
+export function getAllExpIds(locales: string[]) {
 
-// Returns an array that looks like this:
+  // Returns an array that looks like this:
 // [
 //   {
 //     params: {
@@ -57,19 +58,31 @@ export function getAllExpIds() {
 
 // to fetch external api or query database
     // const res = await fetch('..');
-    // const exp = await res.json();
+    // const stack = await res.json();
 
-  return fileNames.map((fileName) => {
-      return {
-        params: {
-          id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  let paths: { params: { id: string }; locale: string }[] = [];
+  const expIds = fs.readdirSync(expDirectory);
+
+  for (let id of expIds) {
+    for (let locale of locales) {
+      let fullpath = path.join(
+        expDirectory,
+        id,
+        locale === defaultLocale ? 'index.md' : `index.${locale}.md`,
+      );
+      if (!fs.existsSync(fullpath)) {
+        continue;
+      }
+
+      paths.push({ params: { id }, locale });
+    }
+  }
+
+  return paths;
 }
 
-export async function getExpData(id) {
-    const fullPath = path.join(expDirectory, `${id}.md`);
+export async function getExpData(id: string, locale: string) {
+    const fullPath = path.join(expDirectory, id, locale === defaultLocale ? 'index.md' : `index.${locale}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
   
     // Use gray-matter to parse the post metadata section
@@ -85,6 +98,6 @@ export async function getExpData(id) {
     return {
       id,
       contentHtml,
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
 }

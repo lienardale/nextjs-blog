@@ -1,5 +1,3 @@
-
-  
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
@@ -10,11 +8,17 @@ import Section from '../components/section'
 import { getSortedEducsData } from '../lib/educ'
 import { getSortedHobbiesData } from '../lib/hob'
 import { getSortedInfosData } from '../lib/info'
-
 import { getSortedLangsData } from '../lib/lang'
 import { getSortedProjsData } from '../lib/proj'
 import { getSortedSoftsData } from '../lib/soft'
 import { getSortedStacksData } from '../lib/stack'
+import Link, { LinkProps } from 'next/link'
+import { useRouter } from 'next/router';
+
+import useTranslation from 'next-translate/useTranslation';
+import Trans from 'next-translate/Trans'
+import TransText from 'next-translate/TransText'
+
 
 export default function Home({
   allExpData,
@@ -73,86 +77,126 @@ export default function Home({
     id: string
   }[]
 }) {
+  const { t } = useTranslation('common');
+  const router = useRouter();
+  const { locale, locales, defaultLocale } = router;
+
+  const sections = [
+    {
+      id:'0',
+      data:allExpData,
+      title:'Experience',
+      dir:'experience',
+    },
+    {
+      id:'1',
+      data:allEducData,
+      title:'Education',
+      dir:'education',
+    },
+    {
+      id:'2',
+      data:allStackData,
+      title:'Stack',
+      dir:'stack',
+    },
+    {
+      id:'3',
+      data:allProjectsData,
+      title:'Projects',
+      dir:'projects',
+    },
+    {
+      id:'4',
+      data:allSoftData,
+      title:'Soft Skills',
+      dir:'soft_skills',
+    },
+    {
+      id:'5',
+      data:allLanguagesData,
+      title:'Languages',
+      dir:'languages',
+    },
+    {
+      id:'6',
+      data:allHobbiesData,
+      title:'Hobbies',
+      dir:'hobbies',
+    },
+    {
+      id:'7',
+      data:allInfosData,
+      title:'Infos',
+      dir:'infos',
+    },
+    {
+      id:'8',
+      data:allPostData,
+      title:'Posts',
+      dir:'posts',
+    }
+  ]
+
   return (
     <Layout home>
       <Head>
-        <title>{siteTitle}</title>
+        <title>{t('metaTitle')}</title>
       </Head>
       <header
         className="flex items-center justify-center h-30 mb-5 bg-fixed bg-center bg-cover custom-img"
       >
         <div className="p-5 h-15 text-2xl text-white rounded-xl">
-          Welcome to my site!
+          {t('title')}
         </div>
       </header>
       <section className={utilStyles.headingMd}>
         <p>
-          Software developer with a background in marketing.
-          Experience in teamwork & project coordination.
-          Looking for the company that will make me a better developer, 
-          the projects I will contribute to & the team I’ll grow with.
+          {t('intro')}
         </p>
         <p>
-          (This is a sample website - you’ll be building a site like this in{' '}
-          <a href="https://nextjs.org/learn">Next.js' tutorial</a>.)
+          {/* <Trans 
+            i18nKey="common:intro1"
+            components={{
+              component: <Component />,
+              b: <b className="red" />,
+            }}
+            values={{ count: 42 }}
+            defaultTrans="<component>The number is <b>{{count}}</b></component>"
+          /> */}
+            <TransText
+              text={t('intro1')}
+              components={{
+                link: <a href="https://nextjs.org/learn" />,
+              }}
+            />
         </p>
         <br></br>
         <p>
-          Each section below will allow you to navigate to different sections about the things I did, am, and enjoy doing.
-          Feel free to browse and to contact me.
+          {t('intro2')}
         </p>
         <br></br>
       </section>
-      <Section 
-        data={allExpData}
-        title='Experience'
-        dir='experience' />
-      <Section 
-        data={allEducData}
-        title='Education'
-        dir='education' />
-      <Section 
-        data={allStackData}
-        title='Stack'
-        dir='stack' />
-      <Section 
-        data={allProjectsData}
-        title='Projects'
-        dir='projects' />
-      <Section 
-        data={allSoftData}
-        title='Soft Skills'
-        dir='soft_skills' />
-      <Section 
-        data={allLanguagesData}
-        title='Languages'
-        dir='languages' />
-      <Section 
-        data={allHobbiesData}
-        title='Hobbies'
-        dir='hobbies' />
-      <Section 
-        data={allInfosData}
-        title='Infos'
-        dir='infos' />
-      <Section 
-        data={allPostData}
-        title='Posts'
-        dir='posts' />
+      {sections.map(({id, data, title, dir}) => (
+        <Section
+          data={data}
+          title={title}
+          dir={dir} />
+      ))}
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allExpData = getSortedExpsData();
-  const allEducData = getSortedEducsData();
-  const allPostData = getSortedPostsData();
-  const allHobbiesData = getSortedHobbiesData();
-  const allInfosData = getSortedInfosData();
-  const allLanguagesData = getSortedLangsData();
-  const allProjectsData = getSortedProjsData();
-  const allSoftData = getSortedSoftsData();
-  const allStackData = getSortedStacksData();
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  const allExpData = getSortedExpsData(locale);
+  const allEducData = getSortedEducsData(locale);
+  const allPostData = getSortedPostsData(locale);
+  const allHobbiesData = getSortedHobbiesData(locale);
+  const allInfosData = getSortedInfosData(locale);
+  const allLanguagesData = getSortedLangsData(locale);
+  const allProjectsData = getSortedProjsData(locale);
+  const allSoftData = getSortedSoftsData(locale);
+  const allStackData = getSortedStacksData(locale);
   return {
     props: {
       allExpData,
