@@ -189,14 +189,14 @@ export default function Home({
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
   const allExpData = getSortedExpsData(locale);
-  const allEducData = getSortedEducsData();
-  const allPostData = getSortedPostsData();
-  const allHobbiesData = getSortedHobbiesData();
-  const allInfosData = getSortedInfosData();
-  const allLanguagesData = getSortedLangsData();
-  const allProjectsData = getSortedProjsData();
-  const allSoftData = getSortedSoftsData();
-  const allStackData = getSortedStacksData();
+  const allEducData = getSortedEducsData(locale);
+  const allPostData = getSortedPostsData(locale);
+  const allHobbiesData = getSortedHobbiesData(locale);
+  const allInfosData = getSortedInfosData(locale);
+  const allLanguagesData = getSortedLangsData(locale);
+  const allProjectsData = getSortedProjsData(locale);
+  const allSoftData = getSortedSoftsData(locale);
+  const allStackData = getSortedStacksData(locale);
   return {
     props: {
       allExpData,

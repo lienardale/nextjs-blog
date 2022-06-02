@@ -4,17 +4,19 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const postsDirectory = path.join(process.cwd(), 'srcs/posts');
+const postsDirectory = path.join(process.cwd(), './posts');
+const { defaultLocale } = require('../i18n.js');
 
-export function getSortedPostsData() {
+export function getSortedPostsData(locale: string) {
   // Get file names under /posts
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
+  const fileIds = fs.readdirSync(postsDirectory);
+
+  const allPostsData = fileIds.map((id) => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+    const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
 
     // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
+    const fullPath = path.join(postsDirectory, id, filename);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
@@ -23,7 +25,7 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
   });
   // Sort posts by date
@@ -38,53 +40,45 @@ export function getSortedPostsData() {
   });
 }
 
-export function getAllPostIds() {
-  const fileNames = fs.readdirSync(postsDirectory);
+export function getAllPostIds(locales: string[]) {
+  let paths: { params: { id: string }; locale: string }[] = [];
+  const postsIds = fs.readdirSync(postsDirectory);
 
-// Returns an array that looks like this:
-// [
-//   {
-//     params: {
-//       id: 'ssg-ssr'
-//     }
-//   },
-//   {
-//     params: {
-//       id: 'pre-rendering'
-//     }
-//   }
-// ]
+  for (let id of postsIds) {
+    for (let locale of locales) {
+      let fullpath = path.join(
+        postsDirectory,
+        id,
+        locale === defaultLocale ? 'index.md' : `index.${locale}.md`,
+      );
+      if (!fs.existsSync(fullpath)) {
+        continue;
+      }
 
-// to fetch external api or query database
-    // const res = await fetch('..');
-    // const posts = await res.json();
+      paths.push({ params: { id }, locale });
+    }
+  }
 
-  return fileNames.map((fileName) => {
-      return {
-        params: {
-          id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return paths;
 }
 
-export async function getPostData(id) {
-    const fullPath = path.join(postsDirectory, `${id}.md`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-  
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
-  
-    // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-      .use(html)
-      .process(matterResult.content);
-    const contentHtml = processedContent.toString();
-  
-    // Combine the data with the id and contentHtml
-    return {
-      id,
-      contentHtml,
-      ...matterResult.data,
-    };
+export async function getPostData(id: string, locale: string) {
+  const fullPath = path.join(postsDirectory, id, locale === defaultLocale ? 'index.md' : `index.${locale}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
+
+  // Use remark to convert markdown into HTML string
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+  const contentHtml = processedContent.toString();
+
+  // Combine the data with the id and contentHtml
+  return {
+    id,
+    contentHtml,
+    ...(matterResult.data as { date: string; title: string }),
+  };
 }

@@ -4,18 +4,18 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const softSkillsDirectory = path.join(process.cwd(), 'srcs/soft_skills');
-const { defaultLocale } = require('../../i18n.json');
+const softSkillsDirectory = path.join(process.cwd(), 'soft_skills');
+const { defaultLocale } = require('../i18n.js');
 
-export function getSortedSoftsData() {
+export function getSortedSoftsData(locale: string) {
   // Get file names under /softSkills
-  const fileNames = fs.readdirSync(softSkillsDirectory);
-  const allSoftsData = fileNames.map((fileName) => {
+  const fileIds = fs.readdirSync(softSkillsDirectory);
+  const allSoftsData = fileIds.map((id) => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+    const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
 
     // Read markdown file as string
-    const fullPath = path.join(softSkillsDirectory, fileName);
+    const fullPath = path.join(softSkillsDirectory, id, filename);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
@@ -24,7 +24,7 @@ export function getSortedSoftsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
   });
   // Sort softSkills by date
@@ -39,34 +39,26 @@ export function getSortedSoftsData() {
   });
 }
 
-export function getAllSoftIds() {
-  const fileNames = fs.readdirSync(softSkillsDirectory);
+export function getAllSoftIds(locales: string[]) {
+  let paths: { params: { id: string }; locale: string }[] = [];
+  const softIds = fs.readdirSync(softSkillsDirectory);
 
-// Returns an array that looks like this:
-// [
-//   {
-//     params: {
-//       id: 'ssg-ssr'
-//     }
-//   },
-//   {
-//     params: {
-//       id: 'pre-rendering'
-//     }
-//   }
-// ]
+  for (let id of softIds) {
+    for (let locale of locales) {
+      let fullpath = path.join(
+        softSkillsDirectory,
+        id,
+        locale === defaultLocale ? 'index.md' : `index.${locale}.md`,
+      );
+      if (!fs.existsSync(fullpath)) {
+        continue;
+      }
 
-// to fetch external api or query database
-    // const res = await fetch('..');
-    // const softSkills = await res.json();
+      paths.push({ params: { id }, locale });
+    }
+  }
 
-  return fileNames.map((fileName) => {
-      return {
-        params: {
-          id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return paths;
 }
 
 export async function getSoftData(id: string, locale: string) {

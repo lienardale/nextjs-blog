@@ -4,17 +4,18 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const languageDirectory = path.join(process.cwd(), 'srcs/languages');
+const languageDirectory = path.join(process.cwd(), 'languages');
+const { defaultLocale } = require('../i18n.js');
 
-export function getSortedLangsData() {
+export function getSortedLangsData(locale: string) {
   // Get file names under /language
-  const fileNames = fs.readdirSync(languageDirectory);
-  const allLangsData = fileNames.map((fileName) => {
+  const fileIds = fs.readdirSync(languageDirectory);
+  const allLangsData = fileIds.map((id) => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+    const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
 
     // Read markdown file as string
-    const fullPath = path.join(languageDirectory, fileName);
+    const fullPath = path.join(languageDirectory, id, filename);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
@@ -23,7 +24,7 @@ export function getSortedLangsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
   });
   // Sort language by date
@@ -38,53 +39,45 @@ export function getSortedLangsData() {
   });
 }
 
-export function getAllLangIds() {
-  const fileNames = fs.readdirSync(languageDirectory);
+export function getAllLangIds(locales: string[]) {
+  let paths: { params: { id: string }; locale: string }[] = [];
+  const langIds = fs.readdirSync(languageDirectory);
 
-// Returns an array that looks like this:
-// [
-//   {
-//     params: {
-//       id: 'ssg-ssr'
-//     }
-//   },
-//   {
-//     params: {
-//       id: 'pre-rendering'
-//     }
-//   }
-// ]
+  for (let id of langIds) {
+    for (let locale of locales) {
+      let fullpath = path.join(
+        languageDirectory,
+        id,
+        locale === defaultLocale ? 'index.md' : `index.${locale}.md`,
+      );
+      if (!fs.existsSync(fullpath)) {
+        continue;
+      }
 
-// to fetch external api or query database
-    // const res = await fetch('..');
-    // const language = await res.json();
+      paths.push({ params: { id }, locale });
+    }
+  }
 
-  return fileNames.map((fileName) => {
-      return {
-        params: {
-          id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return paths;
 }
 
-export async function getLangData(id) {
-    const fullPath = path.join(languageDirectory, `${id}.md`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-  
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
-  
-    // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-      .use(html)
-      .process(matterResult.content);
-    const contentHtml = processedContent.toString();
-  
-    // Combine the data with the id and contentHtml
-    return {
-      id,
-      contentHtml,
-      ...matterResult.data,
-    };
+export async function getLangData(id: string, locale: string) {
+  const fullPath = path.join(languageDirectory, id, locale === defaultLocale ? 'index.md' : `index.${locale}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
+
+  // Use remark to convert markdown into HTML string
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+  const contentHtml = processedContent.toString();
+
+  // Combine the data with the id and contentHtml
+  return {
+    id,
+    contentHtml,
+    ...(matterResult.data as { date: string; title: string }),
+  };
 }

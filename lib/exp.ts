@@ -4,8 +4,8 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const expDirectory = path.join(process.cwd(), 'srcs/experience');
-const { defaultLocale } = require('../../i18n.json');
+const expDirectory = path.join(process.cwd(), 'experience');
+const { defaultLocale } = require('../i18n.js');
 
 export function getSortedExpsData(locale: string) {
   // Get file names under /exp
@@ -41,6 +41,25 @@ export function getSortedExpsData(locale: string) {
 }
 
 export function getAllExpIds(locales: string[]) {
+
+  // Returns an array that looks like this:
+// [
+//   {
+//     params: {
+//       id: 'ssg-ssr'
+//     }
+//   },
+//   {
+//     params: {
+//       id: 'pre-rendering'
+//     }
+//   }
+// ]
+
+// to fetch external api or query database
+    // const res = await fetch('..');
+    // const stack = await res.json();
+
   let paths: { params: { id: string }; locale: string }[] = [];
   const expIds = fs.readdirSync(expDirectory);
 

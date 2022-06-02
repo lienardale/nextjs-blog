@@ -4,18 +4,18 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const educDirectory = path.join(process.cwd(), 'srcs/education');
-const { defaultLocale } = require('../../../i18n.json');
+const educDirectory = path.join(process.cwd(), 'education');
+const { defaultLocale } = require('../i18n.js');
 
-export function getSortedEducsData() {
+export function getSortedEducsData(locale: string) {
   // Get file names under /educ
-  const fileNames = fs.readdirSync(educDirectory);
-  const allEducsData = fileNames.map((fileName) => {
+  const fileIds = fs.readdirSync(educDirectory);
+  const allEducsData = fileIds.map((id) => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+    const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
 
     // Read markdown file as string
-    const fullPath = path.join(educDirectory, fileName);
+    const fullPath = path.join(educDirectory, id, filename);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     // Use gray-matter to parse the post metadata section
@@ -24,7 +24,7 @@ export function getSortedEducsData() {
     // Combine the data with the id
     return {
       id,
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
   });
   // Sort educ by date
@@ -39,38 +39,30 @@ export function getSortedEducsData() {
   });
 }
 
-export function getAllEducIds() {
-  const fileNames = fs.readdirSync(educDirectory);
+export function getAllEducIds(locales: string[]) {
+  let paths: { params: { id: string }; locale: string }[] = [];
+  const educIds = fs.readdirSync(educDirectory);
 
-// Returns an array that looks like this:
-// [
-//   {
-//     params: {
-//       id: 'ssg-ssr'
-//     }
-//   },
-//   {
-//     params: {
-//       id: 'pre-rendering'
-//     }
-//   }
-// ]
+  for (let id of educIds) {
+    for (let locale of locales) {
+      let fullpath = path.join(
+        educDirectory,
+        id,
+        locale === defaultLocale ? 'index.md' : `index.${locale}.md`,
+      );
+      if (!fs.existsSync(fullpath)) {
+        continue;
+      }
 
-// to fetch external api or query database
-    // const res = await fetch('..');
-    // const educ = await res.json();
+      paths.push({ params: { id }, locale });
+    }
+  }
 
-  return fileNames.map((fileName) => {
-      return {
-        params: {
-          id: fileName.replace(/\.md$/, ''),
-      },
-    };
-  });
+  return paths;
 }
 
-export async function getEducData(id) {
-    const fullPath = path.join(educDirectory, `${id}.md`);
+export async function getEducData(id: string, locale: string) {
+    const fullPath = path.join(educDirectory, id, locale === defaultLocale ? 'index.md' : `index.${locale}.md`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
   
     // Use gray-matter to parse the post metadata section
@@ -86,6 +78,6 @@ export async function getEducData(id) {
     return {
       id,
       contentHtml,
-      ...matterResult.data,
+      ...(matterResult.data as { date: string; title: string }),
     };
 }

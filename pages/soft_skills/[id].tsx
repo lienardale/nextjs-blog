@@ -24,7 +24,7 @@ export default function Soft({
       <article>
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
+          <Date dateString={postData.date} locale={locale}/>
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
@@ -32,16 +32,16 @@ export default function Soft({
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getAllSoftIds()
+export const getStaticPaths: GetStaticPaths = async ({locales}) => {
+  const paths = getAllSoftIds(locales)
   return {
     paths,
     fallback: false
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getSoftData(params.id as string)
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+  const postData = await getSoftData(params.id as string, locale)
   return {
     props: {
       postData

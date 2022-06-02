@@ -9,22 +9,24 @@ import { GetStaticProps } from 'next'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, forwardRef } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
+import { useRouter } from 'next/router'
 
 const name = 'Alexandre Lienard'
 export const siteTitle = 'alienard'
 
-type AnchorProps = React.HTMLProps<HTMLAnchorElement>
+// type AnchorProps = React.HTMLProps<HTMLAnchorElement>
+// type LinkProps = React.LinkHTMLAttributes<HTMLLinkElement>
 
-const MyLink = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref) => {
-  let { href, children, ...rest } = props;
-  return (
-    <Link href={href}>
-      <a ref={ref} {...rest}>
-        {children}
-      </a>
-    </Link>
-  )
-})
+// const MyLink = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref) => {
+//   let { href, locale, children, ...rest } = props;
+//   return (
+//     <Link href={href} locale={locale} >
+//       <a ref={ref} {...rest}>
+//         {children}
+//       </a>
+//     </Link>
+//   )
+// })
 
 export default function Layout({
   children,
@@ -47,6 +49,8 @@ export default function Layout({
           title: 'français'
       }
     ]
+  
+  const {asPath} = useRouter();
 
   return (
     <div className={styles.container}>
@@ -91,13 +95,15 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            <MyLink href={`/${locale}`}>
+                            // <MyLink href={`/${locale}`}>
+                            <Link href={`/${asPath}`} locale={locale}>
+
                               <Menu.Item>
                                 {({ active }) => (
                                   <button
-                                    className={`${
-                                      active ? 'bg-blue-500 text-black' : 'text-blue-900'
-                                    } group flex w-full items-center justify-begin rounded-md px-5 py-2 text-sm m-1`}
+                                  className={`${
+                                    active ? 'bg-blue-500 text-black' : 'text-blue-900'
+                                  } group flex w-full items-center justify-begin rounded-md px-5 py-2 text-sm m-1`}
                                   >
                                       <li key={id}>
                                           {title}
@@ -105,7 +111,8 @@ export default function Layout({
                                     </button>
                                 )}
                               </Menu.Item>
-                            </MyLink>
+                            </Link>
+                            // </MyLink>
                           ))}
                         </ul>
                       </Menu.Items>
@@ -149,7 +156,8 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            <MyLink href={`/${locale}`}>
+                            // <MyLink href={`/${asPath}`} locale={locale}>
+                            <Link href={`/${asPath}`} locale={locale}>
                               <Menu.Item>
                                 {({ active }) => (
                                   <button
@@ -163,7 +171,8 @@ export default function Layout({
                                     </button>
                                 )}
                               </Menu.Item>
-                            </MyLink>
+                            </Link>
+                            // </MyLink>
                           ))}
                         </ul>
                       </Menu.Items>
