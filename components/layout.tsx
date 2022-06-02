@@ -14,20 +14,6 @@ import { useRouter } from 'next/router'
 const name = 'Alexandre Lienard'
 export const siteTitle = 'alienard'
 
-// type AnchorProps = React.HTMLProps<HTMLAnchorElement>
-// type LinkProps = React.LinkHTMLAttributes<HTMLLinkElement>
-
-// const MyLink = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref) => {
-//   let { href, locale, children, ...rest } = props;
-//   return (
-//     <Link href={href} locale={locale} >
-//       <a ref={ref} {...rest}>
-//         {children}
-//       </a>
-//     </Link>
-//   )
-// })
-
 export default function Layout({
   children,
   home
@@ -95,9 +81,7 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            // <MyLink href={`/${locale}`}>
                             <Link href={`/${asPath}`} locale={locale}>
-
                               <Menu.Item>
                                 {({ active }) => (
                                   <button
@@ -112,7 +96,6 @@ export default function Layout({
                                 )}
                               </Menu.Item>
                             </Link>
-                            // </MyLink>
                           ))}
                         </ul>
                       </Menu.Items>
@@ -156,7 +139,6 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            // <MyLink href={`/${asPath}`} locale={locale}>
                             <Link href={`/${asPath}`} locale={locale}>
                               <Menu.Item>
                                 {({ active }) => (
@@ -172,7 +154,6 @@ export default function Layout({
                                 )}
                               </Menu.Item>
                             </Link>
-                            // </MyLink>
                           ))}
                         </ul>
                       </Menu.Items>
