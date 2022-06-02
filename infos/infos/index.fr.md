@@ -1,5 +1,5 @@
 ---
-title: 'My infos'
+title: 'Mes infos'
 date: '2022-05-12'
 ---
 

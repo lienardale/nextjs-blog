@@ -1,5 +1,5 @@
 ---
-title: 'Languages'
+title: 'Langues'
 date: '2022-05-12'
 ---
 
