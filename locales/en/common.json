@@ -1,5 +1,5 @@
 {
-    "metaTitle": "alienard.fr",
+    "metaTitle": "alienard 🇺🇸 / 🇬🇧",
     "title": "Welcome to my website!",
     "description": "I'm using the Next-Translate library to translate this page.",
     "intro": "Software developer with a background in marketing. Experience in teamwork & project coordination. Looking for the company that will make me a better developer, the projects I will contribute to & the team I’ll grow with.",
@@ -14,5 +14,6 @@
     "categ6":"Hobbies",
     "categ7":"Infos",
     "categ8":"Posts",
-    "trad_button":"language"
+    "trad_button":"language",
+    "back_home": "Back to home"
 }

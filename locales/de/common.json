@@ -1,5 +1,5 @@
 {
-    "metaTitle": "alienard.fr",
+    "metaTitle": "alienard 🇩🇪",
     "title": "Willkommen auf meiner Website!",
     "description": "Ich verwende die Next-Translate-Bibliothek, um diese Seite zu übersetzen.",
     "intro": "Softwareentwickler mit einem Hintergrund im Bereich Marketing. Erfahrung in Teamarbeit und Projektkoordination. Ich suche das Unternehmen, das mich zu einem besseren Entwickler macht, die Projekte, zu denen ich beitragen kann, und das Team, mit dem ich wachsen kann.",
@@ -14,5 +14,6 @@
     "categ6": "Hobbys",
     "categ7": "Infos",
     "categ8": "Beiträge",
-    "trad_button":"Sprache"
+    "trad_button":"Sprache",
+    "back_home": "Zurück zum Start"
 }
