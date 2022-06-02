@@ -91,7 +91,7 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            <Link href={`/${asPath}`} locale={locale}>
+                            <Link href={`${asPath}`} locale={locale}>
                               <Menu.Item>
                                 {({ active }) => (
                                   <button
@@ -149,7 +149,8 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            <Link href={`/${asPath}`} locale={locale}>
+                            
+                            <Link href={`${asPath}`} locale={locale}>
                               <Menu.Item>
                                 {({ active }) => (
                                   <button

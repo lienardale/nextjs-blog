@@ -178,10 +178,12 @@ export default function Home({
         <br></br>
       </section>
       {sections.map(({id, data, title, dir}) => (
-        <Section
-          data={data}
-          title={title}
-          dir={dir} />
+        <ul className={utilStyles.listItem} key={id}>
+          <Section
+            data={data}
+            title={title}
+            dir={dir} />
+          </ul>
       ))}
     </Layout>
   )
