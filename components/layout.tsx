@@ -22,7 +22,7 @@ export default function Layout({
   home?: boolean
 }) {
   const { t } = useTranslation('common');
-  const title = "language";
+  const title = t('trad_button');
   const data = [
       {
           id: '0',
@@ -33,6 +33,16 @@ export default function Layout({
           id: '1',
           locale: 'fr',
           title: 'français'
+      },
+      {
+          id: '2',
+          locale: 'es',
+          title: 'español'
+      },
+      {
+          id: '3',
+          locale: 'de',
+          title: 'deutsch'
       }
     ]
   

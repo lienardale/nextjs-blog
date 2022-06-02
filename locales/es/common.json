@@ -1,0 +1,18 @@
+{
+    "metaTitle": "alienard.fr",
+    "title": "¡Bienvenido a mi página web!",
+    "description": "Estoy utilizando la biblioteca Next-Translate para traducir esta página.",
+    "intro": "Desarrollador de software con experiencia en marketing. Experiencia en trabajo en equipo y coordinación de proyectos. Buscando la empresa que me haga mejor desarrollador, los proyectos a los que contribuiré y el equipo con el que creceré.",
+    "intro1": "(Este es un sitio web de ejemplo - construirás un sitio como este en el tutorial de <link>Next.js</link>).",
+    "intro2": "Cada sección de abajo le permitirá navegar a diferentes secciones sobre las cosas que hice, soy y disfruto haciendo. Siéntase libre de navegar y de ponerse en contacto conmigo.",
+    "categ0": "Experiencia",
+    "categ1": "Educación",
+    "categ2": "Stack",
+    "categ3": "Proyectos",
+    "categ4": "Soft Skills",
+    "categ5": "Idiomas",
+    "categ6": "Aficiones",
+    "categ7": "Infos",
+    "categ8": "Mensajes",
+    "trad_button":"idioma"
+}
