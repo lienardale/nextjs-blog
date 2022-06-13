@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const infosDirectory = path.join(process.cwd(), 'infos');
+const infosDirectory = path.join(process.cwd(), 'about_me');
 const { defaultLocale } = require('../i18n.js');
 
 export function getSortedInfosData(locale: string) {

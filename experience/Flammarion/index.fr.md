@@ -3,7 +3,7 @@ title: 'Flammarion'
 date: '2015-09-01'
 ---
 
-Assistant relations presse - (Flammarion) [https://editions.flammarion.com/]
+Assistant relations presse - [Flammarion](https://editions.flammarion.com/)
 (2015) - stage 
 
 Missions : 

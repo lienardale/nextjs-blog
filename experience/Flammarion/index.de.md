@@ -3,7 +3,7 @@ title: 'Flammarion'
 date: '2015-09-01'
 ---
 
-Assistentin für Pressearbeit - (Flammarion)[https://editions.flammarion.com/]
+Assistentin für Pressearbeit - [Flammarion](https://editions.flammarion.com/)
 (2015) - Praktikum 
 
 Aufgaben: 

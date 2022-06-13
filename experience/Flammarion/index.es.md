@@ -3,7 +3,7 @@ title: 'Flammarion'
 date: '2015-09-01'
 ---
 
-Asistente de relaciones con la prensa - (Flammarion)[https://editions.flammarion.com/]
+Asistente de relaciones con la prensa - [Flammarion](https://editions.flammarion.com/)
 (2015) - prácticas 
 
 Misiones : 

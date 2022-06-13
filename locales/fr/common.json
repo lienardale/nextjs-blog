@@ -7,13 +7,10 @@
     "intro2": "Chaque section ci-dessous vous permettra de naviguer au sein de sections différentes à propos des choses que j'ai fait, fait, et apprécie faire. N'hésitez pas à naviguer et à me contacter.",
     "categ0" : "Expérience",
     "categ1" : "Education",
-    "categ2" : "Stack",
-    "categ3" : "Projets",
-    "categ4" : "Soft Skills",
-    "categ5" : "Langues",
-    "categ6" : "Hobbies",
-    "categ7" : "Infos",
-    "categ8" : "Posts",
-    "trad_button": "langue",
+    "categ2" : "Skills",
+    "categ3" : "About Me",
+    "categ4" : "Hobbies",
+    "categ5" : "Posts",
+    "trad_button":"langue",
     "back_home": "Retour à la page d'accueil"
 }
