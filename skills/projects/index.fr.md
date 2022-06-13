@@ -3,7 +3,7 @@ title: 'Projets'
 date: '2022-05-12'
 ---
 
-[Transcendance](https://github.com/lienardale/ft_transcendence) (plateforme web fullstack)  
+[Transcendance](https://github.com/lienardale/ft_transcendence) (plateforme web fullstack : [roland-garrong.fr](https://roland-garrong.fr/))  
 		Typescript - ReactJs - NestJs - Postgres - Docker   
    
 [Webserv](https://github.com/lienardale/webserv) (serveur web à partir de zéro avec gestion des CGI)   

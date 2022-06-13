@@ -8,10 +8,7 @@ import Section from '../components/section'
 import { getSortedEducsData } from '../lib/educ'
 import { getSortedHobbiesData } from '../lib/hob'
 import { getSortedInfosData } from '../lib/info'
-import { getSortedLangsData } from '../lib/lang'
-import { getSortedProjsData } from '../lib/proj'
 import { getSortedSoftsData } from '../lib/soft'
-import { getSortedStacksData } from '../lib/stack'
 import Link, { LinkProps } from 'next/link'
 import { useRouter } from 'next/router';
 
@@ -26,10 +23,7 @@ export default function Home({
   allPostData,
   allHobbiesData,
   allInfosData,
-  allLanguagesData,
-  allProjectsData,
-  allSoftData,
-  allStackData
+  allSoftData
 }: {
   allExpData: {
     date: string
@@ -56,22 +50,7 @@ export default function Home({
     title: string
     id: string
   }[],
-  allLanguagesData: {
-    date: string
-    title: string
-    id: string
-  }[],
-  allProjectsData: {
-    date: string
-    title: string
-    id: string
-  }[],
   allSoftData: {
-    date: string
-    title: string
-    id: string
-  }[],
-  allStackData: {
     date: string
     title: string
     id: string
@@ -96,44 +75,26 @@ export default function Home({
     },
     {
       id:'2',
-      data:allStackData,
+      data:allSoftData,
       title:t('categ2'),
-      dir:'stack',
+      dir:'skills',
     },
     {
       id:'3',
-      data:allProjectsData,
+      data:allInfosData,
       title:t('categ3'),
-      dir:'projects',
+      dir:'about_me',
     },
     {
       id:'4',
-      data:allSoftData,
-      title:t('categ4'),
-      dir:'soft_skills',
-    },
-    {
-      id:'5',
-      data:allLanguagesData,
-      title:t('categ5'),
-      dir:'languages',
-    },
-    {
-      id:'6',
       data:allHobbiesData,
-      title:t('categ6'),
+      title:t('categ4'),
       dir:'hobbies',
     },
     {
-      id:'7',
-      data:allInfosData,
-      title:t('categ7'),
-      dir:'infos',
-    },
-    {
-      id:'8',
+      id:'5',
       data:allPostData,
-      title:t('categ8'),
+      title:t('categ5'),
       dir:'posts',
     }
   ]
@@ -193,10 +154,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
   const allPostData = getSortedPostsData(locale);
   const allHobbiesData = getSortedHobbiesData(locale);
   const allInfosData = getSortedInfosData(locale);
-  const allLanguagesData = getSortedLangsData(locale);
-  const allProjectsData = getSortedProjsData(locale);
   const allSoftData = getSortedSoftsData(locale);
-  const allStackData = getSortedStacksData(locale);
   return {
     props: {
       allExpData,
@@ -204,10 +162,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
       allPostData,
       allHobbiesData,
       allInfosData,
-      allLanguagesData,
-      allProjectsData,
-      allSoftData,
-      allStackData
+      allSoftData
     }
   }
 }

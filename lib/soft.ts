@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const softSkillsDirectory = path.join(process.cwd(), 'soft_skills');
+const softSkillsDirectory = path.join(process.cwd(), 'skills');
 const { defaultLocale } = require('../i18n.js');
 
 export function getSortedSoftsData(locale: string) {
