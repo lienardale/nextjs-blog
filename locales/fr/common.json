@@ -1,5 +1,5 @@
 {
-    "metaTitle": "alienard.fr",
+    "metaTitle": "alienard 🥖",
     "title": "Bienvenue sur mon site !",
     "description": "J'utilise la bibliothèque Next-Translate pour traduire cette page.",
     "intro": "Développeur informatique avec une expérience en marketing. Rompu au travail d'équipe et à la coordination de projets. A la recherche de l’entreprise qui fera de moi un meilleur développeur, de projets auxquels contribuer, et de l'équipe avec laquelle grandir.",
@@ -12,4 +12,5 @@
     "categ4" : "Hobbies",
     "categ5" : "Posts",
     "trad_button":"langue"
+    "back_home": "Retour à la page d'accueil"
 }
