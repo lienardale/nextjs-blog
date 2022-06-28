@@ -3,14 +3,18 @@ title: 'Projekte'
 date: '2022-05-12'
 ---
 
-[Transcendence](https://github.com/lienardale/ft_transcendence) (Fullstack-Webplattform : [roland-garrong.fr](https://roland-garrong.fr/))  
-		Typescript - ReactJs - NestJs - Postgres - Docker   
+ONLINE PONG | [Github](https://github.com/lienardale/ft_transcendence) (Fullstack-Webplattform : [roland-garrong.fr](https://roland-garrong.fr/))  
+  - Typescript - ReactJs - NestJs - Postgres - Docker - Nginx   
+  - 5 contributors - 11 702 lines - 926 commits    
    
-[Webserv](https://github.com/lienardale/webserv) (Webserver von Grund auf mit CGI-Verarbeitung)   
-		C++ - Php   
+SERVIDOR WEB | [Github](https://github.com/lienardale/webserv) (Webserver von Grund auf mit CGI-Verarbeitung)   
+  - C++ - Php   
+  - 3 contributors - 6 604 lines - 405 commits   
    
-[Mini_RT](https://github.com/lienardale/mini_rt) (ray_tracer : Formen, Lichter (ambiant & directive), Schatten)  
-	C - minilibX   
+RAY_TRACER | [Github](https://github.com/lienardale/mini_rt) (ray_tracer : Formen, Lichter (ambiant & directive), Schatten)  
+  - C - minilibX   
+  - solo - 2 253 lines - 53 commits   
    
-[Mini_shell](https://github.com/lienardale/minishell) (Shell mit Pipes, Umleitungen, Umgebungen & eingebauten Funktionen)  
-		C - Bash
+SHELL | [Github](https://github.com/lienardale/minishell) (Shell mit Pipes, Umleitungen, Umgebungen & eingebauten Funktionen)  
+  - C - Bash   
+  - 2 contributors -  6061 lines - 357 commits   

@@ -3,14 +3,22 @@ title: 'Projets'
 date: '2022-05-12'
 ---
 
-[Transcendance](https://github.com/lienardale/ft_transcendence) (plateforme web fullstack : [roland-garrong.fr](https://roland-garrong.fr/))  
-		Typescript - ReactJs - NestJs - Postgres - Docker   
+PONG MULTIJOUEURS EN LIGNE | [Github](https://github.com/lienardale/ft_transcendence), [roland-garrong.fr](https://roland-garrong.fr)
+  - Implémentation du jeu, chat, identification, et système d’amis
+  - Typescript - ReactJs - NestJs - Postgres - Docker - Nginx
+  - 5 contributeurs - 11 702 lignes - 926 commits
    
-[Webserv](https://github.com/lienardale/webserv) (serveur web à partir de zéro avec gestion des CGI)   
-		C++ - Php   
+SERVEUR WEB | [Github](https://github.com/lienardale/webserv) 
+  - Implémentation de la gestion des requêtes, CGI et upload fichiers 
+  - C++ - Php
+  - 3 contributeurs - 6 604 lignes - 405 commits
    
-[Mini_RT](https://github.com/lienardale/mini_rt) (ray_tracer : formes, lumières (ambiantes et directives), ombres)  
-	C - minilibX   
+RAY_TRACER | [Github](https://github.com/lienardale/mini_rt) 
+  - Implémentation de la gestion des requêtes, CGI et upload fichiers 
+  - C++ - Php
+  - 3 contributeurs - 6 604 lignes - 405 commits
    
-[Mini_shell](https://github.com/lienardale/minishell) (shell avec pipes, redirections, environnement & built-ins)  
-		C - Bash
+SHELL | [Github](https://github.com/lienardale/minishell) 
+  - Implémentation des pipes, redirections, environment et commandes
+  - C - Bash
+  - 2 contributeurs -  6061 lignes - 357 commits
