@@ -1,8 +1,8 @@
 import { parseISO, format } from 'date-fns'
-import enUS from 'date-fns/locale/en-US';
-import fr from 'date-fns/locale/fr';
-import de from 'date-fns/locale/de';
-import es from 'date-fns/locale/es'
+import { enUS } from 'date-fns/locale';
+import { fr } from 'date-fns/locale';
+import { de } from 'date-fns/locale';
+import { es } from 'date-fns/locale';
 
 export const Date = ({
   dateString,

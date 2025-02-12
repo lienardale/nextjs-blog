@@ -6,7 +6,7 @@ import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation';
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router'
 
 const name = 'Alexandre Lienard'

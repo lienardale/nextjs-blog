@@ -1,6 +1,7 @@
-const nextTranslate = require('next-translate-plugin');
+/** @type {import('next').NextConfig} */
+const withNextTranslate = require('next-translate-plugin')
 
-module.exports = nextTranslate({
+module.exports = withNextTranslate({
   reactStrictMode: true,
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {

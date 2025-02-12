@@ -4,7 +4,18 @@ import Date from '../components/date'
 import utilStyles from '../styles/utils.module.css'
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, forwardRef } from 'react'
-import { ChevronDownIcon, DocumentIcon, AcademicCapIcon, BriefcaseIcon, CodeIcon, TerminalIcon, UserGroupIcon, ChatIcon, PuzzleIcon, MailIcon } from '@heroicons/react/solid'
+import { 
+  ChevronDownIcon, 
+  DocumentTextIcon as DocumentIcon, 
+  AcademicCapIcon,
+  BriefcaseIcon,
+  CodeBracketIcon as CodeIcon,
+  CommandLineIcon as TerminalIcon,
+  UserGroupIcon,
+  ChatBubbleLeftRightIcon as ChatIcon,
+  PuzzlePieceIcon as PuzzleIcon,
+  EnvelopeIcon as MailIcon 
+} from '@heroicons/react/24/solid'
 import { useRouter } from 'next/router';
 
 // implemented https://headlessui.dev/react/menu
