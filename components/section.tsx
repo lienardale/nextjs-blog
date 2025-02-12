@@ -105,7 +105,7 @@ export default function Section({data, title, dir}){
             <Menu.Items static className=" mt-2 w-fit divide-y divide-gray-100 rounded-md bg-gray-100 shadow-lg ring-1 ring-gray-700 ring-opacity-5 focus:outline-none">
               <ul className={utilStyles.list}>
                 {data.map(({ id, date, title }) => (
-                  <MyLink href={`${dir}/${id}`}>
+                  <MyLink href={`${dir}/${id}`} key={id}>
                     <Menu.Item>
                       {({ active }) => (
                         <button
@@ -114,7 +114,7 @@ export default function Section({data, title, dir}){
                           } group flex w-full items-start justify-begin rounded-md px-2 py-2 text-sm`}
                         >
                           {icon}
-                            <li className={utilStyles.listItem} key={id}>
+                            <li className={utilStyles.listItem}>
                                 {title}
                                 <br />
                                 <small>
