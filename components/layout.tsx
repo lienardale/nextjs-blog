@@ -2,19 +2,17 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
-import Link, { LinkProps } from 'next/link'
+import Link from 'next/link'
 import useTranslation from 'next-translate/useTranslation';
-import Section from './section'
-import { GetStaticProps } from 'next'
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, forwardRef } from 'react'
+import { Fragment } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { useRouter } from 'next/router'
 
 const name = 'Alexandre Lienard'
 export const siteTitle = 'alienard'
 
-export default function Layout({
+function Layout({
   children,
   home
 }: {
@@ -91,21 +89,11 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            <Link href={`${asPath}`} locale={locale}>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <button
-                                  className={`${
-                                    active ? 'bg-blue-500 text-black' : 'text-blue-900'
-                                  } group flex w-full items-center justify-begin rounded-md px-5 py-2 text-sm m-1`}
-                                  >
-                                      <li key={id}>
-                                          {title}
-                                      </li>
-                                    </button>
-                                )}
-                              </Menu.Item>
-                            </Link>
+                            <Menu.Item key={id}>
+                              <Link href={`${asPath}`} locale={locale} className="text-blue-900 group flex w-full items-center justify-begin rounded-md px-5 py-2 text-sm m-1 hover:bg-blue-500 hover:text-black">
+                                {title}
+                              </Link>
+                            </Menu.Item>
                           ))}
                         </ul>
                       </Menu.Items>
@@ -149,22 +137,11 @@ export default function Layout({
                       <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                         <ul className={utilStyles.list}>
                           {data.map(({ id, locale, title }) => (
-                            
-                            <Link href={`${asPath}`} locale={locale}>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <button
-                                    className={`${
-                                      active ? 'bg-blue-500 text-black' : 'text-blue-900'
-                                    } group flex w-full items-center justify-begin rounded-md px-5 py-2 text-sm m-1`}
-                                  >
-                                      <li key={id}>
-                                          {title}
-                                      </li>
-                                    </button>
-                                )}
-                              </Menu.Item>
-                            </Link>
+                            <Menu.Item key={id}>
+                              <Link href={`${asPath}`} locale={locale} className="text-blue-900 group flex w-full items-center justify-begin rounded-md px-5 py-2 text-sm m-1 hover:bg-blue-500 hover:text-black">
+                                {title}
+                              </Link>
+                            </Menu.Item>
                           ))}
                         </ul>
                       </Menu.Items>
@@ -174,20 +151,18 @@ export default function Layout({
               </Menu>
             </div>
             <Link href="/">
-              <a>
-                <Image
-                  priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
-              </a>
+              <Image
+                priority
+                src="/images/profile.jpg"
+                className={utilStyles.borderCircle}
+                height={108}
+                width={108}
+                alt={name}
+              />
             </Link>
             <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+              <Link href="/" className={utilStyles.colorInherit}>
+                {name}
               </Link>
             </h2>
           </>
@@ -196,11 +171,17 @@ export default function Layout({
       <main>{children}</main>
       {!home && (
         <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← {t('back_home')}</a>
+          <Link
+            href="/"
+            className="hover:text-gray-600"
+          >
+            ← {t('back_home')}
           </Link>
         </div>
       )}
     </div>
   )
 }
+
+Layout.displayName = 'Layout';
+export default Layout;

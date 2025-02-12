@@ -9,7 +9,6 @@ import { getSortedEducsData } from '../lib/educ'
 import { getSortedHobbiesData } from '../lib/hob'
 import { getSortedInfosData } from '../lib/info'
 import { getSortedSoftsData } from '../lib/soft'
-import Link, { LinkProps } from 'next/link'
 import { useRouter } from 'next/router';
 
 import useTranslation from 'next-translate/useTranslation';

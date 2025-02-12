@@ -1,4 +1,5 @@
-import Link, { LinkProps } from 'next/link'
+import React from 'react'
+import Link from 'next/link'
 import Date from '../components/date'
 import utilStyles from '../styles/utils.module.css'
 import { Menu, Transition } from '@headlessui/react'
@@ -21,7 +22,7 @@ const MyLink = forwardRef<HTMLAnchorElement, AnchorProps>((props, ref) => {
   )
 })
 
-export default function Section({data, title, dir}){
+function Section({data, title, dir}){
 
     let icon = <DocumentIcon
       className="mr-2 h-5 w-5"
@@ -102,29 +103,28 @@ export default function Section({data, title, dir}){
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
             >
-            <Menu.Items static className=" mt-2 w-fit divide-y divide-gray-100 rounded-md bg-gray-100 shadow-lg ring-1 ring-gray-700 ring-opacity-5 focus:outline-none">
+            <Menu.Items className=" mt-2 w-fit divide-y divide-gray-100 rounded-md bg-gray-100 shadow-lg ring-1 ring-gray-700 ring-opacity-5 focus:outline-none">
               <ul className={utilStyles.list}>
-                {data.map(({ id, date, title }) => (
-                  <MyLink href={`${dir}/${id}`} key={id}>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <button
-                          className={`${
-                            active ? 'bg-gray-500 text-white' : 'text-gray-900'
-                          } group flex w-full items-start justify-begin rounded-md px-2 py-2 text-sm`}
-                        >
-                          {icon}
-                            <li className={utilStyles.listItem}>
-                                {title}
-                                <br />
-                                <small>
-                                  <Date dateString={date} locale={locale} />
-                                </small>
-                            </li>
-                          </button>
-                      )}
-                    </Menu.Item>
-                  </MyLink>
+                {data.map(({ id, date, title: itemTitle }) => (
+                  <Menu.Item key={id}>
+                    {({ active }) => (
+                      <Link
+                        href={`${dir}/${id}`}
+                        className={`${
+                          active ? 'bg-gray-500 text-white' : 'text-gray-900'
+                        } group flex w-full items-start rounded-md px-2 py-2 text-sm`}
+                      >
+                        {icon}
+                        <div>
+                          {itemTitle}
+                          <br />
+                          <small>
+                            <Date dateString={date} locale={locale} />
+                          </small>
+                        </div>
+                      </Link>
+                    )}
+                  </Menu.Item>
                 ))}
               </ul>
             </Menu.Items>
@@ -137,3 +137,6 @@ export default function Section({data, title, dir}){
   </section>
     )
 }
+
+Section.displayName = 'Section';
+export default React.memo(Section);
