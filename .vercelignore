@@ -1,0 +1,20 @@
+# Exclude debug documentation from production builds
+.debug/
+
+# Exclude development files
+*.md
+!README.md
+
+# Exclude test files
+**/*.test.*
+**/*.spec.*
+__tests__/
+
+# Exclude local environment files
+.env*.local
+
+# Exclude editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
