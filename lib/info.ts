@@ -10,23 +10,34 @@ const { defaultLocale } = require('../i18n.js');
 export function getSortedInfosData(locale: string) {
   // Get file names under /infos
   const fileIds = fs.readdirSync(infosDirectory);
-  const allInfosData = fileIds.map((id) => {
-    // Remove ".md" from file name to get id
-    const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
+  const allInfosData = fileIds
+    .filter((id) => {
+      // Filter out non-directories and check if file exists
+      const dirPath = path.join(infosDirectory, id);
+      if (!fs.statSync(dirPath).isDirectory()) {
+        return false;
+      }
+      const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
+      const fullPath = path.join(infosDirectory, id, filename);
+      return fs.existsSync(fullPath);
+    })
+    .map((id) => {
+      // Remove ".md" from file name to get id
+      const filename = locale === defaultLocale ? 'index.md' : `index.${locale}.md`;
 
-    // Read markdown file as string
-    const fullPath = path.join(infosDirectory, id, filename);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+      // Read markdown file as string
+      const fullPath = path.join(infosDirectory, id, filename);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+      // Use gray-matter to parse the post metadata section
+      const matterResult = matter(fileContents);
 
-    // Combine the data with the id
-    return {
-      id,
-      ...(matterResult.data as { date: string; title: string }),
-    };
-  });
+      // Combine the data with the id
+      return {
+        id,
+        ...(matterResult.data as { date: string; title: string }),
+      };
+    });
   // Sort infos by date
   return allInfosData.sort(({ date: a }, { date: b }) => {
     if (a < b) {

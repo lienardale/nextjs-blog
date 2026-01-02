@@ -25,6 +25,7 @@ Files are named using the pattern: `NNN-description-YYYY-MM-DD.md`
 | 001 | 2026-01-02 | [001-upgrade-notes-2026-01-02.md](./001-upgrade-notes-2026-01-02.md) | Next.js 14 → 16 upgrade complete documentation |
 | 002 | 2026-01-02 | [002-i18n-fix-2026-01-02.md](./002-i18n-fix-2026-01-02.md) | i18n translation fix for Turbopack compatibility |
 | 003 | 2026-01-02 | [003-debug-directory-setup-2026-01-02.md](./003-debug-directory-setup-2026-01-02.md) | Debug directory setup and organization |
+| 004 | 2026-01-02 | [004-vercel-build-fix-2026-01-02.md](./004-vercel-build-fix-2026-01-02.md) | 🔧 Vercel deployment build fix - file system safety |
 
 ## Quick Links
 
@@ -32,11 +33,11 @@ Files are named using the pattern: `NNN-description-YYYY-MM-DD.md`
 - **Quick Reference**: [000-quick-reference.md](./000-quick-reference.md) - Everything you need to know in one page
 
 ### Latest Changes
-- **Latest**: [003-debug-directory-setup-2026-01-02.md](./003-debug-directory-setup-2026-01-02.md) - Debug directory setup
+- **Latest**: [004-vercel-build-fix-2026-01-02.md](./004-vercel-build-fix-2026-01-02.md) - Vercel deployment build fix
 
 ### By Category
 - **Upgrades**: 001
-- **Bug Fixes**: 002
+- **Bug Fixes**: 002, 004
 - **Configuration**: 001, 002, 003
 - **Organization**: 003
 
