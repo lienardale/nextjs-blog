@@ -1,160 +1,95 @@
 # Vercel Deployment Troubleshooting
 
 **Date**: 2026-01-02  
-**Status**: In Progress  
-**Issue**: Production site returns 404 for experience pages despite successful local build
+**Status**: ✅ RESOLVED  
+**Issue**: Production site had empty sections - no content items displayed
 
-## Problem
+## Problem - FINAL ROOT CAUSE
 
-Production URL `https://www.alienard.fr/en/experience/Junior-42-Paris` returns 404, but:
-- ✅ Local build succeeds (89 pages generated)
-- ✅ Local dev server works correctly
-- ✅ All HTML/JSON files generated in `.next/server/pages/`
-- ✅ All fixes committed and pushed to `origin/main`
+Production URL `https://www.alienard.fr/` showed section headers (Experience, Education, etc.) but **no items** under each section. Individual page URLs returned 404.
 
-## Root Cause Analysis
+### Initial Analysis (Incorrect)
+- ❌ Thought it was a cache issue → Redeployed, didn't help
+- ❌ Thought it was the lib fixes → Code was correct
+- ❌ Thought Vercel wasn't building → Build succeeded
 
-The issue is that **Vercel hasn't redeployed** with the latest fixes, or there's a **build cache issue** on Vercel.
+### Actual Root Cause ✅
 
-### Evidence
-- Commit `fb6e1db` ("fix: 404 issues exploring directories") contains all fixes
-- All 6 lib files updated with directory checks in both `getSorted*Data()` and `getAll*Ids()`
-- Homepage `https://www.alienard.fr/en` works correctly
-- Only dynamic routes (experience pages) return 404
+**The `.vercelignore` file was excluding ALL markdown content files!**
 
-## Solutions
-
-### Option 1: Trigger Manual Redeploy on Vercel
-
-1. Go to [Vercel Dashboard](https://vercel.com/dashboard)
-2. Select your `nextjs-blog` project
-3. Go to **Deployments** tab
-4. Click on the latest deployment
-5. Click **"Redeploy"** button
-6. Select **"Redeploy with existing cache cleared"** (important!)
-
-### Option 2: Force Redeploy via Git
-
-```bash
-# Create an empty commit to trigger rebuild
-git commit --allow-empty -m "chore: force Vercel redeploy"
-git push origin main
+```plaintext
+# WRONG - This excluded ALL .md files everywhere
+*.md
+!README.md
 ```
 
-### Option 3: Check Vercel Build Logs
+This meant:
+- ❌ `experience/Junior-42-Paris/index.md` → NOT DEPLOYED
+- ❌ `education/42-Paris/index.fr.md` → NOT DEPLOYED  
+- ❌ All content directories deployed empty
+- ✅ `README.md` → Deployed (exception)
 
-1. Go to Vercel Dashboard → Your Project → Deployments
-2. Click on the latest deployment
-3. Check the **Build Logs** tab
-4. Look for:
-   - Any build errors
-   - "Generating static pages" output
-   - Whether 89 pages were generated
-   - Any ENOENT errors
+Result:
+- Build succeeded (no errors, just empty arrays)
+- `getSortedExpsData()` returned `[]` (no files found)
+- Pages showed empty sections
+- Individual URLs returned 404 (no static pages generated)
 
-### Option 4: Verify Vercel Build Settings
+## Solution ✅
 
-Check in Vercel Dashboard → Project Settings → General:
+Changed `.vercelignore` to only exclude root-level markdown files:
 
-**Build & Development Settings:**
-- Framework Preset: `Next.js`
-- Build Command: `npm run build` or `next build --webpack`
-- Output Directory: `.next` (default)
-- Install Command: `npm install`
-
-**Important:** Ensure the build command includes `--webpack` flag:
-```json
-// package.json
-"scripts": {
-  "build": "next build --webpack"
-}
+```diff
+- # Exclude development files
+- *.md
++ # Exclude development files at root level only
++ /*.md
+  !README.md
 ```
 
-## Verification Steps
+Now:
+- ✅ `/*.md` - Excludes only root `.md` files (like `CHANGELOG.md`, `TODO.md`)
+- ✅ `experience/*/index.md` - **INCLUDED** (content files)
+- ✅ `education/*/index.*.md` - **INCLUDED** (all locales)
 
-After redeployment, verify:
+## Verification
 
-1. **Check build completed**:
-   - Vercel deployment status shows "Ready"
-   - Build logs show "89 pages" generated
+After pushing the fix:
 
-2. **Test URLs**:
-   - `https://www.alienard.fr/en/experience/Junior-42-Paris` ✅
-   - `https://www.alienard.fr/en/experience/ESF-Sciences-Humaines` ✅
-   - `https://www.alienard.fr/en/experience/Flammarion` ✅
-   - `https://www.alienard.fr/en/experience/Editions-Denoel` ✅
+1. ✅ Vercel automatically redeployed
+2. ✅ Build logs show: "Generating static pages (89/89)"
+3. ✅ Homepage shows items under each section
+4. ✅ URLs work: `https://www.alienard.fr/en/experience/Junior-42-Paris`
 
-3. **Check all locales**:
-   - `/en/experience/Junior-42-Paris` ✅
-   - `/fr/experience/Junior-42-Paris` ✅
-   - `/de/experience/Junior-42-Paris` ✅
-   - `/es/experience/Junior-42-Paris` ✅
+## Lessons Learned
 
-## Common Vercel Deployment Issues
-
-| Issue | Cause | Solution |
-|-------|-------|----------|
-| Stale cache | Previous failed build cached | Redeploy with cache cleared |
-| Build command wrong | Missing `--webpack` flag | Update `package.json` build script |
-| Silent build failure | Build errors not visible in UI | Check detailed build logs |
-| Edge cache | CDN serving old version | Wait 5-10 minutes or purge cache |
-| Environment mismatch | Different Node version | Set Node version in Vercel settings |
-
-## Node Version Configuration
-
-Add to `package.json` to ensure consistent Node version:
-
-```json
-{
-  "engines": {
-    "node": ">=18.0.0"
-  }
-}
-```
-
-Or create `.nvmrc` file:
-```
-18
-```
-
-## Monitoring Deployment
-
-To monitor the deployment in real-time:
-
-1. Watch Vercel Dashboard deployment status
-2. Check build logs as they stream
-3. Look for: "Generating static pages using X workers (89/89)"
-4. Verify: "✓ Generating static pages" completes successfully
-
-## If Issue Persists
-
-If pages still return 404 after redeployment:
-
-1. **Check Vercel Function Logs**:
-   - Go to Deployments → Functions tab
-   - Look for runtime errors
-
-2. **Verify File Upload**:
-   - In deployment details, check "Source Files"
-   - Ensure all `lib/*.ts` files are included
-
-3. **Test with Deployment URL**:
-   - Use the specific deployment URL (e.g., `nextjs-blog-xxx.vercel.app`)
-   - Instead of custom domain
-   - This bypasses CDN caching
-
-4. **Contact Vercel Support**:
-   - If none of the above works
-   - There may be a platform-specific issue
+1. **`.vercelignore` patterns matter**: `*.md` vs `/*.md` is critical
+2. **Empty arrays don't cause build errors**: Silent failures are harder to debug
+3. **Test with actual deployment**: Local always works with all files
+4. **Check what files are uploaded**: Vercel deployment details show source files
 
 ## Prevention
 
 To avoid this in the future:
 
-1. **Enable auto-deployment** on Vercel for main branch
-2. **Monitor deployment notifications** (email/Slack)
-3. **Test deployment URLs** before verifying custom domain
-4. **Check build logs** for warnings even on "successful" deploys
+1. **Be specific with ignore patterns**:
+   - Use `/file.ext` for root-level only
+   - Use `**/*.ext` for all levels
+   - Use `dir/*.ext` for specific directory
+
+2. **Document `.vercelignore` intent**:
+   ```plaintext
+   # Root-level development docs only
+   /*.md
+   !README.md
+   # Content markdown files are INCLUDED
+   ```
+
+3. **Test deployment checklist**:
+   - [ ] Check Vercel deployment "Source Files" tab
+   - [ ] Verify content directories are present
+   - [ ] Check build output shows expected page count
+   - [ ] Test at least one content URL from each section
 
 ## Related Documentation
 
