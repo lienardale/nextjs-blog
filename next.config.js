@@ -3,6 +3,9 @@ const withNextTranslate = require('next-translate-plugin')
 
 module.exports = withNextTranslate({
   reactStrictMode: true,
+  turbopack: {
+    // Turbopack configuration
+  },
   webpack: (config, { dev, isServer }) => {
     if (dev && !isServer) {
       config.watchOptions = {

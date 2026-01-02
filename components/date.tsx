@@ -10,7 +10,7 @@ export const Date = ({
 }: {
   dateString: string;
   locale: string;
-}): JSX.Element => {
+}): React.JSX.Element => {
   const date = parseISO(dateString);
   return (
     <time dateTime={dateString}>
