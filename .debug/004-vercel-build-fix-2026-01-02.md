@@ -129,15 +129,50 @@ This ensures consistent behavior across both data fetching and path generation.
 2. Redeploy on Vercel (should succeed now)
 3. Verify all pages load correctly in production
 
-## Important: URL Structure
+## Important: URL Structure & Troubleshooting
 
-With `next-translate`, all pages **require a locale prefix** in the URL:
+### URL Routing with next-translate
 
-- ✅ Correct: `/en/experience/Junior-42-Paris`
-- ✅ Correct: `/fr/experience/Junior-42-Paris`
-- ❌ Incorrect: `/experience/Junior-42-Paris` (will return 404)
+The app uses `next-translate-plugin` which handles routing as follows:
 
-The default locale (English) pages are also accessible at `/en/` prefix.
+1. **With locale prefix** (explicit):
+   - ✅ `/en/experience/Junior-42-Paris`
+   - ✅ `/fr/experience/Junior-42-Paris`
+   - ✅ `/de/experience/Junior-42-Paris`
+   - ✅ `/es/experience/Junior-42-Paris`
+
+2. **Without locale prefix** (auto-detected):
+   - ✅ `/experience/Junior-42-Paris` → automatically uses default locale (en)
+   - ⚠️ May not work in production if pages aren't generated correctly
+
+### Verification Steps
+
+1. **Check build output**:
+   ```bash
+   npm run build
+   ```
+   Look for: `├ ● /experience/[id] (XXX ms)` with `[+13 more paths]`
+
+2. **Verify generated files**:
+   ```bash
+   find .next/server/pages -name "*Junior*"
+   ```
+   Should show HTML/JSON files for all 4 locales
+
+3. **Test locally**:
+   ```bash
+   npm run dev -- --webpack
+   ```
+   Visit: `http://localhost:3000/experience/Junior-42-Paris`
+
+### Common Issues & Solutions
+
+| Issue | Cause | Solution |
+|-------|-------|----------|
+| 404 on Vercel | Old deployment cached | Redeploy after pushing latest changes |
+| 404 locally | Browser cache | Clear cache or use incognito mode |
+| 404 on specific locale | Missing translation file | Ensure `index.[locale].md` exists |
+| Build fails | Non-directory items in content folders | Use defensive checks (this fix) |
 
 ## Related Documentation
 
