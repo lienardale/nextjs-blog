@@ -56,6 +56,12 @@ export function getAllPostIds(locales: string[]) {
   const postsIds = fs.readdirSync(postsDirectory);
 
   for (let id of postsIds) {
+    // Skip non-directories
+    const dirPath = path.join(postsDirectory, id);
+    if (!fs.statSync(dirPath).isDirectory()) {
+      continue;
+    }
+
     for (let locale of locales) {
       let fullpath = path.join(
         postsDirectory,

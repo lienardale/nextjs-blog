@@ -75,6 +75,12 @@ export function getAllExpIds(locales: string[]) {
   const expIds = fs.readdirSync(expDirectory);
 
   for (let id of expIds) {
+    // Skip non-directories
+    const dirPath = path.join(expDirectory, id);
+    if (!fs.statSync(dirPath).isDirectory()) {
+      continue;
+    }
+
     for (let locale of locales) {
       let fullpath = path.join(
         expDirectory,

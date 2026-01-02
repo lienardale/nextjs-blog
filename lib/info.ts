@@ -55,6 +55,12 @@ export function getAllInfoIds(locales: string[]) {
   const infosIds = fs.readdirSync(infosDirectory);
 
   for (let id of infosIds) {
+    // Skip non-directories
+    const dirPath = path.join(infosDirectory, id);
+    if (!fs.statSync(dirPath).isDirectory()) {
+      continue;
+    }
+
     for (let locale of locales) {
       let fullpath = path.join(
         infosDirectory,

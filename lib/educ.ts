@@ -55,6 +55,12 @@ export function getAllEducIds(locales: string[]) {
   const educIds = fs.readdirSync(educDirectory);
 
   for (let id of educIds) {
+    // Skip non-directories
+    const dirPath = path.join(educDirectory, id);
+    if (!fs.statSync(dirPath).isDirectory()) {
+      continue;
+    }
+
     for (let locale of locales) {
       let fullpath = path.join(
         educDirectory,

@@ -55,6 +55,12 @@ export function getAllHobbieIds(locales: string[]) {
   const hobIds = fs.readdirSync(hobbiesDirectory);
 
   for (let id of hobIds) {
+    // Skip non-directories
+    const dirPath = path.join(hobbiesDirectory, id);
+    if (!fs.statSync(dirPath).isDirectory()) {
+      continue;
+    }
+
     for (let locale of locales) {
       let fullpath = path.join(
         hobbiesDirectory,

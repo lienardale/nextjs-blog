@@ -104,18 +104,40 @@ Result:
 
 ## Files Modified
 
-1. `/lib/exp.ts` - Experience data fetching
-2. `/lib/educ.ts` - Education data fetching
-3. `/lib/hob.ts` - Hobbies data fetching
-4. `/lib/info.ts` - Info data fetching
-5. `/lib/soft.ts` - Skills data fetching
-6. `/lib/posts.ts` - Posts data fetching
+### Primary Fixes (v1)
+1. `/lib/exp.ts` - Experience data fetching (`getSortedExpsData`)
+2. `/lib/educ.ts` - Education data fetching (`getSortedEducsData`)
+3. `/lib/hob.ts` - Hobbies data fetching (`getSortedHobbiesData`)
+4. `/lib/info.ts` - Info data fetching (`getSortedInfosData`)
+5. `/lib/soft.ts` - Skills data fetching (`getSortedSoftsData`)
+6. `/lib/posts.ts` - Posts data fetching (`getSortedPostsData`)
+
+### Additional Fixes (v2)
+Applied same directory check to all `getAll*Ids` functions for path generation:
+1. `/lib/exp.ts` - `getAllExpIds`
+2. `/lib/educ.ts` - `getAllEducIds`
+3. `/lib/hob.ts` - `getAllHobbieIds`
+4. `/lib/info.ts` - `getAllInfoIds`
+5. `/lib/soft.ts` - `getAllSoftIds`
+6. `/lib/posts.ts` - `getAllPostIds`
+
+This ensures consistent behavior across both data fetching and path generation.
 
 ## Next Steps
 
 1. Commit and push changes to GitHub
 2. Redeploy on Vercel (should succeed now)
 3. Verify all pages load correctly in production
+
+## Important: URL Structure
+
+With `next-translate`, all pages **require a locale prefix** in the URL:
+
+- ✅ Correct: `/en/experience/Junior-42-Paris`
+- ✅ Correct: `/fr/experience/Junior-42-Paris`
+- ❌ Incorrect: `/experience/Junior-42-Paris` (will return 404)
+
+The default locale (English) pages are also accessible at `/en/` prefix.
 
 ## Related Documentation
 

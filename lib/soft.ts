@@ -55,6 +55,12 @@ export function getAllSoftIds(locales: string[]) {
   const softIds = fs.readdirSync(softSkillsDirectory);
 
   for (let id of softIds) {
+    // Skip non-directories
+    const dirPath = path.join(softSkillsDirectory, id);
+    if (!fs.statSync(dirPath).isDirectory()) {
+      continue;
+    }
+
     for (let locale of locales) {
       let fullpath = path.join(
         softSkillsDirectory,
