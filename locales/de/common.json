@@ -12,5 +12,10 @@
     "categ4": "Hobbys",
     "categ5": "Beiträge",
     "trad_button":"Sprache",
-    "back_home": "Zurück zum Start"
+    "back_home": "Zurück zum Start",
+    "error_title": "Etwas ist schiefgelaufen",
+    "error_message": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "error_retry": "Erneut versuchen",
+    "not_found_title": "Seite nicht gefunden",
+    "not_found_message": "Die gesuchte Seite existiert nicht."
 }

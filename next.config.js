@@ -1,20 +1,8 @@
 /** @type {import('next').NextConfig} */
-const withNextTranslate = require('next-translate-plugin')
+const createNextIntlPlugin = require('next-intl/plugin')
 
-module.exports = withNextTranslate({
+const withNextIntl = createNextIntlPlugin('./lib/i18n/request.ts')
+
+module.exports = withNextIntl({
   reactStrictMode: true,
-  turbopack: {
-    // Turbopack configuration
-  },
-  webpack: (config, { dev, isServer }) => {
-    if (dev && !isServer) {
-      config.watchOptions = {
-        poll: 1000,
-        aggregateTimeout: 200,
-        ignored: ['**/.git/**', '**/node_modules/**']
-      };
-      config.cache = true;
-    }
-    return config;
-  },
 });
