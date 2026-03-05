@@ -12,5 +12,10 @@
     "categ4": "Aficiones",
     "categ5": "Mensajes",
     "trad_button":"idioma",
-    "back_home": "Volver a la página inicial"
+    "back_home": "Volver a la página inicial",
+    "error_title": "Algo salió mal",
+    "error_message": "Se produjo un error inesperado. Por favor, inténtelo de nuevo.",
+    "error_retry": "Intentar de nuevo",
+    "not_found_title": "Página no encontrada",
+    "not_found_message": "La página que busca no existe."
 }

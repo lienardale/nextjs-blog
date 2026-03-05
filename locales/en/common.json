@@ -12,5 +12,10 @@
     "categ4":"Hobbies",
     "categ5":"Posts",
     "trad_button":"language",
-    "back_home": "Back to home"
+    "back_home": "Back to home",
+    "error_title": "Something went wrong",
+    "error_message": "An unexpected error occurred. Please try again.",
+    "error_retry": "Try again",
+    "not_found_title": "Page not found",
+    "not_found_message": "The page you're looking for doesn't exist."
 }
