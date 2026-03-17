@@ -21,5 +21,9 @@
     "reading_time": "{minutes} min read",
     "toc": "Table of Contents",
     "toc_toggle": "On this page",
-    "related_posts": "Related Posts"
+    "related_posts": "Related Posts",
+    "show_more": "Show more",
+    "show_less": "Show less",
+    "duration_years": "{count, plural, one {# year} other {# years}}",
+    "duration_months": "{count, plural, one {# month} other {# months}}"
 }

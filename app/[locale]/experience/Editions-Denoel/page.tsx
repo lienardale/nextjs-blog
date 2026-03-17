@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
+import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
   en: {
     title: 'Editions Denoël',
+    summary: <p>Marketing Assistant at Editions Denoël (2015-2017) — brand identity, sales promotion, and business analysis.</p>,
     body: (
       <>
         <p>Marketing Assistant - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - apprenticeship</p>
@@ -17,6 +19,7 @@ const content = {
   },
   fr: {
     title: 'Editions Denoël',
+    summary: <p>Assistant Marketing chez Editions Denoël (2015-2017) — identité de marque, promotion des ventes et analyse commerciale.</p>,
     body: (
       <>
         <p>Assistant Marketing - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - apprentissage</p>
@@ -31,6 +34,7 @@ const content = {
   },
   de: {
     title: 'Editions Denoël',
+    summary: <p>Marketingassistent bei Editions Denoël (2015-2017) — Markenidentität, Verkaufsförderung und Geschäftsanalyse.</p>,
     body: (
       <>
         <p>Marketingassistent - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - Ausbildung</p>
@@ -45,6 +49,7 @@ const content = {
   },
   es: {
     title: 'Editions Denoël',
+    summary: <p>Asistente de marketing en Editions Denoël (2015-2017) — identidad de marca, promoción de ventas y análisis comercial.</p>,
     body: (
       <>
         <p>Asistente de marketing - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - aprendizaje</p>
@@ -76,7 +81,9 @@ export default async function EditionsDenoelPage({params}: {params: Promise<{loc
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2017-09-01</div>
-        <div className="prose">{t.body}</div>
+        <ExpandableCard summary={t.summary}>
+          <div className="prose">{t.body}</div>
+        </ExpandableCard>
       </article>
     </>
   );

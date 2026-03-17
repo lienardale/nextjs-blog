@@ -21,5 +21,9 @@
     "reading_time": "{minutes} min de lectura",
     "toc": "Tabla de contenidos",
     "toc_toggle": "En esta página",
-    "related_posts": "Artículos relacionados"
+    "related_posts": "Artículos relacionados",
+    "show_more": "Ver más",
+    "show_less": "Ver menos",
+    "duration_years": "{count, plural, one {# año} other {# años}}",
+    "duration_months": "{count, plural, one {# mes} other {# meses}}"
 }

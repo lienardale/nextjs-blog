@@ -4,19 +4,21 @@ type ContentItem = {
   title: Record<string, string>;
   tags?: string[];
   description?: Record<string, string>;
+  startDate?: string;
+  endDate?: string;
 };
 
 const registry: Record<string, ContentItem[]> = {
   experience: [
-    {id: 'Junior-42-Paris', date: '2022-05-12', title: {en: 'Junior 42 Paris', fr: 'Junior 42 Paris', de: 'Junior 42 Paris', es: 'Junior 42 Paris'}},
-    {id: 'ESF-Sciences-Humaines', date: '2019-09-01', title: {en: 'ESF Sciences Humaines', fr: 'ESF Sciences Humaines', de: 'ESF Sciences Humaines', es: 'ESF Sciences Humaines'}},
-    {id: 'Editions-Denoel', date: '2017-09-01', title: {en: 'Editions Denoël', fr: 'Editions Denoël', de: 'Editions Denoël', es: 'Editions Denoël'}},
-    {id: 'Flammarion', date: '2015-09-01', title: {en: 'Flammarion', fr: 'Flammarion', de: 'Flammarion', es: 'Flammarion'}},
+    {id: 'Junior-42-Paris', date: '2022-05-12', title: {en: 'Junior 42 Paris', fr: 'Junior 42 Paris', de: 'Junior 42 Paris', es: 'Junior 42 Paris'}, startDate: '2020-09', endDate: '2022-05'},
+    {id: 'ESF-Sciences-Humaines', date: '2019-09-01', title: {en: 'ESF Sciences Humaines', fr: 'ESF Sciences Humaines', de: 'ESF Sciences Humaines', es: 'ESF Sciences Humaines'}, startDate: '2018-09', endDate: '2019-06'},
+    {id: 'Editions-Denoel', date: '2017-09-01', title: {en: 'Editions Denoël', fr: 'Editions Denoël', de: 'Editions Denoël', es: 'Editions Denoël'}, startDate: '2015-09', endDate: '2017-06'},
+    {id: 'Flammarion', date: '2015-09-01', title: {en: 'Flammarion', fr: 'Flammarion', de: 'Flammarion', es: 'Flammarion'}, startDate: '2015-02', endDate: '2015-07'},
   ],
   education: [
-    {id: '42-Paris', date: '2022-05-12', title: {en: '42 Paris', fr: '42 Paris', de: '42 Paris', es: '42 Paris'}},
-    {id: 'IAE-Lille', date: '2017-09-01', title: {en: 'IAE Lille', fr: 'IAE Lille', de: 'IAE Lille', es: 'IAE Lille'}},
-    {id: 'CPGE_BL', date: '2014-09-01', title: {en: 'CPGE BL', fr: 'CPGE BL', de: 'CPGE BL', es: 'CPGE BL'}},
+    {id: '42-Paris', date: '2022-05-12', title: {en: '42 Paris', fr: '42 Paris', de: '42 Paris', es: '42 Paris'}, startDate: '2019-09', endDate: '2022-05'},
+    {id: 'IAE-Lille', date: '2017-09-01', title: {en: 'IAE Lille', fr: 'IAE Lille', de: 'IAE Lille', es: 'IAE Lille'}, startDate: '2014-09', endDate: '2017-06'},
+    {id: 'CPGE_BL', date: '2014-09-01', title: {en: 'CPGE BL', fr: 'CPGE BL', de: 'CPGE BL', es: 'CPGE BL'}, startDate: '2012-09', endDate: '2014-06'},
   ],
   skills: [
     {id: 'projects', date: '2022-05-12', title: {en: 'Projects', fr: 'Projets', de: 'Projekte', es: 'Projects'}},
@@ -56,6 +58,8 @@ export function getSortedItems(category: string, locale: string) {
       id: item.id,
       date: item.date,
       title: item.title[locale] ?? item.title.en,
+      startDate: item.startDate,
+      endDate: item.endDate,
     }))
     .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }

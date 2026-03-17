@@ -219,6 +219,33 @@ describe('registry', () => {
     ] as const)('returns %i items for category "%s"', (category, count) => {
       expect(getSortedItems(category, 'en')).toHaveLength(count);
     });
+
+    // startDate/endDate tests
+    it('includes startDate and endDate for experience items', () => {
+      const items = getSortedItems('experience', 'en');
+      for (const item of items) {
+        expect(item.startDate).toBeDefined();
+        expect(item.endDate).toBeDefined();
+        expect(typeof item.startDate).toBe('string');
+        expect(typeof item.endDate).toBe('string');
+      }
+    });
+
+    it('includes startDate and endDate for education items', () => {
+      const items = getSortedItems('education', 'en');
+      for (const item of items) {
+        expect(item.startDate).toBeDefined();
+        expect(item.endDate).toBeDefined();
+      }
+    });
+
+    it('returns undefined startDate/endDate for categories without dates', () => {
+      const items = getSortedItems('skills', 'en');
+      for (const item of items) {
+        expect(item.startDate).toBeUndefined();
+        expect(item.endDate).toBeUndefined();
+      }
+    });
   });
 
   // ---------- getRelatedPosts ----------

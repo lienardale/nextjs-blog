@@ -5,13 +5,17 @@ import {useEffect, useState, type ReactNode} from 'react';
 
 export default function PageTransition({children}: {children: ReactNode}) {
   const pathname = usePathname();
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
   useEffect(() => {
-    setIsVisible(false);
-    const frame = requestAnimationFrame(() => setIsVisible(true));
-    return () => cancelAnimationFrame(frame);
-  }, [pathname]);
+    if (pathname !== prevPathname) {
+      setIsVisible(false);
+      setPrevPathname(pathname);
+      const frame = requestAnimationFrame(() => setIsVisible(true));
+      return () => cancelAnimationFrame(frame);
+    }
+  }, [pathname, prevPathname]);
 
   return (
     <div
