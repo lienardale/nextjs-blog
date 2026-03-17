@@ -113,7 +113,8 @@ export default function WorldMap({languages}: Props) {
         <Graticule stroke={colors.graticule} strokeWidth={0.3} />
 
         <Geographies geography={geoData}>
-          {({geographies}: {geographies: Array<{rsmKey: string; id: string}>}) =>
+          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {({geographies}: {geographies: any[]}) =>
             geographies.map((geo) => {
               const slug = NUMERIC_TO_SLUG[geo.id];
               const isInteractive = slug && slug in slugToLangs;
