@@ -79,8 +79,8 @@ describe('registry', () => {
       expect(getNavItems('skills', 'en')).toHaveLength(3);
     });
 
-    it('returns 2 items for about_me', () => {
-      expect(getNavItems('about_me', 'en')).toHaveLength(2);
+    it('returns 3 items for about_me', () => {
+      expect(getNavItems('about_me', 'en')).toHaveLength(3);
     });
 
     it('returns 3 items for hobbies', () => {
@@ -213,7 +213,7 @@ describe('registry', () => {
       ['experience', 4],
       ['education', 3],
       ['skills', 3],
-      ['about_me', 2],
+      ['about_me', 3],
       ['hobbies', 3],
       ['posts', 5],
     ] as const)('returns %i items for category "%s"', (category, count) => {

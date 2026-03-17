@@ -28,6 +28,7 @@ const registry: Record<string, ContentItem[]> = {
   about_me: [
     {id: 'infos', date: '2022-05-12', title: {en: 'My infos', fr: 'Mes infos', de: 'Meine Infos', es: 'Mis informaciones'}},
     {id: 'languages', date: '2022-05-12', title: {en: 'Languages', fr: 'Langues', de: 'Sprachen', es: 'Idiomas'}},
+    {id: 'cv', date: '2022-05-12', title: {en: 'CV', fr: 'CV', de: 'Lebenslauf', es: 'Currículum'}},
   ],
   hobbies: [
     {id: 'biking', date: '2022-05-12', title: {en: 'Biking', fr: 'Vélo', de: 'Radfahren', es: 'Ciclismo'}},

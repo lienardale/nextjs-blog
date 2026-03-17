@@ -25,5 +25,14 @@
     "show_more": "Mehr anzeigen",
     "show_less": "Weniger anzeigen",
     "duration_years": "{count, plural, one {# Jahr} other {# Jahre}}",
-    "duration_months": "{count, plural, one {# Monat} other {# Monate}}"
+    "duration_months": "{count, plural, one {# Monat} other {# Monate}}",
+    "contact_name": "Name",
+    "contact_email": "E-Mail",
+    "contact_message": "Nachricht",
+    "contact_send": "Nachricht senden",
+    "contact_sending": "Wird gesendet...",
+    "contact_success": "Nachricht gesendet! Danke für Ihre Kontaktaufnahme.",
+    "contact_error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "cv_download": "Lebenslauf herunterladen",
+    "cv_open": "In neuem Tab öffnen"
 }

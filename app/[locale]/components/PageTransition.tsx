@@ -1,21 +1,31 @@
 'use client';
 
 import {usePathname} from 'next/navigation';
-import {useEffect, useState, type ReactNode} from 'react';
+import {useEffect, useRef, useState, type ReactNode} from 'react';
 
 export default function PageTransition({children}: {children: ReactNode}) {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
-  const [prevPathname, setPrevPathname] = useState(pathname);
+  const prevPathnameRef = useRef(pathname);
+  const hasMounted = useRef(false);
 
   useEffect(() => {
-    if (pathname !== prevPathname) {
+    // Skip the first effect run (initial mount / hydration) to avoid
+    // a flash of opacity-0 when server and client pathnames differ
+    // (e.g. next-intl strips the locale prefix for the default locale).
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      prevPathnameRef.current = pathname;
+      return;
+    }
+
+    if (pathname !== prevPathnameRef.current) {
       setIsVisible(false);
-      setPrevPathname(pathname);
+      prevPathnameRef.current = pathname;
       const frame = requestAnimationFrame(() => setIsVisible(true));
       return () => cancelAnimationFrame(frame);
     }
-  }, [pathname, prevPathname]);
+  }, [pathname]);
 
   return (
     <div

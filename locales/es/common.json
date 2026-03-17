@@ -25,5 +25,14 @@
     "show_more": "Ver más",
     "show_less": "Ver menos",
     "duration_years": "{count, plural, one {# año} other {# años}}",
-    "duration_months": "{count, plural, one {# mes} other {# meses}}"
+    "duration_months": "{count, plural, one {# mes} other {# meses}}",
+    "contact_name": "Nombre",
+    "contact_email": "Correo electrónico",
+    "contact_message": "Mensaje",
+    "contact_send": "Enviar mensaje",
+    "contact_sending": "Enviando...",
+    "contact_success": "¡Mensaje enviado! Gracias por contactarme.",
+    "contact_error": "Algo salió mal. Por favor, inténtelo de nuevo.",
+    "cv_download": "Descargar CV",
+    "cv_open": "Abrir en nueva pestaña"
 }
