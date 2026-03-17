@@ -72,4 +72,34 @@ describe('FlipCard', () => {
     const container = screen.getByTestId('flip-card');
     expect(container).toHaveClass('aspect-square');
   });
+
+  it('has keyboard accessibility attributes', () => {
+    render(<FlipCard front={<p>Front</p>} back={<p>Back</p>} />);
+    const container = screen.getByTestId('flip-card');
+    expect(container).toHaveAttribute('role', 'button');
+    expect(container).toHaveAttribute('tabindex', '0');
+    expect(container).toHaveAttribute('aria-label', 'Flip card');
+  });
+
+  it('flips on Enter key', async () => {
+    const user = userEvent.setup();
+    render(<FlipCard front={<p>Front</p>} back={<p>Back</p>} />);
+    const container = screen.getByTestId('flip-card');
+    const inner = screen.getByTestId('flip-inner');
+
+    container.focus();
+    await user.keyboard('{Enter}');
+    expect(inner).toHaveClass('[transform:rotateY(180deg)]');
+  });
+
+  it('flips on Space key', async () => {
+    const user = userEvent.setup();
+    render(<FlipCard front={<p>Front</p>} back={<p>Back</p>} />);
+    const container = screen.getByTestId('flip-card');
+    const inner = screen.getByTestId('flip-inner');
+
+    container.focus();
+    await user.keyboard(' ');
+    expect(inner).toHaveClass('[transform:rotateY(180deg)]');
+  });
 });

@@ -22,13 +22,15 @@ export default function TypingText({text, speed = 60}: {text: string; speed?: nu
   }, [text, speed]);
 
   return (
-    <span>
-      {displayed}
-      <span
-        className={`inline-block w-[2px] h-[1.1em] bg-white ml-0.5 align-middle ${
-          done ? 'animate-blink' : ''
-        }`}
-      />
+    <span aria-label={text}>
+      <span aria-hidden="true">
+        {displayed}
+        <span
+          className={`inline-block w-[2px] h-[1.1em] bg-white ml-0.5 align-middle ${
+            done ? 'animate-blink' : ''
+          }`}
+        />
+      </span>
     </span>
   );
 }

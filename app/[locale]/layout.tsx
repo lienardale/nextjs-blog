@@ -2,6 +2,7 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {getMessages, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import Script from 'next/script';
+import {Suspense} from 'react';
 import {routing} from '../../lib/i18n/routing';
 import BackToHome from './components/BackToHome';
 import PageTransition from './components/PageTransition';
@@ -24,14 +25,24 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   const t = await getTranslations({locale});
 
   return {
+    metadataBase: new URL('https://alienard.vercel.app'),
     title: t('metaTitle'),
-    description: 'Alexandre Lienard\'s personal website using Next.js',
+    description: t('metaDescription'),
     icons: {icon: '/hardlink.ico'},
     openGraph: {
-      title: 'alienard',
-      images: [`https://og-image.vercel.app/${encodeURI('alienard')}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`],
+      title: 'Alexandre Lienard',
+      description: t('metaDescription'),
+      images: ['/images/profile.jpg'],
     },
     twitter: {card: 'summary_large_image'},
+    alternates: {
+      languages: {
+        en: '/en',
+        fr: '/fr',
+        de: '/de',
+        es: '/es',
+      },
+    },
   };
 }
 
@@ -46,6 +57,12 @@ export default async function LocaleLayout({children, params}: Props) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="bg-white dark:bg-gray-900 transition-colors duration-200">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded"
+        >
+          Skip to content
+        </a>
         <Script
           id="theme-init"
           strategy="beforeInteractive"
@@ -56,9 +73,11 @@ export default async function LocaleLayout({children, params}: Props) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <ScrollProgressBar />
-            <div className="max-w-xl px-4 mx-auto mt-12 mb-24">
-              <main>
-                <PageTransition>{children}</PageTransition>
+            <div className="max-w-2xl px-4 mx-auto mt-12 mb-24">
+              <main id="main-content">
+                <Suspense>
+                  <PageTransition>{children}</PageTransition>
+                </Suspense>
               </main>
               <BackToHome />
             </div>

@@ -7,7 +7,7 @@ type Props = {
 
 export default function TripSummary({totalTrips, totalKm, totalDays, labels}: Props) {
   return (
-    <div data-testid="trip-summary" className="grid grid-cols-3 gap-4 my-6">
+    <div data-testid="trip-summary" className="grid grid-cols-1 sm:grid-cols-3 gap-4 my-6">
       <div className="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
         <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{totalTrips}</div>
         <div className="text-sm text-gray-500 dark:text-gray-400">{labels.trips}</div>

@@ -14,6 +14,15 @@ export default function FlipCard({front, back}: Props) {
     <div
       className="perspective-[600px] aspect-square cursor-pointer"
       onClick={() => setFlipped((prev) => !prev)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          setFlipped((prev) => !prev);
+        }
+      }}
+      role="button"
+      tabIndex={0}
+      aria-label="Flip card"
       data-testid="flip-card"
     >
       <div

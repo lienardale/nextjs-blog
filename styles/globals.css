@@ -56,7 +56,11 @@
 }
 
 /* Dark mode overrides for Tailwind utility text colors used in content pages.
-   Unlayered CSS takes precedence over Tailwind's layered utilities. */
+   These MUST remain unlayered — Tailwind 4 puts utilities in @layer utilities,
+   and the dark: variant only works via the @custom-variant directive above.
+   For markdown-rendered content and components that use plain Tailwind classes
+   (text-gray-500, text-gray-600, etc.), these unlayered rules ensure the correct
+   dark mode colors take precedence over Tailwind's layered utilities. */
 html.dark .text-gray-500 {
   color: #9ca3af;
 }

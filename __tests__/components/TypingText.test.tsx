@@ -55,7 +55,7 @@ describe('TypingText component', () => {
   it('shows the cursor span at all times', () => {
     const {container} = render(<TypingText text="Hi" />);
     // The cursor is the second span (child of the outer span)
-    const cursorSpan = container.querySelector('span > span');
+    const cursorSpan = container.querySelector('span[aria-hidden="true"] > span');
     expect(cursorSpan).toBeInTheDocument();
     expect(cursorSpan).toHaveClass('inline-block');
   });
@@ -65,7 +65,7 @@ describe('TypingText component', () => {
     act(() => {
       jest.advanceTimersByTime(60); // only 1 of 2 chars
     });
-    const cursorSpan = container.querySelector('span > span');
+    const cursorSpan = container.querySelector('span[aria-hidden="true"] > span');
     expect(cursorSpan).not.toHaveClass('animate-blink');
   });
 
@@ -74,7 +74,7 @@ describe('TypingText component', () => {
     act(() => {
       jest.advanceTimersByTime(60 * 2); // all chars done
     });
-    const cursorSpan = container.querySelector('span > span');
+    const cursorSpan = container.querySelector('span[aria-hidden="true"] > span');
     expect(cursorSpan).toHaveClass('animate-blink');
   });
 
@@ -108,7 +108,7 @@ describe('TypingText component', () => {
       jest.advanceTimersByTime(60);
     });
     expect(screen.getByText('A')).toBeInTheDocument();
-    const cursorSpan = container.querySelector('span > span');
+    const cursorSpan = container.querySelector('span[aria-hidden="true"] > span');
     expect(cursorSpan).toHaveClass('animate-blink');
   });
 
@@ -119,7 +119,7 @@ describe('TypingText component', () => {
     act(() => {
       jest.advanceTimersByTime(60);
     });
-    const cursorSpan = container.querySelector('span > span');
+    const cursorSpan = container.querySelector('span[aria-hidden="true"] > span');
     expect(cursorSpan).toHaveClass('animate-blink');
   });
 
@@ -153,7 +153,7 @@ describe('TypingText component', () => {
     expect(screen.getByText('C')).toBeInTheDocument();
 
     // Cursor should NOT blink yet (only 1 of 2 chars)
-    const cursorSpan = container.querySelector('span > span');
+    const cursorSpan = container.querySelector('span[aria-hidden="true"] > span');
     expect(cursorSpan).not.toHaveClass('animate-blink');
 
     // Complete the new text

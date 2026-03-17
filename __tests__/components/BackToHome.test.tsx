@@ -26,92 +26,60 @@ describe('BackToHome', () => {
     jest.clearAllMocks();
   });
 
-  it('renders nothing when pathname is "/"', () => {
+  it('does not render back link on home page "/"', () => {
     mockUsePathname.mockReturnValue('/');
-    const {container} = render(<BackToHome />);
-    expect(container.innerHTML).toBe('');
+    render(<BackToHome />);
+    expect(screen.queryByText(/back_home/)).not.toBeInTheDocument();
   });
 
-  it('renders nothing when pathname matches locale (e.g., "/en")', () => {
+  it('does not render back link on locale home "/en"', () => {
     mockUsePathname.mockReturnValue('/en');
-    const {container} = render(<BackToHome />);
-    expect(container.innerHTML).toBe('');
+    render(<BackToHome />);
+    expect(screen.queryByText(/back_home/)).not.toBeInTheDocument();
   });
 
-  it('renders nothing when pathname matches fr locale', () => {
+  it('does not render back link on fr locale home', () => {
     const {useLocale} = require('next-intl');
     (useLocale as jest.Mock).mockReturnValue('fr');
     mockUsePathname.mockReturnValue('/fr');
-
-    const {container} = render(<BackToHome />);
-    expect(container.innerHTML).toBe('');
+    render(<BackToHome />);
+    expect(screen.queryByText(/back_home/)).not.toBeInTheDocument();
   });
 
-  it('renders nothing when pathname matches de locale', () => {
-    const {useLocale} = require('next-intl');
-    (useLocale as jest.Mock).mockReturnValue('de');
-    mockUsePathname.mockReturnValue('/de');
-
-    const {container} = render(<BackToHome />);
-    expect(container.innerHTML).toBe('');
+  it('always renders footer with social links', () => {
+    mockUsePathname.mockReturnValue('/');
+    render(<BackToHome />);
+    expect(screen.getByLabelText('GitHub')).toBeInTheDocument();
+    expect(screen.getByLabelText('LinkedIn')).toBeInTheDocument();
+    expect(screen.getByLabelText('Komoot')).toBeInTheDocument();
   });
 
-  it('renders nothing when pathname matches es locale', () => {
-    const {useLocale} = require('next-intl');
-    (useLocale as jest.Mock).mockReturnValue('es');
-    mockUsePathname.mockReturnValue('/es');
-
-    const {container} = render(<BackToHome />);
-    expect(container.innerHTML).toBe('');
+  it('always renders copyright', () => {
+    mockUsePathname.mockReturnValue('/');
+    render(<BackToHome />);
+    expect(screen.getByText(/Alexandre Lienard/)).toBeInTheDocument();
   });
 
-  it('renders the link when on a subpage', () => {
+  it('renders back link on subpages', () => {
     mockUsePathname.mockReturnValue('/experience/Junior-42-Paris');
     render(<BackToHome />);
 
-    const link = screen.getByRole('link');
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute('href', '/');
+    const backLink = screen.getByText(/back_home/);
+    expect(backLink).toBeInTheDocument();
+    expect(backLink.closest('a')).toHaveAttribute('href', '/');
   });
 
-  it('renders the translated "back_home" text', () => {
-    mockUsePathname.mockReturnValue('/experience/some-page');
-    render(<BackToHome />);
-
-    // The mock useTranslations returns the key itself
-    expect(screen.getByText(/back_home/)).toBeInTheDocument();
-  });
-
-  it('renders a left arrow symbol', () => {
+  it('renders a left arrow symbol on subpages', () => {
     mockUsePathname.mockReturnValue('/posts/some-post');
     render(<BackToHome />);
 
-    const link = screen.getByRole('link');
-    // The component renders &larr; which is the left arrow character
-    expect(link.textContent).toContain('\u2190');
-  });
-
-  it('link has correct hover classes', () => {
-    mockUsePathname.mockReturnValue('/posts/some-post');
-    render(<BackToHome />);
-
-    const link = screen.getByRole('link');
-    expect(link).toHaveClass('hover:text-gray-600');
-  });
-
-  it('wraps link in a div with mt-12 class', () => {
-    mockUsePathname.mockReturnValue('/posts/some-post');
-    const {container} = render(<BackToHome />);
-
-    const wrapper = container.querySelector('.mt-12');
-    expect(wrapper).toBeInTheDocument();
-    expect(wrapper?.tagName).toBe('DIV');
+    const backLink = screen.getByText(/back_home/);
+    expect(backLink.closest('a')?.textContent).toContain('\u2190');
   });
 
   it('renders on deeply nested paths', () => {
     mockUsePathname.mockReturnValue('/en/experience/some-job/details');
     render(<BackToHome />);
-
-    expect(screen.getByRole('link')).toBeInTheDocument();
+    expect(screen.getByText(/back_home/)).toBeInTheDocument();
   });
 });
