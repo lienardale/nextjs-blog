@@ -17,5 +17,9 @@
     "error_message": "Une erreur inattendue s'est produite. Veuillez réessayer.",
     "error_retry": "Réessayer",
     "not_found_title": "Page introuvable",
-    "not_found_message": "La page que vous cherchez n'existe pas."
+    "not_found_message": "La page que vous cherchez n'existe pas.",
+    "reading_time": "{minutes} min de lecture",
+    "toc": "Table des matières",
+    "toc_toggle": "Sur cette page",
+    "related_posts": "Articles similaires"
 }

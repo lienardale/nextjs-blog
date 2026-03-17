@@ -17,5 +17,9 @@
     "error_message": "An unexpected error occurred. Please try again.",
     "error_retry": "Try again",
     "not_found_title": "Page not found",
-    "not_found_message": "The page you're looking for doesn't exist."
+    "not_found_message": "The page you're looking for doesn't exist.",
+    "reading_time": "{minutes} min read",
+    "toc": "Table of Contents",
+    "toc_toggle": "On this page",
+    "related_posts": "Related Posts"
 }

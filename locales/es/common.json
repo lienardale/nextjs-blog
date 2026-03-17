@@ -17,5 +17,9 @@
     "error_message": "Se produjo un error inesperado. Por favor, inténtelo de nuevo.",
     "error_retry": "Intentar de nuevo",
     "not_found_title": "Página no encontrada",
-    "not_found_message": "La página que busca no existe."
+    "not_found_message": "La página que busca no existe.",
+    "reading_time": "{minutes} min de lectura",
+    "toc": "Tabla de contenidos",
+    "toc_toggle": "En esta página",
+    "related_posts": "Artículos relacionados"
 }

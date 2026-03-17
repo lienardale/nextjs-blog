@@ -5,6 +5,7 @@ import Script from 'next/script';
 import {routing} from '../../lib/i18n/routing';
 import BackToHome from './components/BackToHome';
 import PageTransition from './components/PageTransition';
+import ScrollProgressBar from './components/ScrollProgressBar';
 import ScrollToTop from './components/ScrollToTop';
 import ThemeProvider from './components/ThemeProvider';
 import '../../styles/globals.css';
@@ -54,6 +55,7 @@ export default async function LocaleLayout({children, params}: Props) {
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
+            <ScrollProgressBar />
             <div className="max-w-xl px-4 mx-auto mt-12 mb-24">
               <main>
                 <PageTransition>{children}</PageTransition>

@@ -17,5 +17,9 @@
     "error_message": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "error_retry": "Erneut versuchen",
     "not_found_title": "Seite nicht gefunden",
-    "not_found_message": "Die gesuchte Seite existiert nicht."
+    "not_found_message": "Die gesuchte Seite existiert nicht.",
+    "reading_time": "{minutes} Min. Lesezeit",
+    "toc": "Inhaltsverzeichnis",
+    "toc_toggle": "Auf dieser Seite",
+    "related_posts": "Verwandte Beiträge"
 }

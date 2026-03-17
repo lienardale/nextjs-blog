@@ -14,6 +14,8 @@
   }
 
   html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
@@ -71,6 +73,18 @@ html.dark .text-blue-600 {
 }
 html.dark .text-blue-900 {
   color: #93c5fd;
+}
+
+/* Shiki dual-theme: show light colors by default, dark colors in dark mode */
+.shiki,
+.shiki span {
+  color: var(--shiki-light) !important;
+  background-color: var(--shiki-light-bg) !important;
+}
+html.dark .shiki,
+html.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
 }
 
 @keyframes blink {
