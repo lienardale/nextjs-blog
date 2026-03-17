@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
+import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
   en: {
     title: 'IAE Lille',
+    summary: <p>Masters in International Marketing &amp; Communication at IAE Lille, University School of Management — digital strategy, branding, and intercultural management.</p>,
     body: (
       <>
         <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Masters in International Marketing &amp; Communication</a></p>
@@ -35,6 +37,7 @@ const content = {
   },
   fr: {
     title: 'IAE Lille',
+    summary: <p>Master en Marketing International &amp; Communication à l&apos;IAE Lille, École Universitaire de Management — stratégie digitale, image de marque et management interculturel.</p>,
     body: (
       <>
         <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Master en marketing et communication internationale</a></p>
@@ -67,6 +70,7 @@ const content = {
   },
   de: {
     title: 'IAE Lille',
+    summary: <p>Master in Internationalem Marketing &amp; Kommunikation an der IAE Lille, Hochschule für Management — digitale Strategie, Branding und interkulturelles Management.</p>,
     body: (
       <>
         <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Master in Internationalem Marketing und Kommunikation</a></p>
@@ -99,6 +103,7 @@ const content = {
   },
   es: {
     title: 'IAE Lille',
+    summary: <p>Máster en Marketing Internacional y Comunicación en IAE Lille, Escuela Universitaria de Gestión — estrategia digital, marca y gestión intercultural.</p>,
     body: (
       <>
         <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Máster en Marketing y Comunicación Internacional</a></p>
@@ -148,7 +153,9 @@ export default async function IaeLillePage({params}: {params: Promise<{locale: s
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2017-09-01</div>
-        <div className="prose">{t.body}</div>
+        <ExpandableCard summary={t.summary}>
+          <div className="prose">{t.body}</div>
+        </ExpandableCard>
       </article>
     </>
   );

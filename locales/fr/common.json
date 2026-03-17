@@ -1,5 +1,6 @@
 {
     "metaTitle": "alienard 🥖",
+    "metaDescription": "Alexandre Lienard — Portfolio développeur. Expérience, compétences, projets et blog.",
     "title": "Bienvenue sur mon site !",
     "description": "J'utilise la bibliothèque Next-Translate pour traduire cette page.",
     "intro": "Développeur informatique avec une expérience en marketing. Rompu au travail d'équipe et à la coordination de projets. A la recherche de l’entreprise qui fera de moi un meilleur développeur, de projets auxquels contribuer, et de l'équipe avec laquelle grandir.",
@@ -17,5 +18,22 @@
     "error_message": "Une erreur inattendue s'est produite. Veuillez réessayer.",
     "error_retry": "Réessayer",
     "not_found_title": "Page introuvable",
-    "not_found_message": "La page que vous cherchez n'existe pas."
+    "not_found_message": "La page que vous cherchez n'existe pas.",
+    "reading_time": "{minutes} min de lecture",
+    "toc": "Table des matières",
+    "toc_toggle": "Sur cette page",
+    "related_posts": "Articles similaires",
+    "show_more": "Voir plus",
+    "show_less": "Voir moins",
+    "duration_years": "{count, plural, one {# an} other {# ans}}",
+    "duration_months": "{count, plural, one {# mois} other {# mois}}",
+    "contact_name": "Nom",
+    "contact_email": "Email",
+    "contact_message": "Message",
+    "contact_send": "Envoyer",
+    "contact_sending": "Envoi en cours...",
+    "contact_success": "Message envoyé ! Merci de m'avoir contacté.",
+    "contact_error": "Une erreur est survenue. Veuillez réessayer.",
+    "cv_download": "Télécharger le CV",
+    "cv_open": "Ouvrir dans un nouvel onglet"
 }

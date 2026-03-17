@@ -2,6 +2,7 @@ import {getTranslations} from 'next-intl/server';
 import {getSortedItems} from '../../lib/registry';
 import Header from './components/Header';
 import Section from './components/Section';
+import TypingText from './components/TypingText';
 
 export default async function Home({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
@@ -21,7 +22,7 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
       <Header home />
       <header className="flex items-center justify-center h-30 mb-5 bg-fixed bg-center bg-cover custom-img">
         <div className="p-5 h-15 text-2xl text-white rounded-xl">
-          {t('title')}
+          <TypingText text={t('title')} />
         </div>
       </header>
       <section className="text-lg leading-relaxed">
@@ -29,7 +30,7 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
         <p>
           {t.rich('intro1', {
             link: (chunks) => (
-              <a href="https://nextjs.org/learn" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">{chunks}</a>
+              <a href="https://nextjs.org/learn" className="text-blue-600 dark:text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">{chunks}</a>
             ),
           })}
         </p>

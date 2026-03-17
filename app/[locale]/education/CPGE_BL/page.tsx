@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
+import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
   en: {
     title: 'CPGE BL',
+    summary: <p>Preparatory class for the French Grandes Écoles at Notre Dame de la Paix, Lille — literature, philosophy, social sciences, and mathematics.</p>,
     body: (
       <>
         <p>Preparatory class for the French Grandes Écoles in Literature and Social Sciences.</p>
@@ -23,6 +25,7 @@ const content = {
   },
   fr: {
     title: 'CPGE BL',
+    summary: <p>Classe préparatoire aux Grandes Écoles à Notre Dame de la Paix, Lille — lettres, philosophie, sciences sociales et mathématiques.</p>,
     body: (
       <>
         <p>Classe préparatoire aux Grandes Écoles françaises de lettres et de sciences sociales.</p>
@@ -43,6 +46,7 @@ const content = {
   },
   de: {
     title: 'CPGE BL',
+    summary: <p>Vorbereitungsklasse für die Grandes Écoles an Notre Dame de la Paix, Lille — Literatur, Philosophie, Sozialwissenschaften und Mathematik.</p>,
     body: (
       <>
         <p>Vorbereitungsklasse für die französischen Grandes Écoles in Literatur und Sozialwissenschaften.</p>
@@ -63,6 +67,7 @@ const content = {
   },
   es: {
     title: 'CPGE BL',
+    summary: <p>Clase preparatoria para las Grandes Écoles en Notre Dame de la Paix, Lille — literatura, filosofía, ciencias sociales y matemáticas.</p>,
     body: (
       <>
         <p>Clase preparatoria para las Grandes Écoles francesas de Literatura y Ciencias Sociales.</p>
@@ -100,7 +105,9 @@ export default async function CpgeBlPage({params}: {params: Promise<{locale: str
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2014-09-01</div>
-        <div className="prose">{t.body}</div>
+        <ExpandableCard summary={t.summary}>
+          <div className="prose">{t.body}</div>
+        </ExpandableCard>
       </article>
     </>
   );

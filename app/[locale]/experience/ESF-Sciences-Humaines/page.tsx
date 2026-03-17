@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
+import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
   en: {
     title: 'ESF Sciences Humaines',
+    summary: <p>Product Manager at ESF Sciences Humaines (2018-2019) — business strategy, analysis, and digital marketing.</p>,
     body: (
       <>
         <p>Product Manager - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
@@ -17,6 +19,7 @@ const content = {
   },
   fr: {
     title: 'ESF Sciences Humaines',
+    summary: <p>Chef de produit chez ESF Sciences Humaines (2018-2019) — stratégie commerciale, analyse et marketing digital.</p>,
     body: (
       <>
         <p>Chef de produit - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
@@ -31,6 +34,7 @@ const content = {
   },
   de: {
     title: 'ESF Sciences Humaines',
+    summary: <p>Produktmanager bei ESF Sciences Humaines (2018-2019) — Geschäftsstrategie, Analyse und digitales Marketing.</p>,
     body: (
       <>
         <p>Produktmanager - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
@@ -45,6 +49,7 @@ const content = {
   },
   es: {
     title: 'ESF Sciences Humaines',
+    summary: <p>Gerente de producto en ESF Sciences Humaines (2018-2019) — estrategia comercial, análisis y marketing digital.</p>,
     body: (
       <>
         <p>Responsable de producto - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
@@ -76,7 +81,9 @@ export default async function EsfPage({params}: {params: Promise<{locale: string
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2019-09-01</div>
-        <div className="prose">{t.body}</div>
+        <ExpandableCard summary={t.summary}>
+          <div className="prose">{t.body}</div>
+        </ExpandableCard>
       </article>
     </>
   );

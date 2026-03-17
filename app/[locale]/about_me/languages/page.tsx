@@ -1,32 +1,33 @@
 import Header from '../../components/Header';
+import WorldMap from '../../components/WorldMap';
 
 const content = {
   en: {
     title: 'Languages',
-    items: [
-      {lang: 'French', level: 'native'},
-      {lang: 'English', level: 'fluent'},
+    languages: [
+      {name: 'French', level: 'native', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'English', level: 'fluent', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
   fr: {
     title: 'Langues',
-    items: [
-      {lang: 'Français', level: 'natif'},
-      {lang: 'Anglais', level: 'courant'},
+    languages: [
+      {name: 'Français', level: 'natif', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'Anglais', level: 'courant', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
   de: {
     title: 'Sprachen',
-    items: [
-      {lang: 'Französisch', level: 'Muttersprache'},
-      {lang: 'Englisch', level: 'fließend'},
+    languages: [
+      {name: 'Französisch', level: 'Muttersprache', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'Englisch', level: 'fließend', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
   es: {
     title: 'Idiomas',
-    items: [
-      {lang: 'Francés', level: 'nativo'},
-      {lang: 'Inglés', level: 'fluido'},
+    languages: [
+      {name: 'Francés', level: 'nativo', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'Inglés', level: 'fluido', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
 } as const;
@@ -47,14 +48,7 @@ export default async function LanguagesPage({params}: {params: Promise<{locale: 
       <Header />
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="text-gray-500 mb-4">2022-05-12</div>
-        <div className="space-y-2">
-          {t.items.map(({lang, level}) => (
-            <p key={lang}>
-              <strong>{lang}</strong> : {level}
-            </p>
-          ))}
-        </div>
+        <WorldMap languages={[...t.languages]} />
       </article>
     </>
   );

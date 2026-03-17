@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 type Skill = {name: string; level: number; color?: string};
 
@@ -17,21 +17,33 @@ const colors = [
 
 export default function SkillBar({skills}: {skills: Skill[]}) {
   const [animated, setAnimated] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const timer = setTimeout(() => setAnimated(true), 100);
-    return () => clearTimeout(timer);
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAnimated(true);
+          observer.disconnect();
+        }
+      },
+      {threshold: 0.2}
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="space-y-3">
+    <div ref={containerRef} data-testid="skill-bar" className="space-y-3">
       {skills.map((skill, i) => (
         <div key={skill.name}>
           <div className="flex justify-between mb-1">
             <span className="text-sm font-medium">{skill.name}</span>
-            <span className="text-xs text-gray-500">{skill.level}%</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">{skill.level}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
             <div
               className={`h-2.5 rounded-full transition-all duration-1000 ease-out ${skill.color ?? colors[i % colors.length]}`}
               style={{width: animated ? `${skill.level}%` : '0%'}}

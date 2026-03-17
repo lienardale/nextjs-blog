@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
+import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
   en: {
     title: 'Flammarion',
+    summary: <p>Press Relationships Assistant at Flammarion (2015) — database management and media research.</p>,
     body: (
       <>
         <p>Press Relationships Assistant - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - internship</p>
@@ -21,6 +23,7 @@ const content = {
   },
   fr: {
     title: 'Flammarion',
+    summary: <p>Assistant relations presse chez Flammarion (2015) — gestion de bases de données et veille médias.</p>,
     body: (
       <>
         <p>Assistant relations presse - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - stage</p>
@@ -39,6 +42,7 @@ const content = {
   },
   de: {
     title: 'Flammarion',
+    summary: <p>Assistentin für Pressearbeit bei Flammarion (2015) — Datenbankverwaltung und Medienforschung.</p>,
     body: (
       <>
         <p>Assistentin für Pressearbeit - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - Praktikum</p>
@@ -57,6 +61,7 @@ const content = {
   },
   es: {
     title: 'Flammarion',
+    summary: <p>Asistente de relaciones con la prensa en Flammarion (2015) — gestión de bases de datos e investigación de medios.</p>,
     body: (
       <>
         <p>Asistente de relaciones con la prensa - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - prácticas</p>
@@ -92,7 +97,9 @@ export default async function FlammarionPage({params}: {params: Promise<{locale:
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2015-09-01</div>
-        <div className="prose">{t.body}</div>
+        <ExpandableCard summary={t.summary}>
+          <div className="prose">{t.body}</div>
+        </ExpandableCard>
       </article>
     </>
   );

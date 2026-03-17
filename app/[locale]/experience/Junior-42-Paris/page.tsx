@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
+import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
   en: {
     title: 'Junior 42 Paris',
+    summary: <p>Junior company created in 2019 — Business Manager managing a team of 12 Project Leaders and 4 Technical Experts during the Client Qualification phase.</p>,
     body: (
       <>
         <p><a href="https://junior42.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Junior 42 Paris</a> is a junior company created in 2019. A junior company is both a company and a non-profit. This special status enables students to perform missions for clients, and get another sense of the professional world.</p>
@@ -16,6 +18,7 @@ const content = {
   },
   fr: {
     title: 'Junior 42 Paris',
+    summary: <p>Junior entreprise créée en 2019 — Business Manager gérant une équipe de 12 chefs de projets et 4 experts techniques lors de la phase de qualification client.</p>,
     body: (
       <>
         <p><a href="https://junior42.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Junior 42 Paris</a> est une junior entreprise créée en 2019. Une junior entreprise est à la fois une entreprise et une association à but non lucratif. Ce statut particulier permet aux étudiants de réaliser des missions pour des clients, et de se faire une autre idée du monde professionnel.</p>
@@ -29,6 +32,7 @@ const content = {
   },
   de: {
     title: 'Junior 42 Paris',
+    summary: <p>2019 gegründete Juniorfirma — Business Manager eines Teams von 12 Projektleitern und 4 technischen Experten in der Phase der Kundenqualifizierung.</p>,
     body: (
       <>
         <p><a href="https://junior42.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Junior 42 Paris</a> ist eine im Jahr 2019 gegründete Juniorfirma. Eine Juniorfirma ist sowohl ein Unternehmen als auch eine gemeinnützige Einrichtung. Dieser besondere Status ermöglicht es Studenten, Aufträge für Kunden auszuführen und einen anderen Einblick in die Berufswelt zu bekommen.</p>
@@ -42,6 +46,7 @@ const content = {
   },
   es: {
     title: 'Junior 42 Paris',
+    summary: <p>Empresa junior creada en 2019 — Gerente de negocio gestionando un equipo de 12 líderes de proyecto y 4 expertos técnicos durante la fase de calificación del cliente.</p>,
     body: (
       <>
         <p><a href="https://junior42.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Junior 42 Paris</a> es una empresa junior creada en 2019. Una empresa junior es a la vez una empresa y una organización sin ánimo de lucro. Este estatus especial permite a los estudiantes realizar misiones para los clientes, y obtener otro sentido del mundo profesional.</p>
@@ -72,7 +77,9 @@ export default async function Junior42Page({params}: {params: Promise<{locale: s
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2022-05-12</div>
-        <div className="prose">{t.body}</div>
+        <ExpandableCard summary={t.summary}>
+          <div className="prose">{t.body}</div>
+        </ExpandableCard>
       </article>
     </>
   );

@@ -1,5 +1,6 @@
 {
     "metaTitle": "alienard 🇩🇪",
+    "metaDescription": "Alexandre Lienard — Softwareentwickler-Portfolio. Erfahrung, Fähigkeiten, Projekte und Blog.",
     "title": "Willkommen auf meiner Website!",
     "description": "Ich verwende die Next-Translate-Bibliothek, um diese Seite zu übersetzen.",
     "intro": "Softwareentwickler mit einem Hintergrund im Bereich Marketing. Erfahrung in Teamarbeit und Projektkoordination. Ich suche das Unternehmen, das mich zu einem besseren Entwickler macht, die Projekte, zu denen ich beitragen kann, und das Team, mit dem ich wachsen kann.",
@@ -17,5 +18,22 @@
     "error_message": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
     "error_retry": "Erneut versuchen",
     "not_found_title": "Seite nicht gefunden",
-    "not_found_message": "Die gesuchte Seite existiert nicht."
+    "not_found_message": "Die gesuchte Seite existiert nicht.",
+    "reading_time": "{minutes} Min. Lesezeit",
+    "toc": "Inhaltsverzeichnis",
+    "toc_toggle": "Auf dieser Seite",
+    "related_posts": "Verwandte Beiträge",
+    "show_more": "Mehr anzeigen",
+    "show_less": "Weniger anzeigen",
+    "duration_years": "{count, plural, one {# Jahr} other {# Jahre}}",
+    "duration_months": "{count, plural, one {# Monat} other {# Monate}}",
+    "contact_name": "Name",
+    "contact_email": "E-Mail",
+    "contact_message": "Nachricht",
+    "contact_send": "Nachricht senden",
+    "contact_sending": "Wird gesendet...",
+    "contact_success": "Nachricht gesendet! Danke für Ihre Kontaktaufnahme.",
+    "contact_error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "cv_download": "Lebenslauf herunterladen",
+    "cv_open": "In neuem Tab öffnen"
 }

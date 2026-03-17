@@ -1,5 +1,6 @@
 {
     "metaTitle": "alienard 🇺🇸 / 🇬🇧",
+    "metaDescription": "Alexandre Lienard — Software developer portfolio. Experience, skills, projects, and blog.",
     "title": "Welcome to my website!",
     "description": "I'm using the Next-Translate library to translate this page.",
     "intro": "Software developer with a background in marketing. Experience in teamwork & project coordination. Looking for the company that will make me a better developer, the projects I will contribute to & the team I’ll grow with.",
@@ -17,5 +18,22 @@
     "error_message": "An unexpected error occurred. Please try again.",
     "error_retry": "Try again",
     "not_found_title": "Page not found",
-    "not_found_message": "The page you're looking for doesn't exist."
+    "not_found_message": "The page you're looking for doesn't exist.",
+    "reading_time": "{minutes} min read",
+    "toc": "Table of Contents",
+    "toc_toggle": "On this page",
+    "related_posts": "Related Posts",
+    "show_more": "Show more",
+    "show_less": "Show less",
+    "duration_years": "{count, plural, one {# year} other {# years}}",
+    "duration_months": "{count, plural, one {# month} other {# months}}",
+    "contact_name": "Name",
+    "contact_email": "Email",
+    "contact_message": "Message",
+    "contact_send": "Send message",
+    "contact_sending": "Sending...",
+    "contact_success": "Message sent! Thank you for reaching out.",
+    "contact_error": "Something went wrong. Please try again.",
+    "cv_download": "Download CV",
+    "cv_open": "Open in new tab"
 }

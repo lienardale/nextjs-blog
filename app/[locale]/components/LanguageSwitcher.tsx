@@ -23,7 +23,7 @@ export default function LanguageSwitcher() {
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button
         data-dropdown-placement="bottom"
-        className="inline-flex w-full m-1 justify-center rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 bg-opacity-80 px-4 py-2 text-xlg text-blue-900 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+        className="inline-flex w-full m-1 justify-center rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 bg-opacity-80 dark:bg-opacity-80 px-4 py-2 text-xlg text-blue-900 dark:text-blue-300 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
       >
         {t('trad_button')}
         <ChevronDownIcon
@@ -40,13 +40,13 @@ export default function LanguageSwitcher() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <Menu.Items className="absolute right-0 mt-2 origin-top-right divide-y divide-blue-100 dark:divide-gray-700 rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <ul className="list-none p-0 m-0">
             {languages.map(({locale: loc, title}) => (
               <Menu.Item key={loc}>
                 <button
                   onClick={() => router.replace(pathname, {locale: loc})}
-                  className="text-blue-900 group flex w-full items-center rounded-md px-5 py-2 text-sm m-1 hover:bg-blue-500 hover:text-black"
+                  className="text-blue-900 dark:text-blue-300 group flex w-full items-center rounded-md px-5 py-2 text-sm m-1 hover:bg-blue-500 hover:text-black dark:hover:text-white"
                 >
                   {title}
                 </button>

@@ -1,21 +1,26 @@
 import Header from '../../components/Header';
+import ContactForm from '../../components/ContactForm';
 
 const content = {
   en: {
     title: 'My infos',
     intro: 'all you need to know to contact me :',
+    contact_heading: 'Get in touch',
   },
   fr: {
     title: 'Mes infos',
     intro: 'tout ce dont vous avez besoin pour me contacter :',
+    contact_heading: 'Me contacter',
   },
   de: {
     title: 'Meine Infos',
     intro: 'Alles, was Sie wissen müssen, um mich zu kontaktieren:',
+    contact_heading: 'Kontakt aufnehmen',
   },
   es: {
     title: 'Mis informaciones',
     intro: 'todo lo que necesitas saber para contactar conmigo :',
+    contact_heading: 'Contacto',
   },
 } as const;
 
@@ -35,7 +40,6 @@ export default async function InfosPage({params}: {params: Promise<{locale: stri
       <Header />
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="text-gray-500 mb-4">2022-05-12</div>
         <p>{t.intro}</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">
           <li>
@@ -48,6 +52,11 @@ export default async function InfosPage({params}: {params: Promise<{locale: stri
             <a href="https://www.linkedin.com/in/alienard/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </li>
         </ul>
+
+        <h2 className="text-xl font-bold mt-10 mb-4">{t.contact_heading}</h2>
+        <div className="max-w-md">
+          <ContactForm />
+        </div>
       </article>
     </>
   );

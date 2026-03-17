@@ -1,8 +1,10 @@
 import Header from '../../components/Header';
+import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
   en: {
     title: '42 Paris',
+    summary: <p>Software engineering school with peer-to-peer learning, project-based pedagogy, and no traditional teachers or courses. 3 years of coding, algorithms, and system programming.</p>,
     body: (
       <>
         <p>For 3 years, I studied software engineering, software development, software architecture, all in one word: coding.</p>
@@ -24,6 +26,7 @@ const content = {
   },
   fr: {
     title: '42 Paris',
+    summary: <p>École d&apos;ingénierie logicielle avec apprentissage entre pairs, pédagogie par projet, sans professeurs ni cours traditionnels. 3 ans de code, d&apos;algorithmes et de programmation système.</p>,
     body: (
       <>
         <p>Pendant 3 ans, j&apos;ai étudié le génie logiciel, le développement logiciel, l&apos;architecture logicielle, le tout en un mot : coder.</p>
@@ -45,6 +48,7 @@ const content = {
   },
   de: {
     title: '42 Paris',
+    summary: <p>Softwaretechnik-Schule mit Peer-to-Peer-Lernen, projektbasierter Pädagogik und ohne traditionelle Lehrer oder Kurse. 3 Jahre Codierung, Algorithmen und Systemprogrammierung.</p>,
     body: (
       <>
         <p>3 Jahre lang habe ich Software-Engineering, Software-Entwicklung und Software-Architektur studiert, alles in einem Wort: Codierung.</p>
@@ -66,6 +70,7 @@ const content = {
   },
   es: {
     title: '42 Paris',
+    summary: <p>Escuela de ingeniería de software con aprendizaje entre pares, pedagogía basada en proyectos y sin profesores ni cursos tradicionales. 3 años de codificación, algoritmos y programación de sistemas.</p>,
     body: (
       <>
         <p>Durante 3 años, estudié ingeniería de software, desarrollo de software, arquitectura de software, todo en una palabra: codificación.</p>
@@ -104,7 +109,9 @@ export default async function FortyTwoParisPage({params}: {params: Promise<{loca
       <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2022-05-12</div>
-        <div className="prose">{t.body}</div>
+        <ExpandableCard summary={t.summary}>
+          <div className="prose">{t.body}</div>
+        </ExpandableCard>
       </article>
     </>
   );
