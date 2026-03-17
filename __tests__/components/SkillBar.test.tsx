@@ -1,16 +1,30 @@
-import React from 'react';
-import {render, screen, act} from '@testing-library/react';
+import React, {act} from 'react';
+import {render, screen} from '@testing-library/react';
 import SkillBar from '../../app/[locale]/components/SkillBar';
 
+let observerCallback: IntersectionObserverCallback;
+let observerDisconnect: jest.Mock;
+
+beforeEach(() => {
+  observerDisconnect = jest.fn();
+  (global as any).IntersectionObserver = jest.fn((callback) => {
+    observerCallback = callback;
+    return {
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: observerDisconnect,
+    };
+  });
+});
+
+function triggerIntersection() {
+  observerCallback(
+    [{isIntersecting: true} as IntersectionObserverEntry],
+    {} as IntersectionObserver
+  );
+}
+
 describe('SkillBar', () => {
-  beforeEach(() => {
-    jest.useFakeTimers();
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
-  });
-
   const mockSkills = [
     {name: 'JavaScript', level: 90},
     {name: 'TypeScript', level: 85},
@@ -42,25 +56,31 @@ describe('SkillBar', () => {
     });
   });
 
-  it('animates bars to target width after 100ms timeout', () => {
+  it('animates bars to target width after intersection', () => {
     const {container} = render(<SkillBar skills={mockSkills} />);
 
-    // Before timer fires, bars should be at 0%
+    // Before intersection, bars should be at 0%
     const bars = container.querySelectorAll('.h-2\\.5.rounded-full.transition-all');
     bars.forEach((bar) => {
       expect(bar).toHaveStyle({width: '0%'});
     });
 
-    // Advance timer past the 100ms threshold
-    act(() => {
-      jest.advanceTimersByTime(100);
-    });
+    // Trigger intersection
+    act(() => { triggerIntersection(); });
 
-    // After timer, bars should animate to their target widths
+    // After intersection, bars should animate to their target widths
     const updatedBars = container.querySelectorAll('.h-2\\.5.rounded-full.transition-all');
     expect(updatedBars[0]).toHaveStyle({width: '90%'});
     expect(updatedBars[1]).toHaveStyle({width: '85%'});
     expect(updatedBars[2]).toHaveStyle({width: '80%'});
+  });
+
+  it('disconnects observer after intersection', () => {
+    render(<SkillBar skills={mockSkills} />);
+
+    act(() => { triggerIntersection(); });
+
+    expect(observerDisconnect).toHaveBeenCalled();
   });
 
   it('cycles through the 8-color array', () => {
@@ -73,8 +93,8 @@ describe('SkillBar', () => {
       {name: 'Skill 6', level: 60},
       {name: 'Skill 7', level: 70},
       {name: 'Skill 8', level: 80},
-      {name: 'Skill 9', level: 90},  // Should wrap back to first color
-      {name: 'Skill 10', level: 95}, // Should use second color
+      {name: 'Skill 9', level: 90},
+      {name: 'Skill 10', level: 95},
     ];
 
     const expectedColors = [
@@ -86,8 +106,8 @@ describe('SkillBar', () => {
       'bg-cyan-500',
       'bg-pink-500',
       'bg-yellow-500',
-      'bg-blue-500',   // index 8 % 8 = 0
-      'bg-green-500',  // index 9 % 8 = 1
+      'bg-blue-500',
+      'bg-green-500',
     ];
 
     const {container} = render(<SkillBar skills={manySkills} />);
@@ -108,7 +128,6 @@ describe('SkillBar', () => {
 
     const bars = container.querySelectorAll('.h-2\\.5.rounded-full.transition-all');
     expect(bars[0]).toHaveClass('bg-indigo-500');
-    // Second bar should use default colors[1] = bg-green-500
     expect(bars[1]).toHaveClass('bg-green-500');
   });
 
@@ -119,40 +138,24 @@ describe('SkillBar', () => {
     expect(bars).toHaveLength(0);
   });
 
-  it('clears timeout on unmount', () => {
-    const clearTimeoutSpy = jest.spyOn(global, 'clearTimeout');
-
+  it('disconnects observer on unmount', () => {
     const {unmount} = render(<SkillBar skills={mockSkills} />);
     unmount();
 
-    expect(clearTimeoutSpy).toHaveBeenCalled();
-    clearTimeoutSpy.mockRestore();
+    expect(observerDisconnect).toHaveBeenCalled();
   });
 
-  it('bars do not animate before the 100ms timeout', () => {
-    const {container} = render(<SkillBar skills={mockSkills} />);
-
-    act(() => {
-      jest.advanceTimersByTime(50);
-    });
-
-    const bars = container.querySelectorAll('.h-2\\.5.rounded-full.transition-all');
-    bars.forEach((bar) => {
-      expect(bar).toHaveStyle({width: '0%'});
-    });
+  it('has data-testid="skill-bar"', () => {
+    render(<SkillBar skills={mockSkills} />);
+    expect(screen.getByTestId('skill-bar')).toBeInTheDocument();
   });
 
   it('renders the correct structure with labels and bars', () => {
     const {container} = render(<SkillBar skills={[{name: 'Python', level: 70}]} />);
 
-    // Should have the outer space-y-3 container
     expect(container.querySelector('.space-y-3')).toBeInTheDocument();
-
-    // Should have the label area
     expect(screen.getByText('Python')).toBeInTheDocument();
     expect(screen.getByText('70%')).toBeInTheDocument();
-
-    // Should have the bar background
     expect(container.querySelector('.bg-gray-200')).toBeInTheDocument();
   });
 });
