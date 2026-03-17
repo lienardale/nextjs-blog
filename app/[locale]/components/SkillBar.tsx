@@ -29,9 +29,9 @@ export default function SkillBar({skills}: {skills: Skill[]}) {
         <div key={skill.name}>
           <div className="flex justify-between mb-1">
             <span className="text-sm font-medium">{skill.name}</span>
-            <span className="text-xs text-gray-500">{skill.level}%</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400">{skill.level}%</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
             <div
               className={`h-2.5 rounded-full transition-all duration-1000 ease-out ${skill.color ?? colors[i % colors.length]}`}
               style={{width: animated ? `${skill.level}%` : '0%'}}

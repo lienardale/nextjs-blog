@@ -1,27 +1,32 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
+import TiltCard from './TiltCard';
 
 const name = 'Alexandre Lienard';
 
 export default function Header({home}: {home?: boolean}) {
   return (
     <header className="flex flex-col items-center">
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center gap-2">
+        <ThemeToggle />
         <LanguageSwitcher />
       </div>
       {home ? (
-        <>
-          <Image
-            priority
-            src="/images/profile.jpg"
-            className="rounded-full"
-            height={144}
-            width={144}
-            alt={name}
-          />
-          <h1 className="text-4xl font-extrabold tracking-tight my-4">{name}</h1>
-        </>
+        <TiltCard>
+          <div className="flex flex-col items-center">
+            <Image
+              priority
+              src="/images/profile.jpg"
+              className="rounded-full"
+              height={144}
+              width={144}
+              alt={name}
+            />
+            <h1 className="text-4xl font-extrabold tracking-tight my-4">{name}</h1>
+          </div>
+        </TiltCard>
       ) : (
         <>
           <Link href="/">

@@ -40,7 +40,7 @@ function Section({data, title, dir}: {data: SectionItem[]; title: string; dir: s
           <Menu>
             {({open}) => (
               <div>
-                <Menu.Button className="inline-flex m-1 justify-center rounded-md bg-gray-700/80 px-4 py-2 text-xlg text-white hover:bg-gray-700/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+                <Menu.Button className="inline-flex m-1 justify-center rounded-md bg-gray-700/80 dark:bg-gray-600/80 px-4 py-2 text-xlg text-white hover:bg-gray-700/30 dark:hover:bg-gray-500/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
                   {title}
                   <ChevronDownIcon
                     className="ml-2 -mr-1 h-5 w-5 text-gray-200 hover:text-gray-100"
@@ -56,7 +56,7 @@ function Section({data, title, dir}: {data: SectionItem[]; title: string; dir: s
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="relative z-10 mt-2 w-fit divide-y divide-gray-100 rounded-md bg-gray-100 shadow-lg ring-1 ring-gray-700/5 focus:outline-none">
+                  <Menu.Items className="relative z-10 mt-2 w-fit divide-y divide-gray-100 dark:divide-gray-700 rounded-md bg-gray-100 dark:bg-gray-800 shadow-lg ring-1 ring-gray-700/5 dark:ring-gray-600/5 focus:outline-none">
                     <ul className="list-none p-0 m-0">
                       {data.map(({id, date, title: itemTitle}) => (
                         <Menu.Item key={id}>
@@ -64,7 +64,7 @@ function Section({data, title, dir}: {data: SectionItem[]; title: string; dir: s
                             <Link
                               href={`/${dir}/${id}`}
                               className={`${
-                                active ? 'bg-gray-500 text-white' : 'text-gray-900'
+                                active ? 'bg-gray-500 text-white' : 'text-gray-900 dark:text-gray-100'
                               } group flex w-full items-start rounded-md px-2 py-2 text-sm`}
                             >
                               {icon}

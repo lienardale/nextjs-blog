@@ -1,9 +1,12 @@
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {getMessages, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
+import Script from 'next/script';
 import {routing} from '../../lib/i18n/routing';
 import BackToHome from './components/BackToHome';
 import PageTransition from './components/PageTransition';
+import ScrollToTop from './components/ScrollToTop';
+import ThemeProvider from './components/ThemeProvider';
 import '../../styles/globals.css';
 
 type Props = {
@@ -40,15 +43,25 @@ export default async function LocaleLayout({children, params}: Props) {
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body>
+    <html lang={locale} suppressHydrationWarning>
+      <body className="bg-white dark:bg-gray-900 transition-colors duration-200">
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <div className="max-w-xl px-4 mx-auto mt-12 mb-24">
-            <main>
-              <PageTransition>{children}</PageTransition>
-            </main>
-            <BackToHome />
-          </div>
+          <ThemeProvider>
+            <div className="max-w-xl px-4 mx-auto mt-12 mb-24">
+              <main>
+                <PageTransition>{children}</PageTransition>
+              </main>
+              <BackToHome />
+            </div>
+            <ScrollToTop />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

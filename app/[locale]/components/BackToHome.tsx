@@ -16,7 +16,7 @@ export default function BackToHome() {
 
   return (
     <div className="mt-12">
-      <Link href="/" className="hover:text-gray-600">
+      <Link href="/" className="hover:text-gray-600 dark:hover:text-gray-400">
         &larr; {t('back_home')}
       </Link>
     </div>

@@ -23,7 +23,7 @@ export default function Timeline({entries}: {entries: TimelineEntry[]}) {
   }, [entries.length]);
 
   return (
-    <div className="relative pl-8 border-l-2 border-gray-300">
+    <div className="relative pl-8 border-l-2 border-gray-300 dark:border-gray-600">
       {entries.map((entry, i) => (
         <div
           key={i}
@@ -31,10 +31,10 @@ export default function Timeline({entries}: {entries: TimelineEntry[]}) {
             visible[i] ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
           }`}
         >
-          <div className="absolute -left-[2.55rem] top-1 w-4 h-4 rounded-full bg-blue-500 border-2 border-white" />
-          <div className="text-sm text-gray-500 mb-1">{entry.date}</div>
+          <div className="absolute -left-[2.55rem] top-1 w-4 h-4 rounded-full bg-blue-500 border-2 border-white dark:border-gray-900" />
+          <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">{entry.date}</div>
           <h3 className="text-lg font-semibold mb-2">{entry.title}</h3>
-          <div className="text-gray-700">{entry.content}</div>
+          <div className="text-gray-700 dark:text-gray-300">{entry.content}</div>
         </div>
       ))}
     </div>
