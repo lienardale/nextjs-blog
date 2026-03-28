@@ -4,6 +4,7 @@ import React from 'react';
 import {Link} from '../../../lib/i18n/navigation';
 import {useLocale} from 'next-intl';
 import Date from './Date';
+import ParallaxBackground from './ParallaxBackground';
 import {Menu, Transition} from '@headlessui/react';
 import {
   ChevronDownIcon,
@@ -34,7 +35,7 @@ function Section({data, title, dir}: {data: SectionItem[]; title: string; dir: s
   const icon = iconMap[dir] ?? <DocumentIcon className="mr-2 h-5 w-5" aria-hidden="true" />;
 
   return (
-    <section className="flex items-center justify-center mb-5 bg-fixed bg-center bg-cover custom-img">
+    <ParallaxBackground as="section" className="flex items-center justify-center mb-5">
       <div className="p-5 text-2xl text-white rounded-xl">
         <section className="text-lg leading-relaxed pt-px">
           <Menu>
@@ -87,7 +88,7 @@ function Section({data, title, dir}: {data: SectionItem[]; title: string; dir: s
           </Menu>
         </section>
       </div>
-    </section>
+    </ParallaxBackground>
   );
 }
 

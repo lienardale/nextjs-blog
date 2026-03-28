@@ -27,6 +27,13 @@ jest.mock('@heroicons/react/24/solid', () => ({
   EnvelopeIcon: (props: any) => <svg data-testid="icon-envelope" {...props} />,
 }));
 
+// Mock ParallaxBackground — render as the specified tag with className
+jest.mock('../../app/[locale]/components/ParallaxBackground', () => {
+  return function MockParallaxBackground({children, className, as: Tag = 'div'}: any) {
+    return <Tag className={className} data-testid="parallax-bg-wrapper">{children}</Tag>;
+  };
+});
+
 // Mock Date component
 jest.mock('../../app/[locale]/components/Date', () => {
   return function MockDate({dateString}: {dateString: string; locale: string}) {
@@ -166,6 +173,15 @@ describe('Section', () => {
 
     expect(screen.getByText('Only Item')).toBeInTheDocument();
     expect(screen.getByRole('menuitem')).toHaveAttribute('href', '/experience/only');
+  });
+
+  it('uses ParallaxBackground instead of raw bg-fixed for mobile compatibility', () => {
+    render(<Section data={mockData} title="Experience" dir="experience" />);
+    // Section should delegate parallax to the ParallaxBackground component
+    expect(screen.getByTestId('parallax-bg-wrapper')).toBeInTheDocument();
+    // The section should NOT have bg-fixed directly (ParallaxBackground handles it)
+    const wrapper = screen.getByTestId('parallax-bg-wrapper');
+    expect(wrapper.className).not.toContain('bg-fixed');
   });
 
   it('is wrapped in React.memo', () => {
