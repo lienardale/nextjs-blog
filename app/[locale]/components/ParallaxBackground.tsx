@@ -18,7 +18,7 @@ export default function ParallaxBackground({
   children,
   className = '',
   as: Tag = 'div',
-  speed = 0.4,
+  speed = 0,
 }: Props): React.JSX.Element {
   const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
