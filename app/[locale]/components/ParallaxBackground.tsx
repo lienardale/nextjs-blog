@@ -36,8 +36,10 @@ export default function ParallaxBackground({
   }, []);
 
   // Scroll-driven parallax for mobile
-  // Simulates background-attachment:fixed — the background moves slower than
-  // the container so it appears partially anchored to the viewport.
+  // Simulates background-attachment:fixed — the background is pinned to the
+  // viewport so all sections act as windows into one continuous backdrop.
+  // We counteract the container's scroll movement by translating the background
+  // by -rect.top, keeping it viewport-aligned.
   const handleScroll = useCallback(() => {
     if (ticking.current) return;
     ticking.current = true;
@@ -47,9 +49,9 @@ export default function ParallaxBackground({
       const bg = bgRef.current;
       if (container && bg) {
         const rect = container.getBoundingClientRect();
-        // Shift the background opposite to scroll at (1-speed) rate.
-        // speed=0 → fully fixed (like bg-fixed), speed=1 → moves with scroll.
-        const offset = rect.top * (1 - speed);
+        // Pin background to viewport: fully counteract container scroll.
+        // speed controls slight drift: 0 = fully fixed, 1 = no parallax.
+        const offset = -rect.top * (1 - speed);
         bg.style.transform = `translateY(${offset}px)`;
       }
       ticking.current = false;
@@ -89,8 +91,7 @@ export default function ParallaxBackground({
         style={{
           backgroundImage: `url("${PARALLAX_IMAGE_URL}")`,
           height: '100vh',
-          top: '50%',
-          marginTop: '-50vh',
+          top: 0,
           willChange: 'transform',
         }}
       />

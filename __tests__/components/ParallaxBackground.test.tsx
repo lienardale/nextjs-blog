@@ -160,7 +160,7 @@ describe('ParallaxBackground', () => {
       addSpy.mockRestore();
     });
 
-    it('applies transform on scroll', () => {
+    it('applies transform on scroll to pin background to viewport', () => {
       render(
         <ParallaxBackground speed={0.5}>
           <span>Content</span>
@@ -174,8 +174,8 @@ describe('ParallaxBackground', () => {
 
       simulateScroll(500);
 
-      // offset = (-200) * (1 - 0.5) = -100
-      expect(bg.style.transform).toBe('translateY(-100px)');
+      // offset = -(-200) * (1 - 0.5) = 100 — background shifts down to stay viewport-aligned
+      expect(bg.style.transform).toBe('translateY(100px)');
     });
 
     it('renders children above the background layer', () => {
