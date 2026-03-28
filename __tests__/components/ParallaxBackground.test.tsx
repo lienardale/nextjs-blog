@@ -135,7 +135,7 @@ describe('ParallaxBackground', () => {
       expect(el.className).not.toContain('bg-fixed');
     });
 
-    it('renders a positioned background div for parallax', () => {
+    it('renders a viewport-sized background div for parallax', () => {
       render(
         <ParallaxBackground>
           <span>Content</span>
@@ -144,6 +144,7 @@ describe('ParallaxBackground', () => {
       const bg = screen.getByTestId('parallax-bg');
       expect(bg).toBeInTheDocument();
       expect(bg.style.backgroundImage).toContain('unsplash');
+      expect(bg.style.height).toBe('100vh');
       expect(bg.className).toContain('absolute');
     });
 
@@ -173,8 +174,8 @@ describe('ParallaxBackground', () => {
 
       simulateScroll(500);
 
-      // offset = -(-200) * 0.5 = 100
-      expect(bg.style.transform).toBe('translateY(100px)');
+      // offset = (-200) * (1 - 0.5) = -100
+      expect(bg.style.transform).toBe('translateY(-100px)');
     });
 
     it('renders children above the background layer', () => {
@@ -201,13 +202,14 @@ describe('ParallaxBackground', () => {
       removeSpy.mockRestore();
     });
 
-    it('has overflow hidden on the container', () => {
+    it('has overflow hidden and min-height on the container', () => {
       const {container} = render(
         <ParallaxBackground>
           <span>Content</span>
         </ParallaxBackground>
       );
       expect(container.firstElementChild!.className).toContain('overflow-hidden');
+      expect(container.firstElementChild!.className).toContain('min-h-32');
     });
   });
 });

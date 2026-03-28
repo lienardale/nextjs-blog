@@ -36,6 +36,8 @@ export default function ParallaxBackground({
   }, []);
 
   // Scroll-driven parallax for mobile
+  // Simulates background-attachment:fixed — the background moves slower than
+  // the container so it appears partially anchored to the viewport.
   const handleScroll = useCallback(() => {
     if (ticking.current) return;
     ticking.current = true;
@@ -45,7 +47,9 @@ export default function ParallaxBackground({
       const bg = bgRef.current;
       if (container && bg) {
         const rect = container.getBoundingClientRect();
-        const offset = -rect.top * speed;
+        // Shift the background opposite to scroll at (1-speed) rate.
+        // speed=0 → fully fixed (like bg-fixed), speed=1 → moves with scroll.
+        const offset = rect.top * (1 - speed);
         bg.style.transform = `translateY(${offset}px)`;
       }
       ticking.current = false;
@@ -69,20 +73,24 @@ export default function ParallaxBackground({
     );
   }
 
-  // Mobile: JS-driven parallax with positioned background div
+  // Mobile: JS-driven parallax with positioned background div.
+  // The background div is sized to the full viewport height so it always
+  // fills the container (mirroring how bg-fixed covers the viewport),
+  // and min-h-32 ensures tiny sections still show enough background.
   return (
     <Tag
       ref={containerRef as any}
-      className={`${className} relative overflow-hidden`}
+      className={`${className} relative overflow-hidden min-h-32`}
     >
       <div
         ref={bgRef}
         data-testid="parallax-bg"
-        className="absolute inset-0 bg-center bg-cover"
+        className="absolute left-0 right-0 bg-center bg-cover"
         style={{
           backgroundImage: `url("${PARALLAX_IMAGE_URL}")`,
-          height: `${100 + 100 * speed}%`,
-          top: `${-50 * speed}%`,
+          height: '100vh',
+          top: '50%',
+          marginTop: '-50vh',
           willChange: 'transform',
         }}
       />
