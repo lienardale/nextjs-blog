@@ -1,6 +1,7 @@
 import {getTranslations} from 'next-intl/server';
 import {getSortedItems} from '../../lib/registry';
 import Header from './components/Header';
+import ParallaxBackground from './components/ParallaxBackground';
 import Section from './components/Section';
 import TypingText from './components/TypingText';
 
@@ -20,11 +21,11 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
   return (
     <>
       <Header home />
-      <header className="flex items-center justify-center h-30 mb-5 bg-fixed bg-center bg-cover custom-img">
+      <ParallaxBackground as="header" className="flex items-center justify-center h-30 mb-5">
         <div className="p-5 h-15 text-2xl text-white rounded-xl">
           <TypingText text={t('title')} />
         </div>
-      </header>
+      </ParallaxBackground>
       <section className="text-lg leading-relaxed">
         <p>{t('intro')}</p>
         <p>
