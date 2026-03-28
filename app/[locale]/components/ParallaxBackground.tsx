@@ -63,7 +63,17 @@ export default function ParallaxBackground({
 
     window.addEventListener('scroll', handleScroll, {passive: true});
     handleScroll(); // initial position
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    // Also recalculate when content resizes (e.g. dropdown expands in a
+    // sibling section, pushing this one down). Observing document.body
+    // catches any layout shift on the page.
+    const observer = new ResizeObserver(handleScroll);
+    observer.observe(document.body);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, [isMobile, handleScroll]);
 
   // Desktop: pure CSS parallax via bg-fixed

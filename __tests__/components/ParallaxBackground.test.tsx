@@ -2,6 +2,20 @@ import React from 'react';
 import {render, screen, act} from '@testing-library/react';
 import ParallaxBackground from '../../app/[locale]/components/ParallaxBackground';
 
+// Mock ResizeObserver
+const mockDisconnect = jest.fn();
+const mockObserve = jest.fn();
+let resizeCallback: ResizeObserverCallback;
+class MockResizeObserver {
+  constructor(cb: ResizeObserverCallback) {
+    resizeCallback = cb;
+  }
+  observe = mockObserve;
+  unobserve = jest.fn();
+  disconnect = mockDisconnect;
+}
+(global as any).ResizeObserver = MockResizeObserver;
+
 // Helper: mock window.matchMedia
 function mockMatchMedia(matches: boolean) {
   const listeners: Array<(e: MediaQueryListEvent) => void> = [];
@@ -190,7 +204,36 @@ describe('ParallaxBackground', () => {
       expect(contentDiv).not.toBeNull();
     });
 
-    it('cleans up scroll listener on unmount', () => {
+    it('observes body resize to handle layout shifts from sibling sections', () => {
+      mockObserve.mockClear();
+      render(
+        <ParallaxBackground>
+          <span>Content</span>
+        </ParallaxBackground>
+      );
+      expect(mockObserve).toHaveBeenCalledWith(document.body);
+    });
+
+    it('recalculates background position on body resize', () => {
+      render(
+        <ParallaxBackground>
+          <span>Content</span>
+        </ParallaxBackground>
+      );
+      const bg = screen.getByTestId('parallax-bg');
+      const container = bg.parentElement!;
+      container.getBoundingClientRect = jest.fn().mockReturnValue({top: -300});
+
+      // Simulate a resize (e.g. sibling dropdown expanded)
+      act(() => {
+        resizeCallback([] as any, {} as any);
+      });
+
+      expect(bg.style.transform).toBe('translateY(300px)');
+    });
+
+    it('cleans up scroll listener and ResizeObserver on unmount', () => {
+      mockDisconnect.mockClear();
       const removeSpy = jest.spyOn(window, 'removeEventListener');
       const {unmount} = render(
         <ParallaxBackground>
@@ -199,6 +242,7 @@ describe('ParallaxBackground', () => {
       );
       unmount();
       expect(removeSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
+      expect(mockDisconnect).toHaveBeenCalled();
       removeSpy.mockRestore();
     });
 
