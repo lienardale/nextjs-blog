@@ -1,60 +1,57 @@
 import {getTranslations} from 'next-intl/server';
-import {getSortedItems} from '../../../lib/registry';
-import Header from '../components/Header';
-import Timeline from '../components/Timeline';
-import DurationBars from '../components/DurationBars';
+import {Link} from '../../../lib/i18n/navigation';
+import SiteFooter from '../components/SiteFooter';
 
-const summaries: Record<string, Record<string, string>> = {
-  '42-Paris': {
-    en: 'Software engineering school — peer-to-peer learning, C, algorithms, and system programming.',
-    fr: 'École d\'ingénierie logicielle — apprentissage par les pairs, C, algorithmes et programmation système.',
-    de: 'Softwaretechnik-Schule — Peer-to-Peer-Lernen, C, Algorithmen und Systemprogrammierung.',
-    es: 'Escuela de ingeniería de software — aprendizaje entre pares, C, algoritmos y programación de sistemas.',
-  },
-  'IAE-Lille': {
-    en: 'Masters in International Marketing & Communication — business strategy and digital marketing.',
-    fr: 'Master en Marketing International & Communication — stratégie commerciale et marketing digital.',
-    de: 'Master in Internationalem Marketing & Kommunikation — Geschäftsstrategie und digitales Marketing.',
-    es: 'Máster en Marketing Internacional y Comunicación — estrategia comercial y marketing digital.',
-  },
-  'CPGE_BL': {
-    en: 'Preparatory class for Grandes Écoles — literature, philosophy, social sciences, and mathematics.',
-    fr: 'Classe préparatoire aux Grandes Écoles — lettres, philosophie, sciences sociales et mathématiques.',
-    de: 'Vorbereitungsklasse für Grandes Écoles — Literatur, Philosophie, Sozialwissenschaften und Mathematik.',
-    es: 'Clase preparatoria para Grandes Écoles — literatura, filosofía, ciencias sociales y matemáticas.',
-  },
-};
+const schools = [
+  {id: '42-Paris', yearsKey: 'education.years_01', titleKey: 'education.title_01', bodyKey: 'education.body_01', metaKey: 'education.meta_01'},
+  {id: 'IAE-Lille', yearsKey: 'education.years_02', titleKey: 'education.title_02', bodyKey: 'education.body_02', metaKey: 'education.meta_02'},
+  {id: 'CPGE_BL', yearsKey: 'education.years_03', titleKey: 'education.title_03', bodyKey: 'education.body_03', metaKey: 'education.meta_03'},
+];
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale});
-  return {title: t('categ1')};
+  return {title: t('education.title_meta')};
 }
 
-export default async function EducationOverviewPage({params}: {params: Promise<{locale: string}>}) {
+export default async function EducationPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale});
-  const items = getSortedItems('education', locale);
-
-  const entries = items.map((item) => ({
-    date: item.date,
-    title: item.title,
-    content: <p>{summaries[item.id]?.[locale] ?? summaries[item.id]?.en ?? ''}</p>,
-    href: `/education/${item.id}`,
-  }));
 
   return (
-    <>
-      <Header />
-      <h1 className="text-3xl font-extrabold tracking-tight my-4">{t('categ1')}</h1>
-      <Timeline entries={entries} />
-      <h2 className="text-xl font-bold mt-10 mb-4">{t('categ1')}</h2>
-      <DurationBars
-        items={items
-          .filter((item) => item.startDate && item.endDate)
-          .map((item) => ({title: item.title, startDate: item.startDate!, endDate: item.endDate!}))}
-        color="green"
-      />
-    </>
+    <div className="section-page narrow">
+      <div className="crumbs">
+        <Link href="/">{t('nav.index')}</Link> / <span>{t('nav.education')}</span>
+      </div>
+      <div className="section-head">
+        <div>
+          <span className="kind">{t('education.eyebrow')}</span>
+          <h1 data-reveal dangerouslySetInnerHTML={{__html: t.raw('education.title') as string}} />
+        </div>
+        <div className="kind">{t('education.summary')}</div>
+      </div>
+
+      <div className="edu-list">
+        {schools.map((s, i) => (
+          <Link
+            key={s.id}
+            href={`/education/${s.id}`}
+            className="edu-row"
+            data-reveal
+            data-cursor="open"
+            style={{['--d' as string]: i} as React.CSSProperties}
+          >
+            <div className="yr">{t(s.yearsKey)}</div>
+            <div>
+              <h3 dangerouslySetInnerHTML={{__html: t.raw(s.titleKey) as string}} />
+              <p>{t(s.bodyKey)}</p>
+              <div className="meta">{t(s.metaKey)}</div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <SiteFooter rightLabel="02 / Education" />
+    </div>
   );
 }

@@ -1,7 +1,5 @@
-import Header from '../../components/Header';
 import CodeBlock from '../../components/CodeBlock';
-import ReadingTime from '../../components/ReadingTime';
-import TableOfContents from '../../components/TableOfContents';
+import PostDetail from '../../components/PostDetail';
 import RelatedPosts from '../../components/RelatedPosts';
 
 const layoutCode = `// app/[locale]/layout.tsx
@@ -168,17 +166,16 @@ export default async function BuildingModernBlogPage({params}: {params: Promise<
 
   return (
     <>
-      <Header />
-      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="flex items-center gap-3 text-gray-500 mb-6">
-          <span>2026-03-15</span>
-          <ReadingTime minutes={t.readingTime} />
-        </div>
-        <TableOfContents />
-        <div className="prose">{t.body}</div>
-      </article>
-      <RelatedPosts postId="building-modern-blog" locale={locale} />
+      <PostDetail
+        postIndex="01"
+        title={t.title}
+        date="2026-03-15"
+        readingMinutes={t.readingTime}
+        body={t.body}
+      />
+      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
+        <RelatedPosts postId="building-modern-blog" locale={locale} />
+      </div>
     </>
   );
 }

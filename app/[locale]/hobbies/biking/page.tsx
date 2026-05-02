@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import TripSummary from '../../components/TripSummary';
 import TripCard from '../../components/TripCard';
 
@@ -133,9 +132,7 @@ export default async function BikingPage({params}: {params: Promise<{locale: str
   const t = labels[locale as Locale] ?? labels.en;
 
   return (
-    <>
-      <Header />
-      <article>
+    <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
 
         <TripSummary

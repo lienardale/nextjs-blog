@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import ExpandableCard from '../../components/ExpandableCard';
 
 const content = {
@@ -72,9 +71,7 @@ export default async function Junior42Page({params}: {params: Promise<{locale: s
   const t = content[locale as Locale] ?? content.en;
 
   return (
-    <>
-      <Header />
-      <article>
+    <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <div className="text-gray-500 mb-4">2022-05-12</div>
         <ExpandableCard summary={t.summary}>

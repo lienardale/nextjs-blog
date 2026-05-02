@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import CVPreview from '../../components/CVPreview';
 
 const CV_URL = 'https://lienardale.github.io/markdown-cv/';
@@ -19,9 +18,7 @@ export default async function CVPage({params}: {params: Promise<{locale: string}
   const {locale} = await params;
 
   return (
-    <>
-      <Header />
-      <article>
+    <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">
           {pageTitle[locale] ?? pageTitle.en}
         </h1>

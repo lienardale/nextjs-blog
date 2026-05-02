@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import FlipCard from '../../components/FlipCard';
 
 const skills = [
@@ -106,9 +105,7 @@ export default async function SoftSkillsPage({params}: {params: Promise<{locale:
   const {locale} = await params;
 
   return (
-    <>
-      <Header />
-      <article>
+    <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">
           {pageTitle[locale] ?? pageTitle.en}
         </h1>

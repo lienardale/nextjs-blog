@@ -1,66 +1,99 @@
 import {getTranslations} from 'next-intl/server';
-import {getSortedItems} from '../../../lib/registry';
-import Header from '../components/Header';
-import Timeline from '../components/Timeline';
-import DurationBars from '../components/DurationBars';
+import {Link} from '../../../lib/i18n/navigation';
+import SiteFooter from '../components/SiteFooter';
 
-const summaries: Record<string, Record<string, string>> = {
-  'Junior-42-Paris': {
-    en: 'Business Manager — managing a team of 12 Project Leaders and 4 Technical Experts.',
-    fr: 'Business Manager — gestion d\'une équipe de 12 chefs de projets et 4 experts techniques.',
-    de: 'Business Manager — Leitung eines Teams von 12 Projektleitern und 4 technischen Experten.',
-    es: 'Gerente de negocio — gestión de un equipo de 12 líderes de proyecto y 4 expertos técnicos.',
-  },
-  'ESF-Sciences-Humaines': {
-    en: 'Product Manager — business strategy, analysis, and digital marketing.',
-    fr: 'Chef de produit — stratégie commerciale, analyse et marketing digital.',
-    de: 'Produktmanager — Geschäftsstrategie, Analyse und digitales Marketing.',
-    es: 'Gerente de producto — estrategia comercial, análisis y marketing digital.',
-  },
-  'Editions-Denoel': {
-    en: 'Marketing Assistant — brand identity, sales promotion, and business analysis.',
-    fr: 'Assistant marketing — identité de marque, promotion des ventes et analyse commerciale.',
-    de: 'Marketing-Assistent — Markenidentität, Verkaufsförderung und Geschäftsanalyse.',
-    es: 'Asistente de marketing — identidad de marca, promoción de ventas y análisis comercial.',
-  },
-  'Flammarion': {
-    en: 'Press Relationships Assistant — database management and media research.',
-    fr: 'Assistant relations presse — gestion de bases de données et veille médias.',
-    de: 'Assistentin für Pressearbeit — Datenbankverwaltung und Medienforschung.',
-    es: 'Asistente de relaciones con la prensa — gestión de bases de datos e investigación de medios.',
-  },
+type Role = {
+  id: string;
+  idx: string;
+  roleKey: string;
+  companyKey: string;
+  yearsKey: string;
+  durationKey: string;
 };
+
+const roles: Role[] = [
+  {id: 'Junior-42-Paris', idx: '01', roleKey: 'experience.role_01', companyKey: 'experience.company_01', yearsKey: 'experience.years_01', durationKey: 'experience.duration_01'},
+  {id: 'ESF-Sciences-Humaines', idx: '02', roleKey: 'experience.role_02', companyKey: 'experience.company_02', yearsKey: 'experience.years_02', durationKey: 'experience.duration_02'},
+  {id: 'Editions-Denoel', idx: '03', roleKey: 'experience.role_03', companyKey: 'experience.company_03', yearsKey: 'experience.years_03', durationKey: 'experience.duration_03'},
+  {id: 'Flammarion', idx: '04', roleKey: 'experience.role_04', companyKey: 'experience.company_04', yearsKey: 'experience.years_04', durationKey: 'experience.duration_04'},
+];
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale});
-  return {title: t('categ0')};
+  return {title: t('experience.title_meta')};
 }
 
-export default async function ExperienceOverviewPage({params}: {params: Promise<{locale: string}>}) {
+export default async function ExperiencePage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale});
-  const items = getSortedItems('experience', locale);
-
-  const entries = items.map((item) => ({
-    date: item.date,
-    title: item.title,
-    content: <p>{summaries[item.id]?.[locale] ?? summaries[item.id]?.en ?? ''}</p>,
-    href: `/experience/${item.id}`,
-  }));
 
   return (
     <>
-      <Header />
-      <h1 className="text-3xl font-extrabold tracking-tight my-4">{t('categ0')}</h1>
-      <Timeline entries={entries} />
-      <h2 className="text-xl font-bold mt-10 mb-4">{t('categ0')}</h2>
-      <DurationBars
-        items={items
-          .filter((item) => item.startDate && item.endDate)
-          .map((item) => ({title: item.title, startDate: item.startDate!, endDate: item.endDate!}))}
-        color="blue"
-      />
+      <div className="section-page">
+        <div className="crumbs">
+          <Link href="/">{t('nav.index')}</Link> / <span>{t('nav.experience')}</span>
+        </div>
+        <div className="section-head">
+          <div>
+            <span className="kind">{t('experience.eyebrow')}</span>
+            <h1 data-reveal dangerouslySetInnerHTML={{__html: t.raw('experience.title') as string}} />
+          </div>
+          <div className="kind">{t('experience.summary')}</div>
+        </div>
+
+        <div className="tech-bar" data-reveal>
+          <div className="cell">
+            <b>{t('experience.tech_latest')}</b>
+            <span><span className="dot-live" />{t('experience.tech_latest_v')}</span>
+          </div>
+          <div className="cell">
+            <b>{t('experience.tech_track')}</b>
+            <span>{t('experience.tech_track_v')}</span>
+          </div>
+          <div className="cell">
+            <b>{t('experience.tech_years')}</b>
+            <span>{t('experience.tech_years_v')}</span>
+          </div>
+          <div className="cell">
+            <b>{t('experience.tech_cities')}</b>
+            <span>{t('experience.tech_cities_v')}</span>
+          </div>
+        </div>
+
+        <div className="exp-list">
+          {roles.map((r, i) => (
+            <Link
+              key={r.id}
+              href={`/experience/${r.id}`}
+              className="exp-row"
+              data-reveal
+              data-cursor="open"
+              style={{['--d' as string]: i} as React.CSSProperties}
+            >
+              <span className="idx">{r.idx}</span>
+              <div>
+                <div
+                  className="role"
+                  dangerouslySetInnerHTML={{__html: t.raw(r.roleKey) as string}}
+                />
+              </div>
+              <div
+                className="company"
+                dangerouslySetInnerHTML={{__html: t.raw(r.companyKey) as string}}
+              />
+              <div className="years">
+                {t(r.yearsKey)}
+                <br />
+                <span style={{color: 'var(--ink-muted)'}}>{t(r.durationKey)}</span>
+              </div>
+              <div className="arrow">→</div>
+            </Link>
+          ))}
+        </div>
+
+        <SiteFooter rightLabel="01 / Experience" />
+      </div>
     </>
   );
 }

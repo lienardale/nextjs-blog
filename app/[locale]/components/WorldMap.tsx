@@ -9,7 +9,6 @@ import {
   Graticule,
   createCoordinates,
 } from '@vnedyalk0v/react19-simple-maps';
-import {useTheme} from './ThemeProvider';
 import geoData from '../../../lib/countries-110m.json';
 
 type Language = {
@@ -42,10 +41,7 @@ const NUMERIC_TO_SLUG: Record<string, string> = Object.fromEntries(
   Object.entries(COUNTRY_MAP).map(([slug, {numericId}]) => [numericId, slug]),
 );
 
-const COLORS = {
-  light: {ocean: '#eff6ff', land: '#e5e7eb', border: '#d1d5db', graticule: '#e5e7eb'},
-  dark: {ocean: '#1f2937', land: '#374151', border: '#4b5563', graticule: '#374151'},
-};
+const COLORS = {ocean: '#ece7dc', land: '#e5dfd0', border: '#cdc5b3', graticule: '#cdc5b3'};
 
 function getCountryLanguages(slug: string, languages: Language[]): Language[] {
   return languages.filter((lang) => lang.countries.includes(slug));
@@ -53,8 +49,7 @@ function getCountryLanguages(slug: string, languages: Language[]): Language[] {
 
 export default function WorldMap({languages}: Props) {
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
-  const {theme} = useTheme();
-  const colors = COLORS[theme];
+  const colors = COLORS;
 
   const hoveredLangs = hoveredCountry ? getCountryLanguages(hoveredCountry, languages) : [];
 
