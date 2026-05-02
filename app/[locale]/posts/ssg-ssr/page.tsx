@@ -1,7 +1,5 @@
-import Header from '../../components/Header';
 import CodeBlock from '../../components/CodeBlock';
-import ReadingTime from '../../components/ReadingTime';
-import TableOfContents from '../../components/TableOfContents';
+import PostDetail from '../../components/PostDetail';
 import RelatedPosts from '../../components/RelatedPosts';
 
 const hybridCode = `// Static page (default)
@@ -116,17 +114,16 @@ export default async function SsgSsrPage({params}: {params: Promise<{locale: str
 
   return (
     <>
-      <Header />
-      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="flex items-center gap-3 text-gray-500 mb-6">
-          <span>2020-01-02</span>
-          <ReadingTime minutes={t.readingTime} />
-        </div>
-        <TableOfContents />
-        <div className="prose">{t.body}</div>
-      </article>
-      <RelatedPosts postId="ssg-ssr" locale={locale} />
+      <PostDetail
+        postIndex="04"
+        title={t.title}
+        date="2020-01-02"
+        readingMinutes={t.readingTime}
+        body={t.body}
+      />
+      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
+        <RelatedPosts postId="ssg-ssr" locale={locale} />
+      </div>
     </>
   );
 }

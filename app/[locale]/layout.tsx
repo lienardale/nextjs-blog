@@ -1,15 +1,34 @@
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {getMessages, getTranslations} from 'next-intl/server';
 import {notFound} from 'next/navigation';
-import Script from 'next/script';
 import {Suspense} from 'react';
+import {Instrument_Serif, Inter_Tight, JetBrains_Mono} from 'next/font/google';
 import {routing} from '../../lib/i18n/routing';
-import BackToHome from './components/BackToHome';
-import PageTransition from './components/PageTransition';
+import CursorFollower from './components/CursorFollower';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import ScrollToTop from './components/ScrollToTop';
-import ThemeProvider from './components/ThemeProvider';
+import TopBar from './components/TopBar';
 import '../../styles/globals.css';
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-instrument-serif',
+  display: 'swap',
+});
+const interTight = Inter_Tight({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-inter-tight',
+  display: 'swap',
+});
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-jetbrains-mono',
+  display: 'swap',
+});
 
 type Props = {
   children: React.ReactNode;
@@ -53,36 +72,25 @@ export default async function LocaleLayout({children, params}: Props) {
   }
 
   const messages = await getMessages();
+  const fontVars = `${instrumentSerif.variable} ${interTight.variable} ${jetbrainsMono.variable}`;
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <body className="bg-white dark:bg-gray-900 transition-colors duration-200">
+    <html lang={locale} data-palette="a" className={fontVars} suppressHydrationWarning>
+      <body>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded"
         >
           Skip to content
         </a>
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
-          }}
-        />
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider>
-            <ScrollProgressBar />
-            <div className="max-w-2xl px-4 mx-auto mt-12 mb-24">
-              <main id="main-content">
-                <Suspense>
-                  <PageTransition>{children}</PageTransition>
-                </Suspense>
-              </main>
-              <BackToHome />
-            </div>
-            <ScrollToTop />
-          </ThemeProvider>
+          <ScrollProgressBar />
+          <CursorFollower />
+          <TopBar />
+          <main id="main-content" className="page-shell">
+            <Suspense>{children}</Suspense>
+          </main>
+          <ScrollToTop />
         </NextIntlClientProvider>
       </body>
     </html>

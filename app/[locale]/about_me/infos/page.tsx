@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import ContactForm from '../../components/ContactForm';
 
 const content = {
@@ -36,9 +35,7 @@ export default async function InfosPage({params}: {params: Promise<{locale: stri
   const t = content[locale as Locale] ?? content.en;
 
   return (
-    <>
-      <Header />
-      <article>
+    <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <p>{t.intro}</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">

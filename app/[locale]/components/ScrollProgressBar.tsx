@@ -1,31 +1,22 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect, useRef} from 'react';
 
 export default function ScrollProgressBar() {
-  const [progress, setProgress] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
     const onScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        setProgress(Math.min(100, (window.scrollY / scrollHeight) * 100));
-      }
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      el.style.setProperty('--p', `${pct}%`);
     };
     window.addEventListener('scroll', onScroll, {passive: true});
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  if (progress === 0) return null;
-
-  return (
-    <div
-      className="fixed top-0 left-0 z-50 h-1 bg-blue-600 dark:bg-blue-400 transition-[width] duration-150"
-      style={{width: `${progress}%`}}
-      role="progressbar"
-      aria-valuenow={Math.round(progress)}
-      aria-valuemin={0}
-      aria-valuemax={100}
-    />
-  );
+  return <div ref={ref} className="scroll-progress" aria-hidden />;
 }

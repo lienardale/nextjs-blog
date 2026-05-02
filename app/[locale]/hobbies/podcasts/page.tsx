@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 
 const content = {
   en: {
@@ -69,9 +68,7 @@ export default async function PodcastsPage({params}: {params: Promise<{locale: s
   const t = content[locale as Locale] ?? content.en;
 
   return (
-    <>
-      <Header />
-      <article>
+    <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
         <p className="text-gray-600 dark:text-gray-400 mb-6">{t.intro}</p>
 

@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import ProjectCard from '../../components/ProjectCard';
 import TiltCard from '../../components/TiltCard';
 
@@ -100,9 +99,7 @@ export default async function ProjectsPage({params}: {params: Promise<{locale: s
   const {locale} = await params;
 
   return (
-    <>
-      <Header />
-      <article>
+    <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">
           {pageTitle[locale] ?? pageTitle.en}
         </h1>
