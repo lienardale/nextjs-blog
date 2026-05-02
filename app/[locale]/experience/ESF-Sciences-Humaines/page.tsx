@@ -1,4 +1,5 @@
-import ExpandableCard from '../../components/ExpandableCard';
+import {getTranslations} from 'next-intl/server';
+import DetailPage from '../../components/DetailPage';
 
 const content = {
   en: {
@@ -74,14 +75,18 @@ export default async function EsfPage({params}: {params: Promise<{locale: string
   const {locale} = await params;
   const t = content[locale as Locale] ?? content.en;
 
+  const tr = await getTranslations({locale});
   return (
-    <>      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="text-gray-500 mb-4">2019-09-01</div>
-        <ExpandableCard summary={t.summary}>
-          <div className="prose">{t.body}</div>
-        </ExpandableCard>
-      </article>
-    </>
+    <DetailPage
+      section="experience"
+      sectionLabel={tr('nav.experience')}
+      indexLabel={tr('nav.index')}
+      eyebrow="// 2018 → 2019 · Paris"
+      title={`${t.title}<em>.</em>`}
+      meta="02 / Experience"
+      summary={t.summary}
+      body={t.body}
+      footerLabel="02 / Experience"
+    />
   );
 }

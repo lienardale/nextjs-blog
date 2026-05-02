@@ -1,4 +1,5 @@
-import ExpandableCard from '../../components/ExpandableCard';
+import {getTranslations} from 'next-intl/server';
+import DetailPage from '../../components/DetailPage';
 
 const content = {
   en: {
@@ -146,14 +147,18 @@ export default async function IaeLillePage({params}: {params: Promise<{locale: s
   const {locale} = await params;
   const t = content[locale as Locale] ?? content.en;
 
+  const tr = await getTranslations({locale});
   return (
-    <>      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="text-gray-500 mb-4">2017-09-01</div>
-        <ExpandableCard summary={t.summary}>
-          <div className="prose">{t.body}</div>
-        </ExpandableCard>
-      </article>
-    </>
+    <DetailPage
+      section="education"
+      sectionLabel={tr('nav.education')}
+      indexLabel={tr('nav.index')}
+      eyebrow="// 2014 → 2017 · Lille"
+      title={`${t.title}<em>.</em>`}
+      meta="02 / Education"
+      summary={t.summary}
+      body={t.body}
+      footerLabel="02 / Education"
+    />
   );
 }
