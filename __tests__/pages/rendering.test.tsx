@@ -15,22 +15,38 @@ import {render, screen} from '@testing-library/react';
 
 const enMessages = require('../../locales/en/common.json');
 
+// Resolve nested keys like "home.title" against the locale messages object.
+function resolveKey(key: string): string {
+  const parts = key.split('.');
+  let cursor: unknown = enMessages;
+  for (const part of parts) {
+    if (cursor && typeof cursor === 'object' && part in (cursor as Record<string, unknown>)) {
+      cursor = (cursor as Record<string, unknown>)[part];
+    } else {
+      return key;
+    }
+  }
+  return typeof cursor === 'string' ? cursor : key;
+}
+
+function makeT() {
+  const t = (key: string) => resolveKey(key);
+  return Object.assign(t, {
+    raw: (key: string) => resolveKey(key),
+    rich: (key: string) => resolveKey(key),
+  });
+}
+
 // next-intl server (used by async page components)
 jest.mock('next-intl/server', () => ({
-  getTranslations: () =>
-    Promise.resolve(
-      Object.assign(
-        (key: string) => enMessages[key] ?? key,
-        {rich: (key: string) => enMessages[key] ?? key},
-      ),
-    ),
+  getTranslations: () => Promise.resolve(makeT()),
   getMessages: () => Promise.resolve(enMessages),
 }));
 
 // next-intl client (used by 'use client' components)
 jest.mock('next-intl', () => ({
   NextIntlClientProvider: ({children}: {children: React.ReactNode}) => <>{children}</>,
-  useTranslations: () => (key: string) => enMessages[key] ?? key,
+  useTranslations: () => makeT(),
   useLocale: () => 'en',
   hasLocale: (_locales: string[], locale: string) =>
     ['en', 'fr', 'de', 'es'].includes(locale),
@@ -92,28 +108,49 @@ const params = Promise.resolve({locale: 'en'});
 // ---------------------------------------------------------------------------
 
 describe('Experience overview page', () => {
-  it('renders heading and all timeline entries', async () => {
+  it('renders the editorial heading and all role rows', async () => {
     const Page = (await import('../../app/[locale]/experience/page')).default;
-    render(await Page({params}));
+    const {container} = render(await Page({params}));
 
-    // h1 and h2 both show "Experience" — use getAllByText
-    expect(screen.getAllByText('Experience').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Junior 42 Paris').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('ESF Sciences Humaines').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Editions Denoël').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Flammarion').length).toBeGreaterThanOrEqual(1);
+    // Section eyebrow + display heading
+    expect(screen.getByText('// 01 · technical mode')).toBeInTheDocument();
+    expect(container.querySelector('.section-head h1')?.textContent).toContain("Where I've");
+
+    // Tech bar metrics
+    expect(screen.getByText('Latest')).toBeInTheDocument();
+    expect(screen.getByText('Track')).toBeInTheDocument();
+
+    // 4 indexed exp-rows linking to the per-company detail pages
+    const rows = container.querySelectorAll('a.exp-row');
+    expect(rows.length).toBe(4);
+    const hrefs = Array.from(rows).map((r) => r.getAttribute('href'));
+    expect(hrefs).toEqual(
+      expect.arrayContaining([
+        '/experience/Junior-42-Paris',
+        '/experience/ESF-Sciences-Humaines',
+        '/experience/Editions-Denoel',
+        '/experience/Flammarion',
+      ]),
+    );
   });
 });
 
 describe('Education overview page', () => {
-  it('renders heading and all timeline entries', async () => {
+  it('renders the editorial heading and all school rows', async () => {
     const Page = (await import('../../app/[locale]/education/page')).default;
-    render(await Page({params}));
+    const {container} = render(await Page({params}));
 
-    // h1 and h2 both show "Education" — use getAllByText
-    expect(screen.getAllByText('Education').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('42 Paris').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('IAE Lille').length).toBeGreaterThanOrEqual(1);
+    // Section eyebrow + display heading
+    expect(screen.getByText('// 02 · editorial mode')).toBeInTheDocument();
+    expect(container.querySelector('.section-head h1')?.textContent).toContain('How I');
+
+    // 3 edu-rows linking to per-school detail pages
+    const rows = container.querySelectorAll('a.edu-row');
+    expect(rows.length).toBe(3);
+    const hrefs = Array.from(rows).map((r) => r.getAttribute('href'));
+    expect(hrefs).toEqual(
+      expect.arrayContaining(['/education/42-Paris', '/education/IAE-Lille', '/education/CPGE_BL']),
+    );
   });
 });
 
