@@ -1,24 +1,26 @@
 export default function Loading() {
   return (
-    <div className="animate-pulse">
-      {/* Header skeleton */}
-      <div className="flex flex-col items-center mb-6">
-        <div className="w-[144px] h-[144px] rounded-full bg-gray-200 dark:bg-gray-700 mb-4" />
-        <div className="h-6 w-48 bg-gray-200 dark:bg-gray-700 rounded mb-2" />
-        <div className="h-4 w-32 bg-gray-200 dark:bg-gray-700 rounded" />
+    <div className="section-page" aria-busy="true" aria-label="Loading">
+      <div className="skeleton-crumbs">
+        <span className="sk sk-text" style={{width: 80}} />
       </div>
-      {/* Banner skeleton */}
-      <div className="h-30 mb-5 bg-gray-200 dark:bg-gray-700 rounded" />
-      {/* Text skeleton */}
-      <div className="space-y-3 mb-8">
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full" />
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6" />
-        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-4/6" />
+      <div className="section-head">
+        <div>
+          <span className="sk sk-text" style={{width: 140, height: 11}} />
+          <span className="sk sk-display" />
+        </div>
+        <span className="sk sk-text" style={{width: 200}} />
       </div>
-      {/* Section skeletons */}
-      {[...Array(6)].map((_, i) => (
-        <div key={i} className="h-12 bg-gray-200 dark:bg-gray-700 rounded mb-5" />
-      ))}
+      <div className="skeleton-rows">
+        {Array.from({length: 4}).map((_, i) => (
+          <div key={i} className="skeleton-row">
+            <span className="sk sk-text" style={{width: 32}} />
+            <span className="sk sk-display" style={{height: 38}} />
+            <span className="sk sk-text" style={{width: 120}} />
+            <span className="sk sk-arrow" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

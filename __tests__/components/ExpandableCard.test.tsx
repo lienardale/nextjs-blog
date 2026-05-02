@@ -68,30 +68,30 @@ describe('ExpandableCard', () => {
     expect(screen.getByRole('region')).toHaveAttribute('id', controlsId);
   });
 
-  it('applies grid-rows-[0fr] when collapsed', () => {
+  it('marks the region as collapsed by default', () => {
     render(<ExpandableCard summary={summary}>{children}</ExpandableCard>);
     const region = screen.getByRole('region');
-    expect(region.className).toContain('grid-rows-[0fr]');
+    expect(region.className).toContain('is-collapsed');
+    expect(region.className).not.toContain('is-expanded');
   });
 
-  it('applies grid-rows-[1fr] when expanded', async () => {
+  it('marks the region as expanded after click', async () => {
     const user = userEvent.setup();
     render(<ExpandableCard summary={summary}>{children}</ExpandableCard>);
 
     await user.click(screen.getByRole('button'));
 
     const region = screen.getByRole('region');
-    expect(region.className).toContain('grid-rows-[1fr]');
+    expect(region.className).toContain('is-expanded');
+    expect(region.className).not.toContain('is-collapsed');
   });
 
-  it('rotates chevron icon when expanded', async () => {
+  it('rotates the chevron via aria-expanded on the button', async () => {
     const user = userEvent.setup();
     render(<ExpandableCard summary={summary}>{children}</ExpandableCard>);
-
-    const svg = screen.getByRole('button').querySelector('svg')!;
-    expect(svg.className.baseVal).not.toContain('rotate-180');
-
-    await user.click(screen.getByRole('button'));
-    expect(svg.className.baseVal).toContain('rotate-180');
+    const button = screen.getByRole('button');
+    expect(button).toHaveAttribute('aria-expanded', 'false');
+    await user.click(button);
+    expect(button).toHaveAttribute('aria-expanded', 'true');
   });
 });
