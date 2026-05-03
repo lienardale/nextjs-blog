@@ -79,10 +79,10 @@ export default async function Junior42Page({params}: {params: Promise<{locale: s
       indexLabel={tr('nav.index')}
       eyebrow="// 2020 → 2022 · Paris"
       title={`${t.title}<em>.</em>`}
-      meta="01 / Experience"
+      meta="02 / Experience"
       summary={t.summary}
       body={t.body}
-      footerLabel="01 / Experience"
+      footerLabel="02 / Experience"
     />
   );
 }

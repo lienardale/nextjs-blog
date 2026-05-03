@@ -5,13 +5,13 @@ import ProjectCardTilt from '../components/ProjectCardTilt';
 import SiteFooter from '../components/SiteFooter';
 
 const skills: Skill[] = [
-  {name: 'TypeScript', tag: 'FE · BE', level: 92, note: 'primary stack · 4y'},
-  {name: 'React', tag: 'FE', level: 88, note: 'production UIs · 3y'},
-  {name: 'NestJS', tag: 'BE', level: 78, note: 'APIs & auth · 2y'},
-  {name: 'C', tag: 'SYS', level: 74, note: 'low-level · 2y'},
-  {name: 'C++', tag: 'SYS', level: 72, note: '42 systems · 2y'},
-  {name: 'Postgres', tag: 'DATA', level: 70, note: 'schemas & ORM · 2y'},
-  {name: 'Docker', tag: 'OPS', level: 64, note: 'working knowledge', soft: true},
+  {name: 'TypeScript', tag: 'FE · BE', level: 92, note: 'primary stack · 6y'},
+  {name: 'Python', tag: 'BE', level: 88, note: 'Wiremind backend · 4y'},
+  {name: 'Angular', tag: 'FE', level: 86, note: 'production UIs · 4y'},
+  {name: 'Postgres', tag: 'DATA', level: 80, note: 'schemas & ORM · 5y'},
+  {name: 'Elasticsearch', tag: 'DATA', level: 70, note: 'search & analytics · 3y'},
+  {name: 'AI-augmented dev', tag: 'TOOLS', level: 78, note: 'Claude Code · GPT Codex'},
+  {name: 'Docker', tag: 'OPS', level: 68, note: 'working knowledge · 4y', soft: true},
 ];
 
 const projects = [
@@ -205,7 +205,7 @@ export default async function SkillsPage({params}: {params: Promise<{locale: str
             </li>
             <li>
               <span className="hm-key">{t('skills.hard_meta_tenure')}</span>
-              <b>4<i>y</i></b>
+              <b>6<i>y</i></b>
               <span className="hm-unit">{t('skills.hard_meta_tenure_u')}</span>
             </li>
             <li>
@@ -215,7 +215,7 @@ export default async function SkillsPage({params}: {params: Promise<{locale: str
             </li>
             <li>
               <span className="hm-key">{t('skills.hard_meta_split')}</span>
-              <b>4<span className="hm-sep">·</span>3</b>
+              <b>2<span className="hm-sep">·</span>3</b>
               <span className="hm-unit">{t('skills.hard_meta_split_u')}</span>
             </li>
           </ul>
