@@ -4,37 +4,37 @@ const content = {
     title: 'Graphic Novels',
     intro: (
       <p className="text-gray-600 dark:text-gray-400 italic mb-6">
-        I like them (a lot). I buy them (when I can). I chronicle them (sometimes).
+        I like them (a lot). I buy them (when I can).
       </p>
     ),
-    favoritesTitle: 'My favorites',
+    favoritesTitle: 'On the shelf',
   },
   fr: {
     title: 'Romans graphiques',
     intro: (
       <p className="text-gray-600 dark:text-gray-400 italic mb-6">
-        Je les aime (beaucoup). Je les achète (quand je peux). Je les chronique (parfois).
+        Je les aime (beaucoup). J’en achète (quand je peux).
       </p>
     ),
-    favoritesTitle: 'Mes favoris',
+    favoritesTitle: 'Sur l’étagère',
   },
   de: {
     title: 'Graphic Novels',
     intro: (
       <p className="text-gray-600 dark:text-gray-400 italic mb-6">
-        Ich mag sie (sehr). Ich kaufe sie (wenn ich kann). Ich chronifiziere sie (manchmal).
+        Ich mag sie (sehr). Ich kaufe sie (wenn ich kann).
       </p>
     ),
-    favoritesTitle: 'Meine Favoriten',
+    favoritesTitle: 'Im Regal',
   },
   es: {
     title: 'Novelas gráficas',
     intro: (
       <p className="text-gray-600 dark:text-gray-400 italic mb-6">
-        Me gustan (mucho). Los compro (cuando puedo). Las crónicas (a veces).
+        Me gustan (mucho). Los compro (cuando puedo).
       </p>
     ),
-    favoritesTitle: 'Mis favoritos',
+    favoritesTitle: 'En la estantería',
   },
 } as const;
 
@@ -42,14 +42,9 @@ type Locale = keyof typeof content;
 
 const novels = [
   {
-    title: 'Blacksad',
-    author: 'Juan Díaz Canales & Juanjo Guarnido',
-    genre: {en: 'Noir', fr: 'Noir', de: 'Noir', es: 'Noir'},
-  },
-  {
-    title: 'L\'Incal',
-    author: 'Alejandro Jodorowsky & Mœbius',
-    genre: {en: 'Sci-Fi', fr: 'Science-fiction', de: 'Sci-Fi', es: 'Ciencia ficción'},
+    title: 'Asterios Polyp',
+    author: 'David Mazzucchelli',
+    genre: {en: 'Literary', fr: 'Littéraire', de: 'Literarisch', es: 'Literario'},
   },
   {
     title: 'Maus',
@@ -62,14 +57,134 @@ const novels = [
     genre: {en: 'Autobiography', fr: 'Autobiographie', de: 'Autobiographie', es: 'Autobiografía'},
   },
   {
-    title: 'Asterios Polyp',
-    author: 'David Mazzucchelli',
-    genre: {en: 'Literary', fr: 'Littéraire', de: 'Literarisch', es: 'Literario'},
-  },
-  {
     title: 'Blankets',
     author: 'Craig Thompson',
     genre: {en: 'Memoir', fr: 'Mémoires', de: 'Memoir', es: 'Memorias'},
+  },
+  {
+    title: 'Blast',
+    author: 'Manu Larcenet',
+    genre: {en: 'Literary', fr: 'Littéraire', de: 'Literarisch', es: 'Literario'},
+  },
+  {
+    title: 'Akira',
+    author: 'Katsuhiro Otomo',
+    genre: {en: 'Sci-Fi', fr: 'Science-fiction', de: 'Sci-Fi', es: 'Ciencia ficción'},
+  },
+  {
+    title: 'Herakles',
+    author: 'Édouard Cour',
+    genre: {en: 'Mythology', fr: 'Mythologie', de: 'Mythologie', es: 'Mitología'},
+  },
+  {
+    title: 'Le Grand Vide',
+    author: 'Léa Murawiec',
+    genre: {en: 'Sci-Fi', fr: 'Science-fiction', de: 'Sci-Fi', es: 'Ciencia ficción'},
+  },
+  {
+    title: 'Preference System',
+    author: 'Bienvenu',
+    genre: {en: 'Slice of life', fr: 'Tranche de vie', de: 'Slice of Life', es: 'Slice of life'},
+  },
+  {
+    title: 'L’Épopée Espagnole',
+    author: 'Antonio Altarriba',
+    genre: {en: 'Historical', fr: 'Historique', de: 'Historisch', es: 'Histórico'},
+  },
+  {
+    title: 'Gunnm',
+    author: 'Yukito Kishiro',
+    genre: {en: 'Sci-Fi', fr: 'Science-fiction', de: 'Sci-Fi', es: 'Ciencia ficción'},
+  },
+  {
+    title: 'Le Sommet des Dieux',
+    author: 'Jirō Taniguchi',
+    genre: {en: 'Adventure', fr: 'Aventure', de: 'Abenteuer', es: 'Aventura'},
+  },
+  {
+    title: 'Monster',
+    author: 'Naoki Urasawa',
+    genre: {en: 'Thriller', fr: 'Thriller', de: 'Thriller', es: 'Thriller'},
+  },
+  {
+    title: 'Fullmetal Alchemist',
+    author: 'Hiromu Arakawa',
+    genre: {en: 'Fantasy', fr: 'Fantasy', de: 'Fantasy', es: 'Fantasía'},
+  },
+  {
+    title: 'Solanin',
+    author: 'Inio Asano',
+    genre: {en: 'Slice of life', fr: 'Tranche de vie', de: 'Slice of Life', es: 'Slice of life'},
+  },
+  {
+    title: 'Bouddha',
+    author: 'Osamu Tezuka',
+    genre: {en: 'Historical', fr: 'Historique', de: 'Historisch', es: 'Histórico'},
+  },
+  {
+    title: 'Palestine',
+    author: 'Joe Sacco',
+    genre: {en: 'Reportage', fr: 'Reportage', de: 'Reportage', es: 'Reportaje'},
+  },
+  {
+    title: 'Capacity',
+    author: 'Theo Ellsworth',
+    genre: {en: 'Literary', fr: 'Littéraire', de: 'Literarisch', es: 'Literario'},
+  },
+  {
+    title: 'Jimmy Corrigan',
+    author: 'Chris Ware',
+    genre: {en: 'Literary', fr: 'Littéraire', de: 'Literarisch', es: 'Literario'},
+  },
+  {
+    title: 'Demon',
+    author: 'Jason Shiga',
+    genre: {en: 'Thriller', fr: 'Thriller', de: 'Thriller', es: 'Thriller'},
+  },
+  {
+    title: 'My Friend Dahmer',
+    author: 'Derf Backderf',
+    genre: {en: 'Memoir', fr: 'Mémoires', de: 'Memoir', es: 'Memorias'},
+  },
+  {
+    title: 'NonNonBâ',
+    author: 'Shigeru Mizuki',
+    genre: {en: 'Memoir', fr: 'Mémoires', de: 'Memoir', es: 'Memorias'},
+  },
+  {
+    title: 'Culottées',
+    author: 'Pénélope Bagieu',
+    genre: {en: 'Biography', fr: 'Biographie', de: 'Biographie', es: 'Biografía'},
+  },
+  {
+    title: 'Gemma Bovery',
+    author: 'Posy Simmonds',
+    genre: {en: 'Literary', fr: 'Littéraire', de: 'Literarisch', es: 'Literario'},
+  },
+  {
+    title: 'Fun Home',
+    author: 'Alison Bechdel',
+    genre: {en: 'Memoir', fr: 'Mémoires', de: 'Memoir', es: 'Memorias'},
+  },
+  {
+    title: 'Bea Wolf',
+    author: 'Zach Weinersmith & Boulet',
+    genre: {en: 'Adventure', fr: 'Aventure', de: 'Abenteuer', es: 'Aventura'},
+  },
+  {
+    title: 'L’Ascension du Haut Mal',
+    author: 'David B.',
+    genre: {en: 'Memoir', fr: 'Mémoires', de: 'Memoir', es: 'Memorias'},
+  },
+  {
+    title: 'New York',
+    author: 'Will Eisner',
+    genre: {en: 'Anthology', fr: 'Anthologie', de: 'Anthologie', es: 'Antología'},
+  },
+  {
+    title: 'Patience',
+    author: 'Daniel Clowes',
+    genre: {en: 'Sci-Fi', fr: 'Science-fiction', de: 'Sci-Fi', es: 'Ciencia ficción'},
   },
 ];
 

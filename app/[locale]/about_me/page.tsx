@@ -42,12 +42,12 @@ const staticTrips = [
 ];
 
 const novels = [
-  {title: 'Blacksad', author: 'Canales & Guarnido', genre: 'Noir', c1: '#1c1f2b', c2: '#3a4458'},
-  {title: "L'Incal", author: 'Jodorowsky & Mœbius', genre: 'Sci-Fi', c1: '#7c2c1f', c2: '#c4541a'},
+  {title: 'Asterios Polyp', author: 'D. Mazzucchelli', genre: 'Literary', c1: '#6b1f3a', c2: '#a14464'},
   {title: 'Maus', author: 'Art Spiegelman', genre: 'Memoir', c1: '#2a2a2a', c2: '#5a5a5a'},
   {title: 'Persepolis', author: 'Marjane Satrapi', genre: 'Autobio', c1: '#1a3a4a', c2: '#3d6c84'},
-  {title: 'Asterios Polyp', author: 'D. Mazzucchelli', genre: 'Literary', c1: '#6b1f3a', c2: '#a14464'},
   {title: 'Blankets', author: 'Craig Thompson', genre: 'Memoir', c1: '#3a2a14', c2: '#7a5a32'},
+  {title: 'Le Sommet des Dieux', author: 'J. Taniguchi', genre: 'Adventure', c1: '#3a4a52', c2: '#7088a0'},
+  {title: 'Akira', author: 'K. Otomo', genre: 'Sci-Fi', c1: '#a02818', c2: '#e85c1a'},
 ];
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
@@ -133,9 +133,9 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
               <>
                 <span className="label">Riding log</span>
                 <div style={{fontFamily: 'var(--font-mono)', fontSize: 13, letterSpacing: '0.05em', lineHeight: 1.55, marginTop: 4}}>
-                  9 trips logged<br />
-                  ~2,596 km total<br />
-                  31 days on the road
+                  10 trips logged<br />
+                  ~2,723 km total<br />
+                  32 days on the road
                 </div>
               </>
             ),
@@ -190,9 +190,9 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
             />
           </div>
           <div className="trips-meta">
-            <div><b>9</b><span>{t('about.trips_label_trips')}</span></div>
-            <div><b>2,596</b><span>{t('about.trips_label_km')}</span></div>
-            <div><b>31</b><span>{t('about.trips_label_days')}</span></div>
+            <div><b>10</b><span>{t('about.trips_label_trips')}</span></div>
+            <div><b>2,723</b><span>{t('about.trips_label_km')}</span></div>
+            <div><b>32</b><span>{t('about.trips_label_days')}</span></div>
             <a
               className="komoot-link"
               href="https://www.komoot.com/user/1617431265877"

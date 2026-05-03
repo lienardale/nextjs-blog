@@ -87,8 +87,8 @@ describe('registry', () => {
       expect(getNavItems('hobbies', 'en')).toHaveLength(3);
     });
 
-    it('returns 5 items for posts', () => {
-      expect(getNavItems('posts', 'en')).toHaveLength(5);
+    it('returns 9 items for posts (including archived)', () => {
+      expect(getNavItems('posts', 'en')).toHaveLength(9);
     });
 
     it('returns correct ids for experience category', () => {
@@ -148,8 +148,9 @@ describe('registry', () => {
 
     it('returns posts sorted by date descending', () => {
       const items = getSortedItems('posts', 'en');
-      expect(items[0].id).toBe('building-modern-blog');
-      expect(items[0].date).toBe('2026-03-15');
+      // Newest registry entry on the latest date wins; archived posts excluded
+      expect(items[0].id).toBe('monolith-to-microservice');
+      expect(items[0].date).toBe('2026-05-03');
       // Verify all posts are sorted descending
       for (let i = 1; i < items.length; i++) {
         expect(items[i - 1].date >= items[i].date).toBe(true);
@@ -197,26 +198,26 @@ describe('registry', () => {
 
     it('falls back to English title for unknown locale', () => {
       const items = getSortedItems('posts', 'zh');
-      const ssgItem = items.find((i) => i.id === 'ssg-ssr');
-      expect(ssgItem).toBeDefined();
-      expect(ssgItem!.title).toBe('When to Use Static Generation v.s. Server-side Rendering');
+      const item = items.find((i) => i.id === 'building-modern-blog');
+      expect(item).toBeDefined();
+      expect(item!.title).toBe('Building a Modern Blog with Next.js App Router');
     });
 
     it('falls back to English title for empty-string locale', () => {
       const items = getSortedItems('posts', '');
-      const preItem = items.find((i) => i.id === 'pre-rendering');
-      expect(preItem).toBeDefined();
-      expect(preItem!.title).toBe('Two Forms of Pre-rendering');
+      const item = items.find((i) => i.id === 'next-intl-guide');
+      expect(item).toBeDefined();
+      expect(item!.title).toBe('Internationalization with next-intl');
     });
 
-    // Verify the correct number of items per category
+    // Verify the correct number of items per category (posts excludes archived)
     it.each([
       ['experience', 5],
       ['education', 3],
       ['skills', 3],
       ['about_me', 3],
       ['hobbies', 3],
-      ['posts', 5],
+      ['posts', 7],
     ] as const)('returns %i items for category "%s"', (category, count) => {
       expect(getSortedItems(category, 'en')).toHaveLength(count);
     });
@@ -252,13 +253,22 @@ describe('registry', () => {
   // ---------- getRelatedPosts ----------
   describe('getRelatedPosts', () => {
     it('returns related posts that share tags', () => {
-      const related = getRelatedPosts('pre-rendering', 'en');
+      const related = getRelatedPosts('building-modern-blog', 'en');
       expect(related.length).toBeGreaterThan(0);
-      expect(related[0].id).toBe('ssg-ssr');
+      // typescript-react-patterns shares the 'react' tag with building-modern-blog
+      expect(related.map((p) => p.id)).toContain('typescript-react-patterns');
     });
 
     it('does not include the current post in results', () => {
-      const related = getRelatedPosts('pre-rendering', 'en');
+      const related = getRelatedPosts('building-modern-blog', 'en');
+      expect(related.find((p) => p.id === 'building-modern-blog')).toBeUndefined();
+    });
+
+    it('does not surface archived posts', () => {
+      // ssg-ssr and pre-rendering are archived; they share tags with active posts
+      // but should never appear in related results
+      const related = getRelatedPosts('building-modern-blog', 'en');
+      expect(related.find((p) => p.id === 'ssg-ssr')).toBeUndefined();
       expect(related.find((p) => p.id === 'pre-rendering')).toBeUndefined();
     });
 
@@ -268,30 +278,34 @@ describe('registry', () => {
     });
 
     it('returns localized titles', () => {
-      const related = getRelatedPosts('pre-rendering', 'fr');
-      expect(related.length).toBeGreaterThan(0);
-      expect(related[0].title).toContain('génération statique');
+      const relatedFr = getRelatedPosts('building-modern-blog', 'fr');
+      const relatedEn = getRelatedPosts('building-modern-blog', 'en');
+      expect(relatedFr.length).toBeGreaterThan(0);
+      expect(relatedEn.length).toBeGreaterThan(0);
+      // Same first match, different localized title
+      expect(relatedFr[0].id).toBe(relatedEn[0].id);
+      expect(relatedFr[0].title).not.toBe(relatedEn[0].title);
     });
 
     it('returns localized descriptions', () => {
-      const related = getRelatedPosts('pre-rendering', 'de');
+      const related = getRelatedPosts('building-modern-blog', 'de');
       expect(related.length).toBeGreaterThan(0);
       expect(related[0].description).toBeTruthy();
     });
 
     it('includes tags in results', () => {
-      const related = getRelatedPosts('pre-rendering', 'en');
+      const related = getRelatedPosts('building-modern-blog', 'en');
       expect(related[0].tags).toBeInstanceOf(Array);
       expect(related[0].tags.length).toBeGreaterThan(0);
     });
 
     it('respects the limit parameter', () => {
-      const related = getRelatedPosts('pre-rendering', 'en', 1);
+      const related = getRelatedPosts('building-modern-blog', 'en', 1);
       expect(related.length).toBeLessThanOrEqual(1);
     });
 
     it('falls back to English for unknown locale', () => {
-      const related = getRelatedPosts('ssg-ssr', 'zh');
+      const related = getRelatedPosts('typescript-react-patterns', 'zh');
       expect(related.length).toBeGreaterThan(0);
       // All titles should be in English
       for (const post of related) {

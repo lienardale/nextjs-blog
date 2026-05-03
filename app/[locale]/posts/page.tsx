@@ -5,6 +5,10 @@ import PostsList, {type PostsListItem, type PostsFilter} from '../components/Pos
 import SiteFooter from '../components/SiteFooter';
 
 const postMeta: Record<string, {topicKey: string; readKey: string; titleKey: string}> = {
+  'monolith-to-microservice': {topicKey: 'posts.topic_architecture', readKey: 'posts.read_9', titleKey: 'posts.title_monolith'},
+  'deploy-process-rework': {topicKey: 'posts.topic_devops', readKey: 'posts.read_6', titleKey: 'posts.title_deploy'},
+  'memory-tests-memlab': {topicKey: 'posts.topic_testing', readKey: 'posts.read_5', titleKey: 'posts.title_memlab'},
+  'ai-augmented-dev': {topicKey: 'posts.topic_ai', readKey: 'posts.read_8', titleKey: 'posts.title_ai'},
   'building-modern-blog': {topicKey: 'posts.topic_nextjs', readKey: 'posts.read_5', titleKey: 'posts.title_building'},
   'next-intl-guide': {topicKey: 'posts.topic_i18n', readKey: 'posts.read_7', titleKey: 'posts.title_intl'},
   'typescript-react-patterns': {topicKey: 'posts.topic_react', readKey: 'posts.read_8', titleKey: 'posts.title_ts'},
@@ -42,10 +46,12 @@ export default async function PostsPage({params}: {params: Promise<{locale: stri
   // tidy and avoids dead chips.
   const allTags = new Set(items.flatMap((p) => p.tags ?? []));
   const candidatePills: Array<{tag: string; label: string}> = [
+    {tag: 'architecture', label: 'Architecture'},
+    {tag: 'devops', label: 'DevOps'},
+    {tag: 'ai', label: 'AI'},
+    {tag: 'testing', label: 'Testing'},
     {tag: 'nextjs', label: 'Next.js'},
     {tag: 'react', label: 'React'},
-    {tag: 'typescript', label: 'TypeScript'},
-    {tag: 'i18n', label: 'i18n'},
   ];
   const filters: PostsFilter[] = [
     {tag: null, label: t('posts.filter_all')},

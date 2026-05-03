@@ -10,6 +10,7 @@ const skills: Skill[] = [
   {name: 'Python', tag: 'BE', level: 88, note: 'Wiremind backend · 4y'},
   {name: 'Angular', tag: 'FE', level: 86, note: 'production UIs · 4y'},
   {name: 'Postgres', tag: 'DATA', level: 80, note: 'schemas & ORM · 5y'},
+  {name: 'Redis / RabbitMQ', tag: 'BE', level: 75, note: 'cache & queues · daily, Wiremind'},
   {name: 'Elasticsearch', tag: 'DATA', level: 70, note: 'search & analytics · 3y'},
   {name: 'AI-augmented dev', tag: 'TOOLS', level: 78, note: 'Claude Code · GPT Codex'},
   {name: 'Docker', tag: 'OPS', level: 68, note: 'working knowledge · 4y', soft: true},
@@ -262,7 +263,7 @@ export default async function SkillsPage({params}: {params: Promise<{locale: str
           <ul className="hard-meta" aria-label="Section summary">
             <li>
               <span className="hm-key">{t('skills.hard_meta_tracked')}</span>
-              <b>07</b>
+              <b>08</b>
               <span className="hm-unit">{t('skills.hard_meta_tracked_u')}</span>
             </li>
             <li>

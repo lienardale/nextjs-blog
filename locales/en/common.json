@@ -64,7 +64,7 @@
         "idx_05_title": "What I <em>do otherwise.</em>",
         "idx_05_meta": "biking · graphic novels<br/>podcasts",
         "idx_06_title": "Things I <em>wrote</em> down.",
-        "idx_06_meta": "05 posts<br/>on engineering",
+        "idx_06_meta": "07 posts<br/>on engineering",
         "selected_eyebrow": "Selected work / school + personal",
         "selected_title": "A few <em>things</em><br/>I've shipped.",
         "selected_lede": "Open-source builds — 42 school exercises in C and C++, plus production Next.js apps. Everything below was written from scratch to learn how the pieces fit together.",
@@ -137,10 +137,14 @@
         "title_meta": "Skills — Alexandre Lienard",
         "eyebrow": "// 03 · technical mode",
         "title": "What I <em>reach for.</em>",
+<<<<<<< HEAD
         "summary": "07 projects · 07 hard skills · 04 soft skills",
+=======
+        "summary": "04 projects · 08 hard skills · 04 soft skills",
+>>>>>>> 953e11a (feat: content roadmap — posts, projects, skills, hobbies refresh)
         "hard_eyebrow": "// 03b · hard skills",
         "hard_title": "The stack I <em>actually</em> ship with.",
-        "hard_lede": "A self-portrait in seven axes — plotted by years on the tool, depth into its dark corners, and how often it's the first thing I open in the morning.",
+        "hard_lede": "A self-portrait in eight axes — plotted by years on the tool, depth into its dark corners, and how often it's the first thing I open in the morning.",
         "hard_meta_tracked": "Tracked",
         "hard_meta_tracked_u": "tools on this page",
         "hard_meta_tenure": "Tenure",
@@ -169,7 +173,7 @@
         "title_meta": "Posts — Alexandre Lienard",
         "eyebrow": "// 06 · editorial mode",
         "title": "Things I <em>wrote</em> down.",
-        "summary": "5 essays · updated occasionally",
+        "summary": "7 essays · updated occasionally",
         "filter_all": "All",
         "filter_label": "Filter:",
         "sort_label": "Sort: newest first ↓",
@@ -180,15 +184,25 @@
         "topic_nextjs": "Next.js",
         "topic_react": "React",
         "topic_i18n": "i18n",
+        "topic_architecture": "Architecture",
+        "topic_devops": "DevOps",
+        "topic_testing": "Testing",
+        "topic_ai": "AI tooling",
         "read_2": "2 min",
         "read_5": "5 min",
+        "read_6": "6 min",
         "read_7": "7 min",
         "read_8": "8 min",
+        "read_9": "9 min",
         "title_building": "Building a modern blog with the <em>Next.js App Router.</em>",
         "title_intl": "A complete guide to <em>i18n</em> with next-intl.",
         "title_ts": "TypeScript &amp; React: <em>patterns I reach for.</em>",
         "title_ssg": "When to use <em>Static Generation</em> vs Server-side Rendering.",
-        "title_prerender": "Two forms of <em>pre-rendering.</em>"
+        "title_prerender": "Two forms of <em>pre-rendering.</em>",
+        "title_monolith": "Decoupling a critical service from a <em>monolith.</em>",
+        "title_deploy": "Reworking a deploy process for a <em>whole team.</em>",
+        "title_memlab": "Memory tests with <em>memlab</em> — what they catch, what they don’t.",
+        "title_ai": "A year of <em>AI-augmented</em> development."
     },
 
     "about": {
@@ -208,7 +222,7 @@
         "bike_02_name": "Kona Rove <em>Al gravel.</em>",
         "novels_eyebrow": "// Hobby · graphic novels",
         "novels_title": "Books I <em>keep<br/>going back to.</em>",
-        "novels_lede": "I like them <em>(a lot).</em> I buy them <em>(when I can).</em> I chronicle them <em>(sometimes).</em>"
+        "novels_lede": "I like them <em>(a lot).</em> I buy them <em>(when I can).</em>"
     },
 
     "contact": {
