@@ -38,7 +38,6 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
         <div className="eyebrow-row">
           <span className="l">alienard · portfolio</span>
           <span className="m">Paris · <ParisClock /></span>
-          <span className="r">EN · FR · DE · ES</span>
         </div>
         <div className="home-title-row">
           <h1

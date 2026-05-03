@@ -62,6 +62,7 @@ export function getSortedItems(category: string, locale: string) {
       title: item.title[locale] ?? item.title.en,
       startDate: item.startDate,
       endDate: item.endDate,
+      tags: item.tags,
     }))
     .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
 }
