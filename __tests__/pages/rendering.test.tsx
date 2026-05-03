@@ -250,15 +250,16 @@ describe('Hobbies — Biking page', () => {
 });
 
 describe('Hobbies — Graphic Novels page', () => {
-  it('renders heading, favorites, and no hardcoded date', async () => {
+  it('renders heading, shelf, and no hardcoded date', async () => {
     const Page = (await import('../../app/[locale]/hobbies/graphic-novels/page')).default;
     render(await Page({params}));
 
     expect(screen.getByText('Graphic Novels')).toBeInTheDocument();
-    expect(screen.getByText('My favorites')).toBeInTheDocument();
-    expect(screen.getByText('Blacksad')).toBeInTheDocument();
+    expect(screen.getByText('On the shelf')).toBeInTheDocument();
     expect(screen.getByText('Maus')).toBeInTheDocument();
-    expect(screen.getAllByTestId('graphic-novel-card').length).toBe(6);
+    expect(screen.getByText('Persepolis')).toBeInTheDocument();
+    expect(screen.getByText('Akira')).toBeInTheDocument();
+    expect(screen.getAllByTestId('graphic-novel-card').length).toBeGreaterThan(20);
     // Ensure old hardcoded date is gone
     expect(screen.queryByText('2022-05-12')).not.toBeInTheDocument();
   });

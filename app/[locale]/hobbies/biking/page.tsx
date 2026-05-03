@@ -52,6 +52,10 @@ type Locale = keyof typeof labels;
 
 const trips = [
   {
+    route: {en: '127 km day · May 2025', fr: 'Sortie de 127 km · mai 2025', de: '127-km-Tag · Mai 2025', es: 'Día de 127 km · mayo 2025'},
+    year: 2025, days: 1, km: 127, komootTourId: '2279371256',
+  },
+  {
     route: {en: 'Angers → Mesquer', fr: 'Angers → Mesquer', de: 'Angers → Mesquer', es: 'Angers → Mesquer'},
     year: 2024, days: 1, km: 199, komootTourId: '1830962536',
   },

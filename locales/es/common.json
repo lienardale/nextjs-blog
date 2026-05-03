@@ -64,7 +64,7 @@
         "idx_05_title": "Lo que hago <em>fuera.</em>",
         "idx_05_meta": "ciclismo · novelas gráficas<br/>podcasts",
         "idx_06_title": "Cosas que he <em>escrito.</em>",
-        "idx_06_meta": "05 artículos<br/>sobre ingeniería",
+        "idx_06_meta": "07 artículos<br/>sobre ingeniería",
         "selected_eyebrow": "Trabajos seleccionados / escuela + personales",
         "selected_title": "Algunas <em>cosas</em><br/>que he sacado adelante.",
         "selected_lede": "Proyectos open-source — ejercicios de la escuela 42 en C y C++, más apps Next.js en producción. Todo lo de abajo fue escrito desde cero para entender cómo encajan las piezas.",
@@ -137,10 +137,14 @@
         "title_meta": "Habilidades — Alexandre Lienard",
         "eyebrow": "// 03 · modo técnico",
         "title": "Con lo que <em>trabajo.</em>",
+<<<<<<< HEAD
         "summary": "07 proyectos · 07 hard skills · 04 soft skills",
+=======
+        "summary": "04 proyectos · 08 hard skills · 04 soft skills",
+>>>>>>> 953e11a (feat: content roadmap — posts, projects, skills, hobbies refresh)
         "hard_eyebrow": "// 03b · hard skills",
         "hard_title": "El stack con el que <em>de verdad</em> entrego.",
-        "hard_lede": "Un autorretrato en siete ejes — medido por los años con la herramienta, lo lejos que he llegado en sus rincones oscuros, y cuántas veces es lo primero que abro por la mañana.",
+        "hard_lede": "Un autorretrato en ocho ejes — medido por los años con la herramienta, lo lejos que he llegado en sus rincones oscuros, y cuántas veces es lo primero que abro por la mañana.",
         "hard_meta_tracked": "En el mapa",
         "hard_meta_tracked_u": "herramientas en esta página",
         "hard_meta_tenure": "Veteranía",
@@ -169,7 +173,7 @@
         "title_meta": "Artículos — Alexandre Lienard",
         "eyebrow": "// 06 · modo editorial",
         "title": "Cosas que he <em>escrito.</em>",
-        "summary": "5 ensayos · actualizados de vez en cuando",
+        "summary": "7 ensayos · actualizados de vez en cuando",
         "filter_all": "Todos",
         "filter_label": "Filtro:",
         "sort_label": "Orden: más reciente primero ↓",
@@ -180,15 +184,25 @@
         "topic_nextjs": "Next.js",
         "topic_react": "React",
         "topic_i18n": "i18n",
+        "topic_architecture": "Arquitectura",
+        "topic_devops": "DevOps",
+        "topic_testing": "Testing",
+        "topic_ai": "Herramientas IA",
         "read_2": "2 min",
         "read_5": "5 min",
+        "read_6": "6 min",
         "read_7": "7 min",
         "read_8": "8 min",
+        "read_9": "9 min",
         "title_building": "Cómo montar un blog moderno con el <em>App Router de Next.js.</em>",
         "title_intl": "Guía completa de <em>i18n</em> con next-intl.",
         "title_ts": "TypeScript &amp; React: <em>patrones que uso.</em>",
         "title_ssg": "Cuándo usar <em>generación estática</em> y cuándo renderizado en servidor.",
-        "title_prerender": "Dos formas de <em>prerenderizar.</em>"
+        "title_prerender": "Dos formas de <em>prerenderizar.</em>",
+        "title_monolith": "Desacoplar un servicio crítico de un <em>monolito.</em>",
+        "title_deploy": "Rehacer el despliegue de un <em>equipo entero.</em>",
+        "title_memlab": "Tests de memoria con <em>memlab</em> — lo que detectan y lo que no.",
+        "title_ai": "Un año de desarrollo <em>aumentado por IA.</em>"
     },
 
     "about": {
@@ -208,7 +222,7 @@
         "bike_02_name": "Kona Rove <em>Al gravel.</em>",
         "novels_eyebrow": "// Afición · novelas gráficas",
         "novels_title": "Libros a los que <em>vuelvo<br/>una y otra vez.</em>",
-        "novels_lede": "Me gustan <em>(mucho).</em> Los compro <em>(cuando puedo).</em> Los reseño <em>(a veces).</em>"
+        "novels_lede": "Me gustan <em>(mucho).</em> Los compro <em>(cuando puedo).</em>"
     },
 
     "contact": {
