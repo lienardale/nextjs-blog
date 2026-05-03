@@ -233,34 +233,43 @@ export default async function SkillsPage({params}: {params: Promise<{locale: str
         </footer>
       </section>
 
-      <div className="proj-grid">
-        {projects.map((p, i) => (
-          <ProjectCardTilt key={p.num} delay={i}>
-            <div className="pc-head">
-              <span>Project / {p.num}</span>
-              <span className="stamp">{p.stamp}</span>
-            </div>
-            <h3 dangerouslySetInnerHTML={{__html: p.title}} />
-            <p>{t(p.descKey)}</p>
-            <div className="preview preview-route">{p.preview}</div>
-            <div className="tags">
-              {p.tags.map((tag) => (
-                <span key={tag} className="tag">{tag}</span>
-              ))}
-            </div>
-            <div className="spec">
-              {p.spec.map(([label, value]) => (
-                <div key={label}><b>{label}</b>{value}</div>
-              ))}
-            </div>
-            <div className="links">
-              <a href={p.github} target="_blank" rel="noopener" data-cursor="github">GitHub</a>
-              {p.live ? (
-                <a href={p.live} target="_blank" rel="noopener" data-cursor="open">Live site</a>
-              ) : null}
-            </div>
-          </ProjectCardTilt>
-        ))}
+      <div className="proj-block">
+        <div className="proj-head" data-reveal>
+          <div>
+            <span className="eyebrow">{t('skills.proj_eyebrow')}</span>
+            <h2 dangerouslySetInnerHTML={{__html: t.raw('skills.proj_title') as string}} />
+          </div>
+          <p className="lede">{t('skills.proj_lede')}</p>
+        </div>
+        <div className="proj-grid">
+          {projects.map((p, i) => (
+            <ProjectCardTilt key={p.num} delay={i}>
+              <div className="pc-head">
+                <span>Project / {p.num}</span>
+                <span className="stamp">{p.stamp}</span>
+              </div>
+              <h3 dangerouslySetInnerHTML={{__html: p.title}} />
+              <p>{t(p.descKey)}</p>
+              <div className="preview preview-route">{p.preview}</div>
+              <div className="tags">
+                {p.tags.map((tag) => (
+                  <span key={tag} className="tag">{tag}</span>
+                ))}
+              </div>
+              <div className="spec">
+                {p.spec.map(([label, value]) => (
+                  <div key={label}><b>{label}</b>{value}</div>
+                ))}
+              </div>
+              <div className="links">
+                <a href={p.github} target="_blank" rel="noopener" data-cursor="github">GitHub</a>
+                {p.live ? (
+                  <a href={p.live} target="_blank" rel="noopener" data-cursor="open">Live site</a>
+                ) : null}
+              </div>
+            </ProjectCardTilt>
+          ))}
+        </div>
       </div>
 
       <div className="soft-block">

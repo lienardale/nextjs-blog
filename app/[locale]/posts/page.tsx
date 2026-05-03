@@ -1,6 +1,7 @@
 import {getTranslations} from 'next-intl/server';
 import {Link} from '../../../lib/i18n/navigation';
 import {getSortedItems} from '../../../lib/registry';
+import PostsList, {type PostsListItem, type PostsFilter} from '../components/PostsList';
 import SiteFooter from '../components/SiteFooter';
 
 const postMeta: Record<string, {topicKey: string; readKey: string; titleKey: string}> = {
@@ -17,16 +18,39 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
   return {title: t('posts.title_meta')};
 }
 
-function fmtYear(date: string): string {
-  const d = new Date(date);
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  return `${d.getFullYear()} · ${m}`;
-}
-
 export default async function PostsPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale});
   const items = getSortedItems('posts', locale);
+
+  // Pre-resolve all localized strings server-side so the client component can
+  // stay simple and the initial paint matches the SSR output.
+  const resolved: PostsListItem[] = items.map((p) => {
+    const meta = postMeta[p.id];
+    return {
+      id: p.id,
+      date: p.date,
+      title: meta ? (t.raw(meta.titleKey) as string) : p.title,
+      topic: meta ? t(meta.topicKey) : '—',
+      read: meta ? t(meta.readKey) : '',
+      tags: p.tags ?? [],
+    };
+  });
+
+  // Filter pills: "All" + a curated set of tags that map to friendly labels.
+  // Only show pills whose tag actually exists in the registry — keeps the bar
+  // tidy and avoids dead chips.
+  const allTags = new Set(items.flatMap((p) => p.tags ?? []));
+  const candidatePills: Array<{tag: string; label: string}> = [
+    {tag: 'nextjs', label: 'Next.js'},
+    {tag: 'react', label: 'React'},
+    {tag: 'typescript', label: 'TypeScript'},
+    {tag: 'i18n', label: 'i18n'},
+  ];
+  const filters: PostsFilter[] = [
+    {tag: null, label: t('posts.filter_all')},
+    ...candidatePills.filter((p) => allTags.has(p.tag)),
+  ];
 
   return (
     <div className="section-page medium">
@@ -41,41 +65,7 @@ export default async function PostsPage({params}: {params: Promise<{locale: stri
         <div className="kind">{t('posts.summary')}</div>
       </div>
 
-      <div className="post-meta-bar" data-reveal>
-        <div className="filters">
-          <span className="is-active">{t('posts.filter_all')}</span>
-          <span>Next.js</span>
-          <span>React</span>
-          <span>i18n</span>
-        </div>
-        <span>{t('posts.sort_label')}</span>
-        <span>{t('posts.results', {count: items.length})}</span>
-      </div>
-
-      <div className="posts-list">
-        {items.map((p, i) => {
-          const meta = postMeta[p.id];
-          return (
-            <Link
-              key={p.id}
-              href={`/posts/${p.id}`}
-              className="post-row"
-              data-cursor="read"
-              data-reveal
-              style={{['--d' as string]: i} as React.CSSProperties}
-            >
-              <span className="yr">{fmtYear(p.date)}</span>
-              <h3
-                dangerouslySetInnerHTML={{
-                  __html: meta ? (t.raw(meta.titleKey) as string) : p.title,
-                }}
-              />
-              <span className="topic">{meta ? t(meta.topicKey) : '—'}</span>
-              <span className="read">{meta ? t(meta.readKey) : ''}</span>
-            </Link>
-          );
-        })}
-      </div>
+      <PostsList items={resolved} filters={filters} />
 
       <SiteFooter rightLabel="06 / Posts" />
     </div>
