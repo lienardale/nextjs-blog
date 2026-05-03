@@ -67,8 +67,8 @@ describe('registry', () => {
     });
 
     // Verify specific category contents
-    it('returns 4 items for experience', () => {
-      expect(getNavItems('experience', 'en')).toHaveLength(4);
+    it('returns 5 items for experience', () => {
+      expect(getNavItems('experience', 'en')).toHaveLength(5);
     });
 
     it('returns 3 items for education', () => {
@@ -93,6 +93,7 @@ describe('registry', () => {
 
     it('returns correct ids for experience category', () => {
       const ids = getNavItems('experience', 'en').map((i) => i.id);
+      expect(ids).toContain('Wiremind');
       expect(ids).toContain('Junior-42-Paris');
       expect(ids).toContain('ESF-Sciences-Humaines');
       expect(ids).toContain('Editions-Denoel');
@@ -210,7 +211,7 @@ describe('registry', () => {
 
     // Verify the correct number of items per category
     it.each([
-      ['experience', 4],
+      ['experience', 5],
       ['education', 3],
       ['skills', 3],
       ['about_me', 3],

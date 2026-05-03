@@ -10,6 +10,7 @@ type ContentItem = {
 
 const registry: Record<string, ContentItem[]> = {
   experience: [
+    {id: 'Wiremind', date: '2026-05-02', title: {en: 'Wiremind', fr: 'Wiremind', de: 'Wiremind', es: 'Wiremind'}, startDate: '2022-09', endDate: 'present'},
     {id: 'Junior-42-Paris', date: '2022-05-12', title: {en: 'Junior 42 Paris', fr: 'Junior 42 Paris', de: 'Junior 42 Paris', es: 'Junior 42 Paris'}, startDate: '2020-09', endDate: '2022-05'},
     {id: 'ESF-Sciences-Humaines', date: '2019-09-01', title: {en: 'ESF Sciences Humaines', fr: 'ESF Sciences Humaines', de: 'ESF Sciences Humaines', es: 'ESF Sciences Humaines'}, startDate: '2018-09', endDate: '2019-06'},
     {id: 'Editions-Denoel', date: '2017-09-01', title: {en: 'Editions Denoël', fr: 'Editions Denoël', de: 'Editions Denoël', es: 'Editions Denoël'}, startDate: '2015-09', endDate: '2017-06'},

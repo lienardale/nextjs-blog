@@ -12,10 +12,11 @@ type Role = {
 };
 
 const roles: Role[] = [
-  {id: 'Junior-42-Paris', idx: '01', roleKey: 'experience.role_01', companyKey: 'experience.company_01', yearsKey: 'experience.years_01', durationKey: 'experience.duration_01'},
-  {id: 'ESF-Sciences-Humaines', idx: '02', roleKey: 'experience.role_02', companyKey: 'experience.company_02', yearsKey: 'experience.years_02', durationKey: 'experience.duration_02'},
-  {id: 'Editions-Denoel', idx: '03', roleKey: 'experience.role_03', companyKey: 'experience.company_03', yearsKey: 'experience.years_03', durationKey: 'experience.duration_03'},
-  {id: 'Flammarion', idx: '04', roleKey: 'experience.role_04', companyKey: 'experience.company_04', yearsKey: 'experience.years_04', durationKey: 'experience.duration_04'},
+  {id: 'Wiremind', idx: '01', roleKey: 'experience.role_01', companyKey: 'experience.company_01', yearsKey: 'experience.years_01', durationKey: 'experience.duration_01'},
+  {id: 'Junior-42-Paris', idx: '02', roleKey: 'experience.role_02', companyKey: 'experience.company_02', yearsKey: 'experience.years_02', durationKey: 'experience.duration_02'},
+  {id: 'ESF-Sciences-Humaines', idx: '03', roleKey: 'experience.role_03', companyKey: 'experience.company_03', yearsKey: 'experience.years_03', durationKey: 'experience.duration_03'},
+  {id: 'Editions-Denoel', idx: '04', roleKey: 'experience.role_04', companyKey: 'experience.company_04', yearsKey: 'experience.years_04', durationKey: 'experience.duration_04'},
+  {id: 'Flammarion', idx: '05', roleKey: 'experience.role_05', companyKey: 'experience.company_05', yearsKey: 'experience.years_05', durationKey: 'experience.duration_05'},
 ];
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {

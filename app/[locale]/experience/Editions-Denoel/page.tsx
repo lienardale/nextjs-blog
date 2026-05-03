@@ -83,10 +83,10 @@ export default async function EditionsDenoelPage({params}: {params: Promise<{loc
       indexLabel={tr('nav.index')}
       eyebrow="// 2015 → 2017 · Paris"
       title={`${t.title}<em>.</em>`}
-      meta="03 / Experience"
+      meta="04 / Experience"
       summary={t.summary}
       body={t.body}
-      footerLabel="03 / Experience"
+      footerLabel="04 / Experience"
     />
   );
 }

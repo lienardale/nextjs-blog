@@ -120,12 +120,13 @@ describe('Experience overview page', () => {
     expect(screen.getByText('Latest')).toBeInTheDocument();
     expect(screen.getByText('Track')).toBeInTheDocument();
 
-    // 4 indexed exp-rows linking to the per-company detail pages
+    // 5 indexed exp-rows linking to the per-company detail pages
     const rows = container.querySelectorAll('a.exp-row');
-    expect(rows.length).toBe(4);
+    expect(rows.length).toBe(5);
     const hrefs = Array.from(rows).map((r) => r.getAttribute('href'));
     expect(hrefs).toEqual(
       expect.arrayContaining([
+        '/experience/Wiremind',
         '/experience/Junior-42-Paris',
         '/experience/ESF-Sciences-Humaines',
         '/experience/Editions-Denoel',
