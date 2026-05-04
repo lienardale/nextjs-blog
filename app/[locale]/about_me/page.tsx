@@ -288,10 +288,12 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
         </div>
         <div className="novels-shelf">
           {novels.map((n, i) => (
-            <div
+            <Link
               key={n.title}
+              href="/hobbies/graphic-novels"
               className="novel"
               data-reveal
+              data-cursor="open"
               style={{['--d' as string]: i} as React.CSSProperties}
             >
               <div
@@ -305,7 +307,7 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
                 <span>{n.author}</span>
                 <em>{n.genre}</em>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
