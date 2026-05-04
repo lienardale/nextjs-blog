@@ -1632,11 +1632,24 @@ button.trip { cursor: pointer; }
   margin: 8px 0 0; font-weight: 400; letter-spacing: -0.02em;
 }
 .novels-title em { font-style: italic; color: var(--accent); }
+.novels-aside {
+  justify-self: end; display: flex; flex-direction: column;
+  align-items: flex-end; gap: 18px; max-width: 380px;
+}
 .novels-lede {
   font-family: var(--font-display); font-size: 22px; line-height: 1.4;
-  color: var(--ink-soft); margin: 0; max-width: 380px; justify-self: end;
+  color: var(--ink-soft); margin: 0;
 }
 .novels-lede em { font-style: italic; color: var(--accent); }
+.novels-link {
+  display: inline-flex; padding: 10px 16px;
+  border: 1px solid var(--accent); border-radius: 999px;
+  color: var(--accent); text-decoration: none;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; white-space: nowrap;
+  transition: background var(--dur-2) var(--ease), color var(--dur-2) var(--ease);
+}
+.novels-link:hover { background: var(--accent); color: var(--accent-fg); }
 .novels-shelf {
   display: grid; grid-template-columns: repeat(6, 1fr);
   gap: 16px; align-items: end;
@@ -1934,7 +1947,8 @@ button.trip { cursor: pointer; }
   .bikes { grid-template-columns: 1fr; gap: 12px; }
   .novels-block { margin-top: 48px; }
   .novels-head { grid-template-columns: 1fr; gap: 14px; padding-bottom: 18px; margin-bottom: 18px; }
-  .novels-lede { justify-self: start; max-width: none; font-size: 17px; }
+  .novels-aside { align-items: flex-start; max-width: none; }
+  .novels-lede { font-size: 17px; }
   .novels-shelf { grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .novel-spine { height: 180px; padding: 10px 4px; }
   .contact { padding: 32px 16px; gap: 20px; }

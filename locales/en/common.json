@@ -137,11 +137,7 @@
         "title_meta": "Skills — Alexandre Lienard",
         "eyebrow": "// 03 · technical mode",
         "title": "What I <em>reach for.</em>",
-<<<<<<< HEAD
-        "summary": "07 projects · 07 hard skills · 04 soft skills",
-=======
-        "summary": "04 projects · 08 hard skills · 04 soft skills",
->>>>>>> 953e11a (feat: content roadmap — posts, projects, skills, hobbies refresh)
+        "summary": "07 projects · 08 hard skills · 04 soft skills",
         "hard_eyebrow": "// 03b · hard skills",
         "hard_title": "The stack I <em>actually</em> ship with.",
         "hard_lede": "A self-portrait in eight axes — plotted by years on the tool, depth into its dark corners, and how often it's the first thing I open in the morning.",
@@ -222,7 +218,8 @@
         "bike_02_name": "Kona Rove <em>Al gravel.</em>",
         "novels_eyebrow": "// Hobby · graphic novels",
         "novels_title": "Books I <em>keep<br/>going back to.</em>",
-        "novels_lede": "I like them <em>(a lot).</em> I buy them <em>(when I can).</em>"
+        "novels_lede": "I like them <em>(a lot).</em> I buy them <em>(when I can).</em>",
+        "novels_cta_all": "All 29 on the shelf →"
     },
 
     "contact": {
