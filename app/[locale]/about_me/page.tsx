@@ -281,10 +281,19 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
               dangerouslySetInnerHTML={{__html: t.raw('about.novels_title') as string}}
             />
           </div>
-          <p
-            className="novels-lede"
-            dangerouslySetInnerHTML={{__html: t.raw('about.novels_lede') as string}}
-          />
+          <div className="novels-aside">
+            <p
+              className="novels-lede"
+              dangerouslySetInnerHTML={{__html: t.raw('about.novels_lede') as string}}
+            />
+            <Link
+              className="novels-link"
+              href="/hobbies/graphic-novels"
+              data-cursor="open"
+            >
+              {t('about.novels_cta_all')}
+            </Link>
+          </div>
         </div>
         <div className="novels-shelf">
           {novels.map((n, i) => (
