@@ -5,12 +5,22 @@ type Project = {
   live?: string;
   tech: string[];
   stats: {contributors: number; lines: number; commits: number};
+  image?: string;
 };
 
 export default function ProjectCard({project}: {project: Project}) {
   return (
     <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5 transition-shadow duration-200 hover:shadow-lg dark:hover:shadow-gray-900/40">
-      {/* Header */}
+      {project.image ? (
+        <div className="-m-5 mb-3 overflow-hidden rounded-t-lg border-b border-gray-200 dark:border-gray-700">
+          <img
+            src={project.image}
+            alt={`${project.name} screenshot`}
+            className="w-full h-40 object-cover"
+            loading="lazy"
+          />
+        </div>
+      ) : null}
       <div className="flex items-start justify-between gap-2 mb-3">
         <h3 className="font-bold text-lg">{project.name}</h3>
         <div className="flex gap-2 shrink-0">

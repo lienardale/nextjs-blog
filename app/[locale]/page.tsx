@@ -1,5 +1,6 @@
 import {getTranslations} from 'next-intl/server';
 import {Link} from '../../lib/i18n/navigation';
+import {getProjects} from '../../lib/registry';
 import ParisClock from './components/ParisClock';
 import SiteFooter from './components/SiteFooter';
 
@@ -12,11 +13,12 @@ const sections = [
   {ix: '06 / Posts', href: '/posts', titleKey: 'home.idx_06_title', metaKey: 'home.idx_06_meta'},
 ];
 
-const selected = [
-  {num: '01', titleKey: 'home.sel_01_title', yrKey: 'home.sel_01_yr'},
-  {num: '02', titleKey: 'home.sel_02_title', yrKey: 'home.sel_02_yr'},
-  {num: '03', titleKey: 'home.sel_03_title', yrKey: 'home.sel_03_yr'},
-  {num: '04', titleKey: 'home.sel_04_title', yrKey: 'home.sel_04_yr'},
+const SELECTED_IDS = [
+  'ft_transcendence',
+  'mini_rt',
+  'bdi_2023',
+  'nextjs_blog',
+  'gpx_to_video',
 ];
 
 const cursorMap: Record<string, string> = {
@@ -31,6 +33,10 @@ const cursorMap: Record<string, string> = {
 export default async function Home({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale});
+  const projectsById = new Map(getProjects(locale).map((p) => [p.id, p]));
+  const selected = SELECTED_IDS.map((id) => projectsById.get(id)).filter(
+    (p): p is NonNullable<typeof p> => Boolean(p),
+  );
 
   return (
     <div className="home-wrap">
@@ -102,14 +108,14 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
           </Link>
         </div>
         <div className="sel-list" data-reveal style={{['--d' as string]: 2} as React.CSSProperties}>
-          {selected.map((s) => (
-            <Link key={s.num} href="/skills" className="sel-item" data-cursor="open">
-              <span className="num">{s.num}</span>
+          {selected.map((p, i) => (
+            <Link key={p.id} href="/skills" className="sel-item" data-cursor="open">
+              <span className="num">{String(i + 1).padStart(2, '0')}</span>
               <span
                 className="ttl"
-                dangerouslySetInnerHTML={{__html: t.raw(s.titleKey) as string}}
+                dangerouslySetInnerHTML={{__html: `${p.title}<em>.</em> — ${p.tagline}`}}
               />
-              <span className="yr">{t(s.yrKey)}</span>
+              <span className="yr">{p.stamp}</span>
             </Link>
           ))}
         </div>
