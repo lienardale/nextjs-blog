@@ -1,5 +1,6 @@
 import {getTranslations} from 'next-intl/server';
 import {Link} from '../../../lib/i18n/navigation';
+import {getProjects, type Project} from '../../../lib/registry';
 import HardSkills, {type Skill} from '../components/HardSkills';
 import ProjectCardTilt from '../components/ProjectCardTilt';
 import SiteFooter from '../components/SiteFooter';
@@ -14,115 +15,170 @@ const skills: Skill[] = [
   {name: 'Docker', tag: 'OPS', level: 68, note: 'working knowledge · 4y', soft: true},
 ];
 
-const projects = [
-  {
-    num: '01',
-    stamp: '5 contrib',
-    title: 'ft_transcendence<em>.</em>',
-    descKey: 'skills.proj_01_desc',
-    tags: ['typescript', 'react', 'nestjs', 'postgres', 'docker', 'nginx'],
-    spec: [
-      ['Stack', 'TS · React · NestJS'],
-      ['Lines', '11,702'],
-      ['Commits', '926'],
-      ['Live', 'roland-garrong.fr'],
-    ] as const,
-    github: 'https://github.com/lienardale/ft_transcendence',
-    live: 'https://roland-garrong.fr',
-    preview: (
-      <svg viewBox="0 0 400 200" preserveAspectRatio="none">
-        <rect x="20" y="20" width="360" height="160" fill="none" stroke="currentColor" strokeWidth="1" style={{color: 'var(--ink-muted)', opacity: 0.3}} />
-        <line x1="200" y1="20" x2="200" y2="180" stroke="currentColor" strokeWidth="1" strokeDasharray="4 6" style={{color: 'var(--ink-muted)', opacity: 0.4}} />
-        <rect x="30" y="80" width="6" height="40" fill="currentColor" style={{color: 'var(--ink)'}} />
-        <rect x="364" y="100" width="6" height="40" fill="currentColor" style={{color: 'var(--accent)'}} />
-        <circle cx="220" cy="110" r="5" fill="currentColor" style={{color: 'var(--accent)'}} />
-      </svg>
-    ),
-  },
-  {
-    num: '02',
-    stamp: '3 contrib',
-    title: 'webserv<em>.</em>',
-    descKey: 'skills.proj_02_desc',
-    tags: ['c++', 'php', 'cgi'],
-    spec: [
-      ['Stack', 'C++ · PHP'],
-      ['Lines', '6,604'],
-      ['Commits', '405'],
-      ['Status', 'Complete'],
-    ] as const,
-    github: 'https://github.com/lienardale/webserv',
-    live: null,
-    preview: (
-      <svg viewBox="0 0 400 200">
-        <g style={{fontFamily: 'var(--font-mono)', fontSize: '11px', fill: 'currentColor', color: 'var(--ink-soft)'}}>
-          <text x="20" y="40">GET /index.html HTTP/1.1</text>
-          <text x="20" y="60" style={{opacity: 0.6}}>Host: localhost:8080</text>
-          <text x="20" y="100" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>HTTP/1.1 200 OK</text>
-          <text x="20" y="120" style={{opacity: 0.6}}>Content-Type: text/html</text>
-          <text x="20" y="140" style={{opacity: 0.6}}>Content-Length: 1247</text>
-          <text x="20" y="170" style={{opacity: 0.5}}>[ body ... ]</text>
-        </g>
-      </svg>
-    ),
-  },
-  {
-    num: '03',
-    stamp: 'solo',
-    title: 'mini_rt<em>.</em>',
-    descKey: 'skills.proj_03_desc',
-    tags: ['c', 'minilibx', 'graphics'],
-    spec: [
-      ['Stack', 'C · minilibX'],
-      ['Lines', '2,253'],
-      ['Commits', '53'],
-      ['Status', 'Complete'],
-    ] as const,
-    github: 'https://github.com/lienardale/mini_rt',
-    live: null,
-    preview: (
-      <svg viewBox="0 0 400 200">
-        <defs>
-          <radialGradient id="rtg" cx="0.3" cy="0.3">
-            <stop offset="0" stopColor="currentColor" stopOpacity="0.9" />
-            <stop offset="1" stopColor="currentColor" stopOpacity="0.2" />
-          </radialGradient>
-        </defs>
-        <rect x="0" y="0" width="400" height="200" fill="currentColor" style={{color: 'var(--ink)', opacity: 0.04}} />
-        <ellipse cx="120" cy="170" rx="80" ry="8" fill="currentColor" style={{color: 'var(--ink)', opacity: 0.3}} />
-        <circle cx="130" cy="120" r="48" fill="url(#rtg)" style={{color: 'var(--accent)'}} />
-        <circle cx="280" cy="100" r="28" fill="currentColor" style={{color: 'var(--ink)', opacity: 0.4}} />
-        <line x1="50" y1="30" x2="130" y2="120" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 3" style={{color: 'var(--accent)', opacity: 0.5}} />
-      </svg>
-    ),
-  },
-  {
-    num: '04',
-    stamp: '2 contrib',
-    title: 'minishell<em>.</em>',
-    descKey: 'skills.proj_04_desc',
-    tags: ['c', 'bash', 'parsing'],
-    spec: [
-      ['Stack', 'C · Bash'],
-      ['Lines', '6,061'],
-      ['Commits', '357'],
-      ['Status', 'Complete'],
-    ] as const,
-    github: 'https://github.com/lienardale/minishell',
-    live: null,
-    preview: (
-      <svg viewBox="0 0 400 200">
-        <g style={{fontFamily: 'var(--font-mono)', fontSize: '11px', fill: 'currentColor', color: 'var(--ink-soft)'}}>
-          <text x="20" y="40" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>$ ls -la | grep .c | wc -l</text>
-          <text x="20" y="60" style={{opacity: 0.6}}>12</text>
-          <text x="20" y="100" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>$ echo $HOME &gt; out.txt</text>
-          <text x="20" y="120" style={{opacity: 0.6}}>$ cat &lt; out.txt</text>
-          <text x="20" y="140" style={{opacity: 0.6}}>/Users/alex</text>
-          <text x="20" y="170" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>$ █</text>
-        </g>
-      </svg>
-    ),
-  },
+const previews: Record<string, React.ReactNode> = {
+  ft_transcendence: (
+    <svg viewBox="0 0 400 200" preserveAspectRatio="none">
+      <rect x="20" y="20" width="360" height="160" fill="none" stroke="currentColor" strokeWidth="1" style={{color: 'var(--ink-muted)', opacity: 0.3}} />
+      <line x1="200" y1="20" x2="200" y2="180" stroke="currentColor" strokeWidth="1" strokeDasharray="4 6" style={{color: 'var(--ink-muted)', opacity: 0.4}} />
+      <rect x="30" y="80" width="6" height="40" fill="currentColor" style={{color: 'var(--ink)'}} />
+      <rect x="364" y="100" width="6" height="40" fill="currentColor" style={{color: 'var(--accent)'}} />
+      <circle cx="220" cy="110" r="5" fill="currentColor" style={{color: 'var(--accent)'}} />
+    </svg>
+  ),
+  webserv: (
+    <svg viewBox="0 0 400 200">
+      <g style={{fontFamily: 'var(--font-mono)', fontSize: '11px', fill: 'currentColor', color: 'var(--ink-soft)'}}>
+        <text x="20" y="40">GET /index.html HTTP/1.1</text>
+        <text x="20" y="60" style={{opacity: 0.6}}>Host: localhost:8080</text>
+        <text x="20" y="100" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>HTTP/1.1 200 OK</text>
+        <text x="20" y="120" style={{opacity: 0.6}}>Content-Type: text/html</text>
+        <text x="20" y="140" style={{opacity: 0.6}}>Content-Length: 1247</text>
+        <text x="20" y="170" style={{opacity: 0.5}}>[ body ... ]</text>
+      </g>
+    </svg>
+  ),
+  mini_rt: (
+    <svg viewBox="0 0 400 200">
+      <defs>
+        <radialGradient id="rtg" cx="0.3" cy="0.3">
+          <stop offset="0" stopColor="currentColor" stopOpacity="0.9" />
+          <stop offset="1" stopColor="currentColor" stopOpacity="0.2" />
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="400" height="200" fill="currentColor" style={{color: 'var(--ink)', opacity: 0.04}} />
+      <ellipse cx="120" cy="170" rx="80" ry="8" fill="currentColor" style={{color: 'var(--ink)', opacity: 0.3}} />
+      <circle cx="130" cy="120" r="48" fill="url(#rtg)" style={{color: 'var(--accent)'}} />
+      <circle cx="280" cy="100" r="28" fill="currentColor" style={{color: 'var(--ink)', opacity: 0.4}} />
+      <line x1="50" y1="30" x2="130" y2="120" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 3" style={{color: 'var(--accent)', opacity: 0.5}} />
+    </svg>
+  ),
+  minishell: (
+    <svg viewBox="0 0 400 200">
+      <g style={{fontFamily: 'var(--font-mono)', fontSize: '11px', fill: 'currentColor', color: 'var(--ink-soft)'}}>
+        <text x="20" y="40" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>$ ls -la | grep .c | wc -l</text>
+        <text x="20" y="60" style={{opacity: 0.6}}>12</text>
+        <text x="20" y="100" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>$ echo $HOME &gt; out.txt</text>
+        <text x="20" y="120" style={{opacity: 0.6}}>$ cat &lt; out.txt</text>
+        <text x="20" y="140" style={{opacity: 0.6}}>/Users/alex</text>
+        <text x="20" y="170" style={{color: 'var(--accent)', fill: 'var(--accent)'}}>$ █</text>
+      </g>
+    </svg>
+  ),
+  bdi_2023: (
+    <svg viewBox="0 0 400 200">
+      <g fill="none" stroke="currentColor" strokeWidth="1.4" style={{color: 'var(--ink-muted)'}}>
+        <rect x="20" y="20" width="110" height="100" rx="2" />
+        <rect x="140" y="20" width="110" height="100" rx="2" />
+        <rect x="260" y="20" width="120" height="100" rx="2" />
+        <rect x="20" y="130" width="360" height="50" rx="2" />
+      </g>
+      <g style={{color: 'var(--accent)'}}>
+        <path d="M70 60 q-10 0 -10 10 v18 q0 10 10 10 h22 l8 12 v-12 h6 q10 0 10 -10 v-18 q0 -10 -10 -10 z"
+              fill="currentColor" opacity="0.18" stroke="currentColor" strokeWidth="1.2" />
+      </g>
+      <g style={{fontFamily: 'var(--font-mono)', fontSize: '10px', fill: 'var(--ink-soft)'}}>
+        <text x="155" y="170" style={{letterSpacing: '0.18em', textTransform: 'uppercase'}}>BDI · CMBD</text>
+      </g>
+      <g style={{fontFamily: 'var(--font-mono)', fontSize: '9px', fill: 'currentColor', color: 'var(--ink-muted)'}}>
+        <text x="148" y="62">!</text>
+        <text x="148" y="78" style={{opacity: 0.6}}>?</text>
+        <text x="270" y="62" style={{opacity: 0.6}}>...</text>
+      </g>
+    </svg>
+  ),
+  gpx_to_video: (
+    <svg viewBox="0 0 400 200">
+      <g fill="none" stroke="currentColor" strokeWidth="1" style={{color: 'var(--ink-muted)', opacity: 0.55}}>
+        <rect x="20" y="40" width="360" height="120" rx="2" />
+        <line x1="20" y1="55" x2="380" y2="55" />
+        <line x1="20" y1="145" x2="380" y2="145" />
+      </g>
+      <g fill="currentColor" style={{color: 'var(--ink-muted)', opacity: 0.6}}>
+        <rect x="30" y="44" width="8" height="8" />
+        <rect x="50" y="44" width="8" height="8" />
+        <rect x="70" y="44" width="8" height="8" />
+        <rect x="90" y="44" width="8" height="8" />
+        <rect x="110" y="44" width="8" height="8" />
+        <rect x="130" y="44" width="8" height="8" />
+        <rect x="150" y="44" width="8" height="8" />
+        <rect x="170" y="44" width="8" height="8" />
+        <rect x="190" y="44" width="8" height="8" />
+        <rect x="210" y="44" width="8" height="8" />
+        <rect x="230" y="44" width="8" height="8" />
+        <rect x="250" y="44" width="8" height="8" />
+        <rect x="270" y="44" width="8" height="8" />
+        <rect x="290" y="44" width="8" height="8" />
+        <rect x="310" y="44" width="8" height="8" />
+        <rect x="330" y="44" width="8" height="8" />
+        <rect x="350" y="44" width="8" height="8" />
+        <rect x="370" y="44" width="8" height="8" />
+        <rect x="30" y="148" width="8" height="8" />
+        <rect x="50" y="148" width="8" height="8" />
+        <rect x="70" y="148" width="8" height="8" />
+        <rect x="90" y="148" width="8" height="8" />
+        <rect x="110" y="148" width="8" height="8" />
+        <rect x="130" y="148" width="8" height="8" />
+        <rect x="150" y="148" width="8" height="8" />
+        <rect x="170" y="148" width="8" height="8" />
+        <rect x="190" y="148" width="8" height="8" />
+        <rect x="210" y="148" width="8" height="8" />
+        <rect x="230" y="148" width="8" height="8" />
+        <rect x="250" y="148" width="8" height="8" />
+        <rect x="270" y="148" width="8" height="8" />
+        <rect x="290" y="148" width="8" height="8" />
+        <rect x="310" y="148" width="8" height="8" />
+        <rect x="330" y="148" width="8" height="8" />
+        <rect x="350" y="148" width="8" height="8" />
+        <rect x="370" y="148" width="8" height="8" />
+      </g>
+      <path d="M30 130 C 80 120, 110 95, 160 100 S 240 70, 280 80 S 350 110, 380 90"
+            fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+            style={{color: 'var(--accent)'}} />
+      <circle cx="30" cy="130" r="4" fill="currentColor" style={{color: 'var(--accent)'}} />
+      <circle cx="380" cy="90" r="4" fill="currentColor" style={{color: 'var(--accent)'}} />
+    </svg>
+  ),
+  nextjs_blog: (
+    <svg viewBox="0 0 400 200">
+      <g fill="none" stroke="currentColor" strokeWidth="1" style={{color: 'var(--ink-muted)', opacity: 0.45}}>
+        <line x1="40" y1="60" x2="200" y2="60" />
+        <line x1="40" y1="80" x2="240" y2="80" />
+        <line x1="40" y1="100" x2="180" y2="100" />
+        <line x1="40" y1="120" x2="220" y2="120" />
+        <line x1="40" y1="140" x2="160" y2="140" />
+      </g>
+      <g style={{fontFamily: 'var(--font-display)', fontSize: '120px', fill: 'currentColor', color: 'var(--ink)'}}>
+        <text x="270" y="138" style={{fontStyle: 'italic'}}>N</text>
+      </g>
+      <g style={{fontFamily: 'var(--font-mono)', fontSize: '10px', fill: 'currentColor', color: 'var(--accent)'}}>
+        <text x="270" y="160" style={{letterSpacing: '0.14em'}}>en · fr · de · es</text>
+      </g>
+      <line x1="40" y1="40" x2="360" y2="40" stroke="currentColor" strokeWidth="0.5" style={{color: 'var(--ink-muted)', opacity: 0.4}} />
+      <line x1="40" y1="170" x2="360" y2="170" stroke="currentColor" strokeWidth="0.5" style={{color: 'var(--ink-muted)', opacity: 0.4}} />
+    </svg>
+  ),
+};
+
+function liveDomain(url: string | undefined): string {
+  if (!url) return 'Complete';
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+}
+
+function projectSpec(p: Project): ReadonlyArray<readonly [string, string]> {
+  return [
+    ['Stack', p.stack],
+    ['Lines', p.stats.lines.toLocaleString()],
+    ['Commits', String(p.stats.commits)],
+    p.live ? ['Live', liveDomain(p.live)] : ['Status', 'Complete'],
+  ] as const;
+}
+
+const HOME_ORDER: string[] = [
+  'ft_transcendence',
+  'mini_rt',
+  'bdi_2023',
+  'nextjs_blog',
+  'gpx_to_video',
 ];
 
 const softSkills = [
@@ -176,6 +232,12 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
 export default async function SkillsPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = await getTranslations({locale});
+  const allProjects = getProjects(locale);
+  const byId = new Map(allProjects.map((p) => [p.id, p]));
+  const orderedProjects: Project[] = [
+    ...HOME_ORDER.map((id) => byId.get(id)).filter((p): p is Project => Boolean(p)),
+    ...allProjects.filter((p) => !HOME_ORDER.includes(p.id)),
+  ];
 
   return (
     <div className="section-page">
@@ -242,22 +304,22 @@ export default async function SkillsPage({params}: {params: Promise<{locale: str
           <p className="lede">{t('skills.proj_lede')}</p>
         </div>
         <div className="proj-grid">
-          {projects.map((p, i) => (
-            <ProjectCardTilt key={p.num} delay={i}>
+          {orderedProjects.map((p, i) => (
+            <ProjectCardTilt key={p.id} delay={i}>
               <div className="pc-head">
-                <span>Project / {p.num}</span>
+                <span>Project / {String(i + 1).padStart(2, '0')}</span>
                 <span className="stamp">{p.stamp}</span>
               </div>
-              <h3 dangerouslySetInnerHTML={{__html: p.title}} />
-              <p>{t(p.descKey)}</p>
-              <div className="preview preview-route">{p.preview}</div>
+              <h3 dangerouslySetInnerHTML={{__html: `${p.title}<em>.</em>`}} />
+              <p>{p.description}</p>
+              <div className="preview preview-route">{previews[p.id]}</div>
               <div className="tags">
                 {p.tags.map((tag) => (
                   <span key={tag} className="tag">{tag}</span>
                 ))}
               </div>
               <div className="spec">
-                {p.spec.map(([label, value]) => (
+                {projectSpec(p).map(([label, value]) => (
                   <div key={label}><b>{label}</b>{value}</div>
                 ))}
               </div>

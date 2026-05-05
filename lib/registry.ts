@@ -1,3 +1,5 @@
+import projectStats from './project-stats.json';
+
 type ContentItem = {
   id: string;
   date: string;
@@ -6,7 +8,19 @@ type ContentItem = {
   description?: Record<string, string>;
   startDate?: string;
   endDate?: string;
+  // Project-only fields (used by the `projects` category):
+  github?: string;
+  live?: string;
+  tech?: string[];
+  name?: Record<string, string>;       // card title in /skills/projects (e.g. "Multiplayer Online Pong")
+  tagline?: Record<string, string>;     // home rail subtitle (e.g. "multiplayer online Pong")
+  stamp?: string;                        // home/skills rail stamp (e.g. "5 contrib", "solo")
+  stack?: string;                        // /skills spec line (e.g. "TS · React · NestJS")
 };
+
+type ProjectStats = {contributors: number; lines: number; commits: number};
+
+const stats = projectStats as Record<string, ProjectStats>;
 
 const registry: Record<string, ContentItem[]> = {
   experience: [
@@ -42,6 +56,130 @@ const registry: Record<string, ContentItem[]> = {
     {id: 'building-modern-blog', date: '2026-03-15', title: {en: 'Building a Modern Blog with Next.js App Router', fr: 'Construire un blog moderne avec le App Router de Next.js', de: 'Einen modernen Blog mit dem Next.js App Router erstellen', es: 'Construyendo un blog moderno con el App Router de Next.js'}, tags: ['nextjs', 'app-router', 'react'], description: {en: 'A guide to building a performant blog using the Next.js App Router with server components.', fr: 'Un guide pour construire un blog performant avec le App Router de Next.js et les composants serveur.', de: 'Eine Anleitung zum Erstellen eines performanten Blogs mit dem Next.js App Router und Server-Komponenten.', es: 'Una guia para construir un blog eficiente usando el App Router de Next.js con componentes de servidor.'}},
     {id: 'typescript-react-patterns', date: '2026-03-10', title: {en: 'TypeScript Patterns for React 19', fr: 'Patterns TypeScript pour React 19', de: 'TypeScript-Patterns für React 19', es: 'Patrones TypeScript para React 19'}, tags: ['typescript', 'react', 'patterns'], description: {en: 'Essential TypeScript patterns for writing type-safe React 19 components.', fr: 'Les patterns TypeScript essentiels pour des composants React 19 type-safe.', de: 'Essentielle TypeScript-Patterns für typsichere React 19-Komponenten.', es: 'Patrones TypeScript esenciales para componentes React 19 con tipado seguro.'}},
     {id: 'next-intl-guide', date: '2026-03-05', title: {en: 'Internationalization with next-intl', fr: 'Internationalisation avec next-intl', de: 'Internationalisierung mit next-intl', es: 'Internacionalización con next-intl'}, tags: ['nextjs', 'i18n', 'next-intl'], description: {en: 'How to add multi-language support to your Next.js app using next-intl.', fr: 'Comment ajouter le support multilingue à votre application Next.js avec next-intl.', de: 'Wie Sie mit next-intl mehrsprachige Unterstützung zu Ihrer Next.js-App hinzufügen.', es: 'Cómo agregar soporte multilingüe a tu aplicación Next.js usando next-intl.'}},
+  ],
+  projects: [
+    {
+      id: 'gpx_to_video',
+      date: '2026-05-04',
+      title: {en: 'gpx-to-video', fr: 'gpx-to-video', de: 'gpx-to-video', es: 'gpx-to-video'},
+      name: {en: 'Road-trip Planner', fr: 'Planificateur de roadtrip', de: 'Roadtrip-Planer', es: 'Planificador de viajes'},
+      tagline: {en: 'GPS traces → road-trip videos', fr: 'traces GPS → vidéos de roadtrip', de: 'GPS-Spuren → Roadtrip-Videos', es: 'trazas GPS → vídeos de viajes'},
+      description: {
+        en: 'Dockerized tool that turns GPX traces into preview videos by stitching Mapillary street-level imagery with Google fallback — built for road-trip planning.',
+        fr: 'Outil dockerisé qui transforme les traces GPX en vidéos de prévisualisation en assemblant l’imagerie street-level de Mapillary avec Google en secours — conçu pour la préparation de roadtrips.',
+        de: 'Dockerisiertes Tool, das GPX-Spuren in Vorschauvideos verwandelt, indem es Mapillary-Straßenbilder mit Google als Fallback zusammenfügt — für die Roadtrip-Planung gebaut.',
+        es: 'Herramienta dockerizada que convierte trazas GPX en vídeos de previsualización combinando imágenes de Mapillary con Google como respaldo — pensada para planificar viajes por carretera.',
+      },
+      github: 'https://github.com/lienardale/gpx-to-video',
+      tech: ['Next.js', 'TypeScript', 'Docker', 'Mapillary API', 'Google Maps API'],
+      tags: ['nextjs', 'typescript', 'docker', 'mapillary', 'google-maps'],
+      stack: 'Next.js · Docker',
+    },
+    {
+      id: 'nextjs_blog',
+      date: '2026-04-25',
+      title: {en: 'nextjs-blog', fr: 'nextjs-blog', de: 'nextjs-blog', es: 'nextjs-blog'},
+      name: {en: 'Personal Portfolio', fr: 'Portfolio personnel', de: 'Persönliches Portfolio', es: 'Portafolio personal'},
+      tagline: {en: 'this very portfolio', fr: 'ce portfolio même', de: 'genau dieses Portfolio', es: 'este mismo portafolio'},
+      description: {
+        en: 'This site. Multilingual (en/fr/de/es) personal portfolio with Markdown content, custom Paper & Ink design system and an editorial detail layout.',
+        fr: 'Ce site. Portfolio personnel multilingue (en/fr/de/es) avec contenu en Markdown, design system Paper & Ink sur mesure et mise en page éditoriale.',
+        de: 'Diese Seite. Mehrsprachiges (en/fr/de/es) persönliches Portfolio mit Markdown-Inhalten, eigenem Paper-&-Ink-Design-System und editorialem Detail-Layout.',
+        es: 'Este sitio. Portafolio personal multilingüe (en/fr/de/es) con contenido en Markdown, sistema de diseño Paper & Ink propio y maquetación editorial.',
+      },
+      github: 'https://github.com/lienardale/nextjs-blog',
+      live: 'https://nextjs-blog-lienardale.vercel.app',
+      tech: ['Next.js 16', 'React 19', 'TypeScript', 'next-intl'],
+      tags: ['nextjs', 'typescript', 'react', 'next-intl', 'editorial'],
+      stack: 'Next.js · React 19',
+    },
+    {
+      id: 'bdi_2023',
+      date: '2023-10-29',
+      title: {en: 'bdi_2023', fr: 'bdi_2023', de: 'bdi_2023', es: 'bdi_2023'},
+      name: {en: 'Comic Festival Platform', fr: 'Plateforme festival BD', de: 'Comic-Festival-Plattform', es: 'Plataforma de festival de cómics'},
+      tagline: {en: 'comic festival platform', fr: 'plateforme festival BD', de: 'Comic-Festival-Plattform', es: 'plataforma festival de cómics'},
+      description: {
+        en: 'Multi-brand Next.js 16 platform powering two French comic-book event sites (BDI · CMBD) from a single codebase, with Prisma, Postgres and Google OAuth.',
+        fr: 'Plateforme Next.js 16 multi-marques alimentant deux sites d’événements BD français (BDI · CMBD) depuis une seule base de code, avec Prisma, Postgres et Google OAuth.',
+        de: 'Multi-Brand-Next.js-16-Plattform, die zwei französische Comic-Event-Sites (BDI · CMBD) aus einer einzigen Codebasis betreibt — mit Prisma, Postgres und Google OAuth.',
+        es: 'Plataforma multi-marca Next.js 16 que alimenta dos sitios de eventos de cómic franceses (BDI · CMBD) desde una sola base de código, con Prisma, Postgres y Google OAuth.',
+      },
+      github: 'https://github.com/lienardale/bdi_2023',
+      live: 'https://bdi-2023.vercel.app',
+      tech: ['Next.js 16', 'TypeScript', 'Prisma', 'Postgres', 'NextAuth', 'Tailwind'],
+      tags: ['nextjs', 'typescript', 'prisma', 'postgres', 'nextauth'],
+      stack: 'Next.js · Prisma · Postgres',
+    },
+    {
+      id: 'ft_transcendence',
+      date: '2022-06-23',
+      title: {en: 'ft_transcendence', fr: 'ft_transcendence', de: 'ft_transcendence', es: 'ft_transcendence'},
+      name: {en: 'Multiplayer Online Pong', fr: 'Pong multijoueurs en ligne', de: 'Online Multiplayer Pong', es: 'Pong multijugador en línea'},
+      tagline: {en: 'multiplayer online Pong', fr: 'Pong multijoueur en ligne', de: 'Multiplayer-Online-Pong', es: 'Pong multijugador en línea'},
+      description: {
+        en: 'Full-stack web platform with game, chat, authentication, and friend requests. Multiplayer online Pong.',
+        fr: 'Plateforme web full-stack avec jeu, chat, authentification et demandes d’ami. Pong multijoueur en ligne.',
+        de: 'Full-Stack-Webplattform mit Spiel, Chat, Authentifizierung und Freundschaftsanfragen. Multiplayer-Online-Pong.',
+        es: 'Plataforma web full-stack con juego, chat, autenticación y solicitudes de amistad. Pong multijugador en línea.',
+      },
+      github: 'https://github.com/lienardale/ft_transcendence',
+      live: 'https://roland-garrong.fr',
+      tech: ['TypeScript', 'React', 'NestJS', 'Postgres', 'Docker', 'Nginx'],
+      tags: ['typescript', 'react', 'nestjs', 'postgres', 'docker', 'nginx'],
+      stack: 'TS · React · NestJS',
+    },
+    {
+      id: 'webserv',
+      date: '2022-03-15',
+      title: {en: 'webserv', fr: 'webserv', de: 'webserv', es: 'webserv'},
+      name: {en: 'Web Server', fr: 'Serveur Web', de: 'Webserver', es: 'Servidor Web'},
+      tagline: {en: 'HTTP server in C++', fr: 'serveur HTTP en C++', de: 'HTTP-Server in C++', es: 'servidor HTTP en C++'},
+      description: {
+        en: 'HTTP web server built from scratch with headers, body, CGI, and file handling.',
+        fr: 'Serveur web HTTP écrit depuis zéro — headers, body, CGI, gestion des fichiers.',
+        de: 'HTTP-Webserver, von Grund auf gebaut — mit Headern, Body, CGI und Dateiverarbeitung.',
+        es: 'Servidor HTTP hecho desde cero con cabeceras, body, CGI y manejo de archivos.',
+      },
+      github: 'https://github.com/lienardale/webserv',
+      tech: ['C++', 'PHP'],
+      tags: ['c++', 'php', 'cgi'],
+      stack: 'C++ · PHP',
+    },
+    {
+      id: 'minishell',
+      date: '2021-12-01',
+      title: {en: 'minishell', fr: 'minishell', de: 'minishell', es: 'minishell'},
+      name: {en: 'Shell', fr: 'Shell', de: 'Shell', es: 'Shell'},
+      tagline: {en: 'shell with pipes & redirections', fr: 'shell avec pipes et redirections', de: 'Shell mit Pipes & Umleitungen', es: 'shell con pipes y redirecciones'},
+      description: {
+        en: 'Shell with pipes, redirections, environment variables, and built-in commands.',
+        fr: 'Shell avec pipes, redirections, variables d’environnement et commandes intégrées.',
+        de: 'Shell mit Pipes, Umleitungen, Umgebungsvariablen und eingebauten Befehlen.',
+        es: 'Shell con pipes, redirecciones, variables de entorno y comandos integrados.',
+      },
+      github: 'https://github.com/lienardale/minishell',
+      tech: ['C', 'Bash'],
+      tags: ['c', 'bash', 'parsing'],
+      stack: 'C · Bash',
+    },
+    {
+      id: 'mini_rt',
+      date: '2021-09-01',
+      title: {en: 'mini_rt', fr: 'mini_rt', de: 'mini_rt', es: 'mini_rt'},
+      name: {en: 'Ray Tracer', fr: 'Ray Tracer', de: 'Ray Tracer', es: 'Ray Tracer'},
+      tagline: {en: 'ray tracer in C', fr: 'ray tracer en C', de: 'Raytracer in C', es: 'ray tracer en C'},
+      description: {
+        en: 'Ray tracer implementing basic shapes, lights, and shadows.',
+        fr: 'Ray tracer avec formes de base, lumières et ombres.',
+        de: 'Raytracer mit grundlegenden Formen, Lichtern und Schatten.',
+        es: 'Ray tracer con formas básicas, luces y sombras.',
+      },
+      github: 'https://github.com/lienardale/mini_rt',
+      tech: ['C', 'minilibX'],
+      tags: ['c', 'minilibx', 'graphics'],
+      stack: 'C · minilibX',
+    },
   ],
 };
 
@@ -90,4 +228,52 @@ export function getRelatedPosts(postId: string, locale: string, limit = 3) {
     .filter((p) => p.matchCount > 0)
     .sort((a, b) => b.matchCount - a.matchCount || (a.date < b.date ? 1 : -1))
     .slice(0, limit);
+}
+
+export type Project = {
+  id: string;
+  date: string;
+  title: string;
+  name: string;
+  tagline: string;
+  description: string;
+  github: string;
+  live?: string;
+  tech: string[];
+  tags: string[];
+  stack: string;
+  stamp: string;
+  stats: ProjectStats;
+};
+
+function deriveStamp(contributors: number): string {
+  return contributors <= 1 ? 'solo' : `${contributors} contrib`;
+}
+
+export function getProjects(locale: string): Project[] {
+  const items = registry.projects ?? [];
+  return items
+    .map((p) => {
+      const s = stats[p.id] ?? {contributors: 1, lines: 0, commits: 0};
+      return {
+        id: p.id,
+        date: p.date,
+        title: p.title[locale] ?? p.title.en,
+        name: p.name?.[locale] ?? p.name?.en ?? p.id,
+        tagline: p.tagline?.[locale] ?? p.tagline?.en ?? '',
+        description: p.description?.[locale] ?? p.description?.en ?? '',
+        github: p.github ?? '',
+        live: p.live,
+        tech: p.tech ?? [],
+        tags: p.tags ?? [],
+        stack: p.stack ?? (p.tech ?? []).slice(0, 3).join(' · '),
+        stamp: deriveStamp(s.contributors),
+        stats: s,
+      };
+    })
+    .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+}
+
+export function getProjectById(id: string, locale: string): Project | undefined {
+  return getProjects(locale).find((p) => p.id === id);
 }

@@ -1,0 +1,37 @@
+{
+  "ft_transcendence": {
+    "contributors": 5,
+    "lines": 11702,
+    "commits": 926
+  },
+  "webserv": {
+    "contributors": 3,
+    "lines": 6604,
+    "commits": 405
+  },
+  "mini_rt": {
+    "contributors": 1,
+    "lines": 2253,
+    "commits": 53
+  },
+  "minishell": {
+    "contributors": 2,
+    "lines": 6061,
+    "commits": 357
+  },
+  "bdi_2023": {
+    "contributors": 3,
+    "lines": 17529,
+    "commits": 53
+  },
+  "gpx_to_video": {
+    "contributors": 1,
+    "lines": 2428,
+    "commits": 2
+  },
+  "nextjs_blog": {
+    "contributors": 2,
+    "lines": 12940,
+    "commits": 77
+  }
+}
