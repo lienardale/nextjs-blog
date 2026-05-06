@@ -6,10 +6,14 @@ import SiteFooter from '../components/SiteFooter';
 import TripExpand, {type Trip} from '../components/TripExpand';
 
 const interactiveTrips: Trip[] = [
+  {id: '2281343685', yearLabel: '2025', name: 'Paris → <em>Saint-Quentin</em> (2/2)', km: '59', days: '0.3', year: '2025'},
+  {id: '2279371256', yearLabel: '2025', name: 'Paris → <em>Saint-Quentin</em> (1/2)', km: '127', days: '0.7', year: '2025'},
+  {id: '2155477868', yearLabel: '2025', name: 'Paris → <em>Roubaix.</em>', km: '71', days: '1', year: '2025'},
   {id: '1830962536', yearLabel: '2024', name: 'Angers → <em>Mesquer.</em>', km: '199', days: '1', year: '2024'},
   {id: '1623219446', yearLabel: '2024', name: 'Hourtin → <em>Arcachon.</em>', km: '80', days: '1', year: '2024'},
   {id: '1567077210', yearLabel: '2024', name: 'Naxos <em>Loop.</em>', km: '55', days: '1', year: '2024'},
   {id: '1256629528', yearLabel: '2023', name: 'Paris → <em>Tours.</em>', km: '362', days: '3', year: '2023'},
+  {id: '1073152740', yearLabel: '2023', name: 'Paris → <em>Roubaix.</em>', km: '147', days: '1', year: '2023'},
   {id: '449141002', yearLabel: '2021', name: 'Nantes → <em>Bordeaux.</em>', km: '600', days: '6', year: '2021'},
   {id: '439307756', yearLabel: '2021', name: 'Quimper → <em>Vannes.</em>', km: '300', days: '6', year: '2021'},
 ];
@@ -42,12 +46,12 @@ const staticTrips = [
 ];
 
 const novels = [
-  {title: 'Asterios Polyp', author: 'D. Mazzucchelli', genre: 'Literary', c1: '#6b1f3a', c2: '#a14464'},
-  {title: 'Maus', author: 'Art Spiegelman', genre: 'Memoir', c1: '#2a2a2a', c2: '#5a5a5a'},
-  {title: 'Persepolis', author: 'Marjane Satrapi', genre: 'Autobio', c1: '#1a3a4a', c2: '#3d6c84'},
-  {title: 'Blankets', author: 'Craig Thompson', genre: 'Memoir', c1: '#3a2a14', c2: '#7a5a32'},
-  {title: 'Le Sommet des Dieux', author: 'J. Taniguchi', genre: 'Adventure', c1: '#3a4a52', c2: '#7088a0'},
-  {title: 'Akira', author: 'K. Otomo', genre: 'Sci-Fi', c1: '#a02818', c2: '#e85c1a'},
+  {title: 'Asterios Polyp', author: 'D. Mazzucchelli', genre: 'Literary', c1: '#6b1f3a', c2: '#a14464', cover_url: '/covers/asterios-polyp.jpg'},
+  {title: 'Maus', author: 'Art Spiegelman', genre: 'Memoir', c1: '#2a2a2a', c2: '#5a5a5a', cover_url: '/covers/maus.jpg'},
+  {title: 'Persepolis', author: 'Marjane Satrapi', genre: 'Autobio', c1: '#1a3a4a', c2: '#3d6c84', cover_url: '/covers/persepolis.jpg'},
+  {title: 'Blankets', author: 'Craig Thompson', genre: 'Memoir', c1: '#3a2a14', c2: '#7a5a32', cover_url: '/covers/blankets.jpg'},
+  {title: 'Le Sommet des Dieux', author: 'J. Taniguchi', genre: 'Adventure', c1: '#3a4a52', c2: '#7088a0', cover_url: '/covers/le-sommet-des-dieux.jpg'},
+  {title: 'Akira', author: 'K. Otomo', genre: 'Sci-Fi', c1: '#a02818', c2: '#e85c1a', cover_url: '/covers/akira.jpg'},
 ];
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
@@ -307,9 +311,9 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
             >
               <div
                 className="novel-spine"
-                style={{['--c1' as string]: n.c1, ['--c2' as string]: n.c2} as React.CSSProperties}
+                // style={{['--c1' as string]: n.c1, ['--c2' as string]: n.c2} as React.CSSProperties}
+                style={{backgroundImage: `url(${n.cover_url}), linear-gradient(135deg, ${n.c1}, ${n.c2})`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center'}}
               >
-                <span>{n.title}</span>
               </div>
               <div className="novel-meta">
                 <b>{n.title}</b>
