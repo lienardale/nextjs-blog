@@ -52,7 +52,11 @@ type Locale = keyof typeof labels;
 
 const trips = [
   {
-    route: {en: '127 km day · May 2025', fr: 'Sortie de 127 km · mai 2025', de: '127-km-Tag · Mai 2025', es: 'Día de 127 km · mayo 2025'},
+    route: {en: 'Paris → Saint-Quentin (2/2)', fr: 'Paris → Saint-Quentin (2/2)', de: 'Paris → Saint-Quentin (2/2)', es: 'Paris → Saint-Quentin (2/2)'},
+    year: 2025, days: 1, km: 59, komootTourId: '2281343685',
+  },
+  {
+    route: {en: 'Paris → Saint-Quentin (1/2)', fr: 'Paris → Saint-Quentin (1/2)', de: 'Paris → Saint-Quentin (1/2)', es: 'Paris → Saint-Quentin (1/2)'},
     year: 2025, days: 1, km: 127, komootTourId: '2279371256',
   },
   {
