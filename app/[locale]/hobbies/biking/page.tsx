@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import TripSummary from '../../components/TripSummary';
 import TripCard from '../../components/TripCard';
 
@@ -167,11 +168,34 @@ export default async function BikingPage({params}: {params: Promise<{locale: str
         </div>
 
         <h2 className="text-xl font-bold mt-8 mb-4">{t.repair}</h2>
-        <ul className="list-disc pl-6 space-y-1 text-gray-700 dark:text-gray-300">
-          {t.bikes.map((bike) => (
-            <li key={bike}>{bike}</li>
-          ))}
-        </ul>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <figure className="rounded-lg overflow-hidden border border-gray-200">
+            <Image
+              src="/bikes/motobecane.jpeg"
+              alt={t.bikes[0]}
+              width={2048}
+              height={1536}
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="w-full h-auto block"
+            />
+            <figcaption className="px-4 py-3 text-sm text-gray-700 italic">
+              {t.bikes[0]}
+            </figcaption>
+          </figure>
+          <figure className="rounded-lg overflow-hidden border border-gray-200">
+            <Image
+              src="/bikes/kona.jpeg"
+              alt={t.bikes[1]}
+              width={2048}
+              height={1536}
+              sizes="(min-width: 640px) 50vw, 100vw"
+              className="w-full h-auto block"
+            />
+            <figcaption className="px-4 py-3 text-sm text-gray-700 italic">
+              {t.bikes[1]}
+            </figcaption>
+          </figure>
+        </div>
       </article>
     </>
   );
