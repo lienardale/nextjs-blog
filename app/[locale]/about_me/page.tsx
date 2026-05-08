@@ -149,11 +149,12 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
             rot: '6deg',
             x: 810,
             y: 280,
+            cursor: 'open',
             children: (
-              <>
-                <span className="label" style={{color: 'var(--accent)'}}>Bikes</span>
+              <Link href="/hobbies/biking" style={{color: 'inherit', textDecoration: 'none', display: 'block'}}>
+                <span className="label" style={{color: 'var(--accent)'}}>Bikes ↗</span>
                 <div className="big">single-speed<br />Motobecane<br />+ Kona Rove</div>
-              </>
+              </Link>
             ),
           },
           {
@@ -166,6 +167,19 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
                 <span className="label">Contact</span>
                 <div className="big" style={{fontSize: 18}}>alienard.dev<br />@<em>gmail.com</em></div>
               </>
+            ),
+          },
+          {
+            className: 'note',
+            rot: '-4deg',
+            x: 660,
+            y: 430,
+            cursor: 'open',
+            children: (
+              <Link href="/hobbies/podcasts" style={{color: 'inherit', textDecoration: 'none', display: 'block'}}>
+                <span className="label" style={{color: '#6d5d0a'}}>Podcasts ↗</span>
+                <div className="big" style={{fontSize: 18}}>Floodcast<br />Un podcast<br />à soi</div>
+              </Link>
             ),
           },
         ]}
