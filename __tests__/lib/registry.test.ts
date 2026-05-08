@@ -54,16 +54,16 @@ describe('registry', () => {
 
     it('falls back to English label when locale is unknown', () => {
       const items = getNavItems('hobbies', 'ja');
-      const bikingItem = items.find((i) => i.id === 'biking');
-      expect(bikingItem).toBeDefined();
-      expect(bikingItem!.label).toBe('Biking');
+      const novelsItem = items.find((i) => i.id === 'graphic-novels');
+      expect(novelsItem).toBeDefined();
+      expect(novelsItem!.label).toBe('Graphic Novels');
     });
 
     it('falls back to English label when locale is empty string', () => {
       const items = getNavItems('hobbies', '');
-      const bikingItem = items.find((i) => i.id === 'biking');
-      expect(bikingItem).toBeDefined();
-      expect(bikingItem!.label).toBe('Biking');
+      const novelsItem = items.find((i) => i.id === 'graphic-novels');
+      expect(novelsItem).toBeDefined();
+      expect(novelsItem!.label).toBe('Graphic Novels');
     });
 
     // Verify specific category contents
@@ -83,8 +83,8 @@ describe('registry', () => {
       expect(getNavItems('about_me', 'en')).toHaveLength(3);
     });
 
-    it('returns 3 items for hobbies', () => {
-      expect(getNavItems('hobbies', 'en')).toHaveLength(3);
+    it('returns 1 item for hobbies', () => {
+      expect(getNavItems('hobbies', 'en')).toHaveLength(1);
     });
 
     it('returns 9 items for posts (including archived)', () => {
@@ -177,9 +177,9 @@ describe('registry', () => {
     // Locale tests
     it('returns French titles when locale is "fr"', () => {
       const items = getSortedItems('hobbies', 'fr');
-      const bikingItem = items.find((i) => i.id === 'biking');
-      expect(bikingItem).toBeDefined();
-      expect(bikingItem!.title).toBe('Vélo');
+      const novelsItem = items.find((i) => i.id === 'graphic-novels');
+      expect(novelsItem).toBeDefined();
+      expect(novelsItem!.title).toBe('Romans graphiques');
     });
 
     it('returns German titles when locale is "de"', () => {
@@ -216,7 +216,7 @@ describe('registry', () => {
       ['education', 3],
       ['skills', 3],
       ['about_me', 3],
-      ['hobbies', 3],
+      ['hobbies', 1],
       ['posts', 7],
     ] as const)('returns %i items for category "%s"', (category, count) => {
       expect(getSortedItems(category, 'en')).toHaveLength(count);

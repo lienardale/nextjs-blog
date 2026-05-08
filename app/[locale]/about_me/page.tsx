@@ -149,12 +149,11 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
             rot: '6deg',
             x: 810,
             y: 280,
-            cursor: 'open',
             children: (
-              <Link href="/hobbies/biking" style={{color: 'inherit', textDecoration: 'none', display: 'block'}}>
-                <span className="label" style={{color: 'var(--accent)'}}>Bikes ↗</span>
+              <>
+                <span className="label" style={{color: 'var(--accent)'}}>Bikes</span>
                 <div className="big">single-speed<br />Motobecane<br />+ Kona Rove</div>
-              </Link>
+              </>
             ),
           },
           {
@@ -167,19 +166,6 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
                 <span className="label">Contact</span>
                 <div className="big" style={{fontSize: 18}}>alienard.dev<br />@<em>gmail.com</em></div>
               </>
-            ),
-          },
-          {
-            className: 'note',
-            rot: '-4deg',
-            x: 660,
-            y: 430,
-            cursor: 'open',
-            children: (
-              <Link href="/hobbies/podcasts" style={{color: 'inherit', textDecoration: 'none', display: 'block'}}>
-                <span className="label" style={{color: '#6d5d0a'}}>Podcasts ↗</span>
-                <div className="big" style={{fontSize: 18}}>Floodcast<br />Un podcast<br />à soi</div>
-              </Link>
             ),
           },
         ]}
@@ -264,8 +250,15 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
         />
         <div className="bikes">
           <div className="bike-card" data-reveal>
-            <div className="bike-wheels img-placeholder" aria-hidden style={{aspectRatio: '16 / 9', width: '100%'}}>
-              PHOTO · MOTOBECANE
+            <div className="bike-wheels" style={{aspectRatio: '16 / 9', width: '100%', overflow: 'hidden'}}>
+              <Image
+                src="/bikes/motobecane.jpeg"
+                alt="Motobecane single-speed"
+                width={2048}
+                height={1536}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}}
+              />
             </div>
             <div
               className="bike-name"
@@ -276,8 +269,15 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
             </div>
           </div>
           <div className="bike-card" data-reveal style={{['--d' as string]: 1} as React.CSSProperties}>
-            <div className="bike-wheels img-placeholder" aria-hidden style={{aspectRatio: '16 / 9', width: '100%'}}>
-              PHOTO · KONA ROVE
+            <div className="bike-wheels" style={{aspectRatio: '16 / 9', width: '100%', overflow: 'hidden'}}>
+              <Image
+                src="/bikes/kona.jpeg"
+                alt="Kona Rove gravel"
+                width={2048}
+                height={1536}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                style={{width: '100%', height: '100%', objectFit: 'cover', display: 'block'}}
+              />
             </div>
             <div
               className="bike-name"
