@@ -20,32 +20,47 @@ export default function Scrapbook({stickers}: {stickers: Sticker[]}) {
     const cleanups: Array<() => void> = [];
 
     stage.querySelectorAll<HTMLElement>('[data-drag]').forEach((el) => {
+      const DRAG_THRESHOLD = 5; // px before pointer-down is treated as a drag
       let sx = 0;
       let sy = 0;
       let ox = 0;
       let oy = 0;
+      let armed = false;
       let dragging = false;
+      let pid = -1;
 
       const onDown = (e: PointerEvent) => {
-        dragging = true;
-        el.setPointerCapture(e.pointerId);
+        armed = true;
+        dragging = false;
+        pid = e.pointerId;
         sx = e.clientX;
         sy = e.clientY;
         const t = el.style.transform.match(/translate\(([-\d.]+)px,\s*([-\d.]+)px\)/);
         ox = t ? parseFloat(t[1]) : 0;
         oy = t ? parseFloat(t[2]) : 0;
-        el.classList.add('is-dragging');
+        // Note: pointer not captured here — wait for movement so clicks on
+        // inner links/buttons still propagate when the user doesn't drag.
       };
       const onMove = (e: PointerEvent) => {
-        if (!dragging) return;
-        const nx = ox + (e.clientX - sx);
-        const ny = oy + (e.clientY - sy);
-        const rot = el.getAttribute('data-rot') ?? '0deg';
-        el.style.transform = `translate(${nx}px, ${ny}px) rotate(${rot})`;
+        if (!armed) return;
+        const dx = e.clientX - sx;
+        const dy = e.clientY - sy;
+        if (!dragging && Math.abs(dx) + Math.abs(dy) > DRAG_THRESHOLD) {
+          dragging = true;
+          el.setPointerCapture(pid);
+          el.classList.add('is-dragging');
+        }
+        if (dragging) {
+          const rot = el.getAttribute('data-rot') ?? '0deg';
+          el.style.transform = `translate(${ox + dx}px, ${oy + dy}px) rotate(${rot})`;
+        }
       };
       const onUp = () => {
-        dragging = false;
-        el.classList.remove('is-dragging');
+        armed = false;
+        if (dragging) {
+          dragging = false;
+          el.classList.remove('is-dragging');
+        }
       };
 
       el.addEventListener('pointerdown', onDown);
