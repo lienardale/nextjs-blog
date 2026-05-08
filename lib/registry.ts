@@ -49,9 +49,7 @@ const registry: Record<string, ContentItem[]> = {
     {id: 'cv', date: '2022-05-12', title: {en: 'CV', fr: 'CV', de: 'Lebenslauf', es: 'Currículum'}},
   ],
   hobbies: [
-    {id: 'biking', date: '2022-05-12', title: {en: 'Biking', fr: 'Vélo', de: 'Radfahren', es: 'Ciclismo'}},
     {id: 'graphic-novels', date: '2022-05-12', title: {en: 'Graphic Novels', fr: 'Romans graphiques', de: 'Graphic Novels', es: 'Novelas gráficas'}},
-    {id: 'podcasts', date: '2022-05-12', title: {en: 'Podcasts', fr: 'Podcasts', de: 'Podcasts', es: 'Podcasts'}},
   ],
   posts: [
     {id: 'monolith-to-microservice', date: '2026-05-03', title: {en: 'Decoupling a Critical Service from a Monolith', fr: 'Découper un service critique d’un monolithe', de: 'Einen kritischen Dienst aus einem Monolithen herauslösen', es: 'Desacoplar un servicio crítico de un monolito'}, tags: ['architecture', 'microservices', 'migrations'], description: {en: 'Schema split, contract design, dual-write migration, cutover — a real-world extraction without downtime.', fr: 'Split de schéma, design de contrat, migration en double-écriture, bascule — une extraction réelle sans coupure.', de: 'Schema-Split, Vertragsdesign, Dual-Write-Migration, Cutover — eine reale Extraktion ohne Ausfallzeit.', es: 'Split de esquema, diseño de contrato, migración con doble escritura, cutover — una extracción real sin downtime.'}},

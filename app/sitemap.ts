@@ -8,7 +8,7 @@ const categories: Record<string, string[]> = {
   education: ['42-Paris', 'IAE-Lille', 'CPGE_BL'],
   skills: ['projects', 'soft-skills', 'stack'],
   about_me: ['infos', 'languages', 'cv'],
-  hobbies: ['biking', 'graphic-novels', 'podcasts'],
+  hobbies: ['graphic-novels'],
   posts: ['ssg-ssr', 'pre-rendering', 'building-modern-blog', 'typescript-react-patterns', 'next-intl-guide'],
 };
 

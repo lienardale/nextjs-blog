@@ -235,20 +235,6 @@ jest.mock('../../app/[locale]/components/CVPreview', () => ({
 // Hobbies pages
 // ---------------------------------------------------------------------------
 
-describe('Hobbies — Biking page', () => {
-  it('renders heading, trip summary, and trip cards', async () => {
-    const Page = (await import('../../app/[locale]/hobbies/biking/page')).default;
-    render(await Page({params}));
-
-    expect(screen.getByText('Biking')).toBeInTheDocument();
-    expect(screen.getByTestId('trip-summary')).toBeInTheDocument();
-    // Check at least a couple of trips render
-    expect(screen.getByText('Nantes → Bordeaux')).toBeInTheDocument();
-    expect(screen.getByText('Lille → Amsterdam → Lille')).toBeInTheDocument();
-    expect(screen.getAllByTestId('trip-card').length).toBeGreaterThanOrEqual(9);
-  });
-});
-
 describe('Hobbies — Graphic Novels page', () => {
   it('renders heading, shelf, and no hardcoded date', async () => {
     const Page = (await import('../../app/[locale]/hobbies/graphic-novels/page')).default;
@@ -262,22 +248,6 @@ describe('Hobbies — Graphic Novels page', () => {
     expect(screen.getAllByTestId('graphic-novel-card').length).toBeGreaterThan(20);
     // Ensure old hardcoded date is gone
     expect(screen.queryByText('2022-05-12')).not.toBeInTheDocument();
-  });
-});
-
-describe('Hobbies — Podcasts page', () => {
-  it('renders heading, podcast cards with status badges', async () => {
-    const Page = (await import('../../app/[locale]/hobbies/podcasts/page')).default;
-    render(await Page({params}));
-
-    expect(screen.getByText('Podcasts')).toBeInTheDocument();
-    expect(screen.getByText('Studio 404')).toBeInTheDocument();
-    expect(screen.getByText('Floodcast')).toBeInTheDocument();
-    expect(screen.getByText('Un podcast à soi')).toBeInTheDocument();
-    expect(screen.getAllByTestId('podcast-card').length).toBe(3);
-    // Status badges
-    expect(screen.getByText('Ended')).toBeInTheDocument();
-    expect(screen.getAllByText('Active').length).toBe(2);
   });
 });
 
