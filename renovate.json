@@ -1,0 +1,16 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "packageRules": [
+    {
+      "description": "TypeScript 7 is the native Go port and ships no compiler API (its '.' export is just the version string, and there is no tsserver binary). Next 16.2's build-time type check probes for typescript/lib/typescript.js, so TS 7 makes `next build` report TypeScript as missing — it exits 1 under CI. @typescript-eslint also hard-errors on TS 7 by design as of 8.65.0. Revisit when TS 7.1 ships the new API, typescript-eslint issue #10940 closes, and Next's experimental.useTypeScriptCli reaches stable.",
+      "matchPackageNames": ["typescript"],
+      "allowedVersions": "<7"
+    },
+    {
+      "description": "@types/node must track the Node runtime, which is pinned to 24 in .nvmrc, package.json engines, the Dockerfile and CI. Latest on npm is 26.x, which would type against APIs this runtime does not have.",
+      "matchPackageNames": ["@types/node"],
+      "allowedVersions": "<25"
+    }
+  ]
+}
