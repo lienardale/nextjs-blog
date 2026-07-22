@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+# this project installs with npm; CI runs `npm ci`. A committed bun.lock only
+# drifts out of sync with package-lock.json.
+bun.lock
+
 # testing
 /coverage
 
