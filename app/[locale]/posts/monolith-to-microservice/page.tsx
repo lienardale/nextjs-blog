@@ -1,3 +1,5 @@
+import {notFound} from 'next/navigation';
+import {draftsVisible} from '../../../../lib/drafts';
 import CodeBlock from '../../components/CodeBlock';
 import PostDetail from '../../components/PostDetail';
 import RelatedPosts from '../../components/RelatedPosts';
@@ -183,11 +185,13 @@ const content = {
 type Locale = keyof typeof content;
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  if (!draftsVisible) notFound(); // draft — see lib/drafts.ts
   const {locale} = await params;
   return {title: content[locale as Locale]?.title ?? content.en.title};
 }
 
 export default async function MonolithToMicroservicePage({params}: {params: Promise<{locale: string}>}) {
+  if (!draftsVisible) notFound(); // draft — see lib/drafts.ts
   const {locale} = await params;
   const t = content[locale as Locale] ?? content.en;
 

@@ -1,3 +1,4 @@
+import {draftsVisible} from './drafts';
 import projectStats from './project-stats.json';
 
 type ContentItem = {
@@ -11,6 +12,10 @@ type ContentItem = {
   // Posts-only field: archived posts keep their /posts/<slug> route but are
   // hidden from the listing and from related-post results.
   archived?: boolean;
+  // Posts-only field: drafts are written but not published — hidden from every
+  // public surface and 404 at their route unless `draftsVisible` (see
+  // ./drafts.ts). Remove the flag to publish.
+  draft?: boolean;
   // Project-only fields (used by the `projects` category):
   github?: string;
   live?: string;
@@ -52,10 +57,10 @@ const registry: Record<string, ContentItem[]> = {
     {id: 'graphic-novels', date: '2022-05-12', title: {en: 'Graphic Novels', fr: 'Romans graphiques', de: 'Graphic Novels', es: 'Novelas gráficas'}},
   ],
   posts: [
-    {id: 'monolith-to-microservice', date: '2026-05-03', title: {en: 'Decoupling a Critical Service from a Monolith', fr: 'Découper un service critique d’un monolithe', de: 'Einen kritischen Dienst aus einem Monolithen herauslösen', es: 'Desacoplar un servicio crítico de un monolito'}, tags: ['architecture', 'microservices', 'migrations'], description: {en: 'Schema split, contract design, dual-write migration, cutover — a real-world extraction without downtime.', fr: 'Split de schéma, design de contrat, migration en double-écriture, bascule — une extraction réelle sans coupure.', de: 'Schema-Split, Vertragsdesign, Dual-Write-Migration, Cutover — eine reale Extraktion ohne Ausfallzeit.', es: 'Split de esquema, diseño de contrato, migración con doble escritura, cutover — una extracción real sin downtime.'}},
-    {id: 'deploy-process-rework', date: '2026-05-03', title: {en: 'Reworking a Deploy Process for a Whole Team', fr: 'Refondre le processus de déploiement d’une équipe entière', de: 'Ein Deploy-Prozess für ein ganzes Team neu denken', es: 'Rehacer el proceso de despliegue para todo un equipo'}, tags: ['devops', 'gitlab-ci', 'deploy'], description: {en: 'From ad-hoc CLIs to a shared GitLab CI workflow — what broke, what we measured, what changed.', fr: 'Des CLIs ad-hoc à un workflow GitLab CI partagé — ce qui a cassé, ce qu’on a mesuré, ce qui a changé.', de: 'Von ad-hoc-CLIs zu einem gemeinsamen GitLab-CI-Workflow — was kaputtging, was wir gemessen haben, was sich änderte.', es: 'De CLIs ad-hoc a un workflow GitLab CI compartido — lo que se rompió, lo que medimos, lo que cambió.'}},
-    {id: 'memory-tests-memlab', date: '2026-05-03', title: {en: 'Memory Tests with memlab — What They Catch, What They Don’t', fr: 'Tests mémoire avec memlab — ce qu’ils attrapent, ce qu’ils ratent', de: 'Memory-Tests mit memlab — was sie finden und was nicht', es: 'Tests de memoria con memlab — lo que detectan y lo que no'}, tags: ['testing', 'performance', 'memlab'], description: {en: 'A pragmatic look at memlab — what it actually catches, what it misses, and where it belongs in CI.', fr: 'Un regard pragmatique sur memlab — ce qu’il attrape réellement, ce qu’il rate, et sa place dans la CI.', de: 'Ein pragmatischer Blick auf memlab — was es wirklich findet, was es übersieht und wo es in die CI gehört.', es: 'Una mirada pragmática a memlab — qué detecta de verdad, qué se le escapa y dónde encaja en CI.'}},
-    {id: 'ai-augmented-dev', date: '2026-05-03', title: {en: 'A Year of AI-Augmented Development', fr: 'Une année de développement augmenté par l’IA', de: 'Ein Jahr KI-gestützte Entwicklung', es: 'Un año de desarrollo aumentado por IA'}, tags: ['ai', 'tooling', 'productivity'], description: {en: 'An honest take on Claude Code and GPT Codex after a year of daily use — wins, traps, and where the score really sits.', fr: 'Un retour honnête sur Claude Code et GPT Codex après un an d’usage quotidien — gains, pièges, et où se situe vraiment le score.', de: 'Eine ehrliche Einschätzung zu Claude Code und GPT Codex nach einem Jahr täglicher Nutzung — Gewinne, Fallen und wo der Score wirklich steht.', es: 'Una opinión honesta sobre Claude Code y GPT Codex tras un año de uso diario — logros, trampas y dónde se sitúa de verdad la puntuación.'}},
+    {id: 'monolith-to-microservice', date: '2026-05-03', draft: true, title: {en: 'Decoupling a Critical Service from a Monolith', fr: 'Découper un service critique d’un monolithe', de: 'Einen kritischen Dienst aus einem Monolithen herauslösen', es: 'Desacoplar un servicio crítico de un monolito'}, tags: ['architecture', 'microservices', 'migrations'], description: {en: 'Schema split, contract design, dual-write migration, cutover — a real-world extraction without downtime.', fr: 'Split de schéma, design de contrat, migration en double-écriture, bascule — une extraction réelle sans coupure.', de: 'Schema-Split, Vertragsdesign, Dual-Write-Migration, Cutover — eine reale Extraktion ohne Ausfallzeit.', es: 'Split de esquema, diseño de contrato, migración con doble escritura, cutover — una extracción real sin downtime.'}},
+    {id: 'deploy-process-rework', date: '2026-05-03', draft: true, title: {en: 'Reworking a Deploy Process for a Whole Team', fr: 'Refondre le processus de déploiement d’une équipe entière', de: 'Ein Deploy-Prozess für ein ganzes Team neu denken', es: 'Rehacer el proceso de despliegue para todo un equipo'}, tags: ['devops', 'gitlab-ci', 'deploy'], description: {en: 'From ad-hoc CLIs to a shared GitLab CI workflow — what broke, what we measured, what changed.', fr: 'Des CLIs ad-hoc à un workflow GitLab CI partagé — ce qui a cassé, ce qu’on a mesuré, ce qui a changé.', de: 'Von ad-hoc-CLIs zu einem gemeinsamen GitLab-CI-Workflow — was kaputtging, was wir gemessen haben, was sich änderte.', es: 'De CLIs ad-hoc a un workflow GitLab CI compartido — lo que se rompió, lo que medimos, lo que cambió.'}},
+    {id: 'memory-tests-memlab', date: '2026-05-03', draft: true, title: {en: 'Memory Tests with memlab — What They Catch, What They Don’t', fr: 'Tests mémoire avec memlab — ce qu’ils attrapent, ce qu’ils ratent', de: 'Memory-Tests mit memlab — was sie finden und was nicht', es: 'Tests de memoria con memlab — lo que detectan y lo que no'}, tags: ['testing', 'performance', 'memlab'], description: {en: 'A pragmatic look at memlab — what it actually catches, what it misses, and where it belongs in CI.', fr: 'Un regard pragmatique sur memlab — ce qu’il attrape réellement, ce qu’il rate, et sa place dans la CI.', de: 'Ein pragmatischer Blick auf memlab — was es wirklich findet, was es übersieht und wo es in die CI gehört.', es: 'Una mirada pragmática a memlab — qué detecta de verdad, qué se le escapa y dónde encaja en CI.'}},
+    {id: 'ai-augmented-dev', date: '2026-05-03', draft: true, title: {en: 'A Year of AI-Augmented Development', fr: 'Une année de développement augmenté par l’IA', de: 'Ein Jahr KI-gestützte Entwicklung', es: 'Un año de desarrollo aumentado por IA'}, tags: ['ai', 'tooling', 'productivity'], description: {en: 'An honest take on Claude Code and GPT Codex after a year of daily use — wins, traps, and where the score really sits.', fr: 'Un retour honnête sur Claude Code et GPT Codex après un an d’usage quotidien — gains, pièges, et où se situe vraiment le score.', de: 'Eine ehrliche Einschätzung zu Claude Code und GPT Codex nach einem Jahr täglicher Nutzung — Gewinne, Fallen und wo der Score wirklich steht.', es: 'Una opinión honesta sobre Claude Code y GPT Codex tras un año de uso diario — logros, trampas y dónde se sitúa de verdad la puntuación.'}},
     {id: 'building-modern-blog', date: '2026-03-15', title: {en: 'Building a Modern Blog with Next.js App Router', fr: 'Construire un blog moderne avec le App Router de Next.js', de: 'Einen modernen Blog mit dem Next.js App Router erstellen', es: 'Construyendo un blog moderno con el App Router de Next.js'}, tags: ['nextjs', 'app-router', 'react'], description: {en: 'A guide to building a performant blog using the Next.js App Router with server components.', fr: 'Un guide pour construire un blog performant avec le App Router de Next.js et les composants serveur.', de: 'Eine Anleitung zum Erstellen eines performanten Blogs mit dem Next.js App Router und Server-Komponenten.', es: 'Una guia para construir un blog eficiente usando el App Router de Next.js con componentes de servidor.'}},
     {id: 'typescript-react-patterns', date: '2026-03-10', title: {en: 'TypeScript Patterns for React 19', fr: 'Patterns TypeScript pour React 19', de: 'TypeScript-Patterns für React 19', es: 'Patrones TypeScript para React 19'}, tags: ['typescript', 'react', 'patterns'], description: {en: 'Essential TypeScript patterns for writing type-safe React 19 components.', fr: 'Les patterns TypeScript essentiels pour des composants React 19 type-safe.', de: 'Essentielle TypeScript-Patterns für typsichere React 19-Komponenten.', es: 'Patrones TypeScript esenciales para componentes React 19 con tipado seguro.'}},
     {id: 'next-intl-guide', date: '2026-03-05', title: {en: 'Internationalization with next-intl', fr: 'Internationalisation avec next-intl', de: 'Internationalisierung mit next-intl', es: 'Internacionalización con next-intl'}, tags: ['nextjs', 'i18n', 'next-intl'], description: {en: 'How to add multi-language support to your Next.js app using next-intl.', fr: 'Comment ajouter le support multilingue à votre application Next.js avec next-intl.', de: 'Wie Sie mit next-intl mehrsprachige Unterstützung zu Ihrer Next.js-App hinzufügen.', es: 'Cómo agregar soporte multilingüe a tu aplicación Next.js usando next-intl.'}},
@@ -196,10 +201,26 @@ export function getNavItems(category: string, locale: string) {
   }));
 }
 
+/**
+ * Slugs of posts flagged `draft: true`. The proxy uses this to 404 their routes
+ * when drafts aren't visible — `notFound()` inside the page is too late to set
+ * the status once the streamed response has started.
+ */
+export const draftPostIds = (registry.posts ?? [])
+  .filter((p) => p.draft)
+  .map((p) => p.id);
+
+/** Hidden from every public surface: archived always, drafts unless opted in. */
+function isPublic(item: ContentItem) {
+  if (item.archived) return false;
+  if (item.draft && !draftsVisible) return false;
+  return true;
+}
+
 export function getSortedItems(category: string, locale: string) {
   const items = registry[category] ?? [];
   return items
-    .filter((item) => !item.archived)
+    .filter(isPublic)
     .map((item) => ({
       id: item.id,
       date: item.date,
@@ -219,7 +240,7 @@ export function getRelatedPosts(postId: string, locale: string, limit = 3) {
   const currentTags = new Set(current.tags);
 
   return posts
-    .filter((p) => p.id !== postId && !p.archived && p.tags?.length)
+    .filter((p) => p.id !== postId && isPublic(p) && p.tags?.length)
     .map((p) => {
       const matchCount = p.tags!.filter((tag) => currentTags.has(tag)).length;
       return {
