@@ -3,6 +3,9 @@ import {routing} from '../lib/i18n/routing';
 
 const baseUrl = 'https://alienard.vercel.app';
 
+// Hand-maintained list of routes to advertise. Archived posts stay listed —
+// their URLs still resolve. Draft posts (`draft: true` in lib/registry.ts) must
+// NOT be listed: they 404 in production.
 const categories: Record<string, string[]> = {
   experience: ['Junior-42-Paris', 'ESF-Sciences-Humaines', 'Editions-Denoel', 'Flammarion'],
   education: ['42-Paris', 'IAE-Lille', 'CPGE_BL'],

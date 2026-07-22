@@ -1,14 +1,13 @@
 import {getTranslations} from 'next-intl/server';
+import {getDraftListingMeta} from '../../../lib/draft-post-meta';
 import {Link} from '../../../lib/i18n/navigation';
 import {getSortedItems} from '../../../lib/registry';
 import PostsList, {type PostsListItem, type PostsFilter} from '../components/PostsList';
 import SiteFooter from '../components/SiteFooter';
 
+// Published posts only. Draft listing strings live in lib/draft-post-meta.ts,
+// deliberately outside the locale files so they aren't shipped to the browser.
 const postMeta: Record<string, {topicKey: string; readKey: string; titleKey: string}> = {
-  'monolith-to-microservice': {topicKey: 'posts.topic_architecture', readKey: 'posts.read_9', titleKey: 'posts.title_monolith'},
-  'deploy-process-rework': {topicKey: 'posts.topic_devops', readKey: 'posts.read_6', titleKey: 'posts.title_deploy'},
-  'memory-tests-memlab': {topicKey: 'posts.topic_testing', readKey: 'posts.read_5', titleKey: 'posts.title_memlab'},
-  'ai-augmented-dev': {topicKey: 'posts.topic_ai', readKey: 'posts.read_8', titleKey: 'posts.title_ai'},
   'building-modern-blog': {topicKey: 'posts.topic_nextjs', readKey: 'posts.read_5', titleKey: 'posts.title_building'},
   'next-intl-guide': {topicKey: 'posts.topic_i18n', readKey: 'posts.read_7', titleKey: 'posts.title_intl'},
   'typescript-react-patterns': {topicKey: 'posts.topic_react', readKey: 'posts.read_8', titleKey: 'posts.title_ts'},
@@ -30,6 +29,11 @@ export default async function PostsPage({params}: {params: Promise<{locale: stri
   // Pre-resolve all localized strings server-side so the client component can
   // stay simple and the initial paint matches the SSR output.
   const resolved: PostsListItem[] = items.map((p) => {
+    // Drafts only reach this map when draftsVisible, so this never runs publicly.
+    const draft = getDraftListingMeta(p.id, locale);
+    if (draft) {
+      return {id: p.id, date: p.date, title: draft.title, topic: draft.topic, read: draft.read, tags: p.tags ?? []};
+    }
     const meta = postMeta[p.id];
     return {
       id: p.id,
@@ -68,7 +72,7 @@ export default async function PostsPage({params}: {params: Promise<{locale: stri
           <span className="kind">{t('posts.eyebrow')}</span>
           <h1 data-reveal dangerouslySetInnerHTML={{__html: t.raw('posts.title') as string}} />
         </div>
-        <div className="kind">{t('posts.summary')}</div>
+        <div className="kind">{t('posts.summary', {count: items.length})}</div>
       </div>
 
       <PostsList items={resolved} filters={filters} />

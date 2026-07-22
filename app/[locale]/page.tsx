@@ -1,6 +1,6 @@
 import {getTranslations} from 'next-intl/server';
 import {Link} from '../../lib/i18n/navigation';
-import {getProjects} from '../../lib/registry';
+import {getProjects, getSortedItems} from '../../lib/registry';
 import ParisClock from './components/ParisClock';
 import SiteFooter from './components/SiteFooter';
 
@@ -37,6 +37,13 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
   const selected = SELECTED_IDS.map((id) => projectsById.get(id)).filter(
     (p): p is NonNullable<typeof p> => Boolean(p),
   );
+
+  // The Posts tile count excludes drafts, so it has to be resolved at render
+  // time rather than baked into the locale string. Substituted rather than
+  // passed through t() because the message carries a <br/>.
+  const postCount = String(getSortedItems('posts', locale).length).padStart(2, '0');
+  const sectionMeta = (metaKey: string) =>
+    (t.raw(metaKey) as string).replace('{count}', postCount);
 
   return (
     <div className="home-wrap">
@@ -91,7 +98,7 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
             />
             <div
               className="meta"
-              dangerouslySetInnerHTML={{__html: t.raw(s.metaKey) as string}}
+              dangerouslySetInnerHTML={{__html: sectionMeta(s.metaKey)}}
             />
             <div className="arrow">→</div>
           </Link>

@@ -313,4 +313,68 @@ describe('registry', () => {
       }
     });
   });
+
+  // ---------- drafts ----------
+  // Jest runs with NODE_ENV=test, so `draftsVisible` is true by default and the
+  // suites above see drafts. These re-import the registry with the flag forced
+  // off to pin the behaviour the public site actually gets.
+  describe('drafts', () => {
+    const DRAFT_IDS = [
+      'monolith-to-microservice',
+      'deploy-process-rework',
+      'memory-tests-memlab',
+      'ai-augmented-dev',
+    ];
+    const PUBLISHED_IDS = [
+      'building-modern-blog',
+      'typescript-react-patterns',
+      'next-intl-guide',
+    ];
+
+    /** Re-imports lib/registry with draftsVisible stubbed to `visible`. */
+    function registryWithDrafts(visible: boolean) {
+      let mod!: typeof import('../../lib/registry');
+      jest.isolateModules(() => {
+        jest.doMock('../../lib/drafts', () => ({draftsVisible: visible}));
+        mod = require('../../lib/registry');
+      });
+      jest.dontMock('../../lib/drafts');
+      return mod;
+    }
+
+    it('shows drafts in the listing when drafts are visible', () => {
+      const ids = registryWithDrafts(true)
+        .getSortedItems('posts', 'en')
+        .map((p) => p.id);
+      for (const id of DRAFT_IDS) expect(ids).toContain(id);
+    });
+
+    it('hides drafts from the listing when drafts are not visible', () => {
+      const ids = registryWithDrafts(false)
+        .getSortedItems('posts', 'en')
+        .map((p) => p.id);
+      for (const id of DRAFT_IDS) expect(ids).not.toContain(id);
+      expect(ids).toEqual(PUBLISHED_IDS);
+    });
+
+    it('hides drafts from related posts when drafts are not visible', () => {
+      // ai-augmented-dev is a draft with no tag overlap, but monolith-to-
+      // microservice shares none either — assert across every published post.
+      const {getRelatedPosts: related} = registryWithDrafts(false);
+      for (const id of PUBLISHED_IDS) {
+        const ids = related(id, 'en').map((p) => p.id);
+        for (const draftId of DRAFT_IDS) expect(ids).not.toContain(draftId);
+      }
+    });
+
+    it('keeps archived posts hidden regardless of draft visibility', () => {
+      for (const visible of [true, false]) {
+        const ids = registryWithDrafts(visible)
+          .getSortedItems('posts', 'en')
+          .map((p) => p.id);
+        expect(ids).not.toContain('ssg-ssr');
+        expect(ids).not.toContain('pre-rendering');
+      }
+    });
+  });
 });
