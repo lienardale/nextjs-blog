@@ -5,6 +5,8 @@
    ============================================================= */
 
 :root {
+  color-scheme: light dark;
+
   --font-display: var(--font-instrument-serif), "Times New Roman", Georgia, serif;
   --font-body: var(--font-inter-tight), -apple-system, "Helvetica Neue", Arial, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -30,6 +32,58 @@
   --dur-1: 180ms;
   --dur-2: 360ms;
   --dur-3: 600ms;
+
+  /* A soft accent wash for chips/badges (the old bg-blue-100). Derived
+     from --accent + --bg, so it re-tints itself in dark mode for free. */
+  --accent-soft: color-mix(in oklab, var(--accent) 14%, var(--bg));
+}
+
+/* Expose the palette tokens as Tailwind colour utilities (text-ink,
+   bg-paper, border-rule, bg-accent-soft, …). `inline` makes each utility
+   resolve the token's *current* value rather than freezing it, so the
+   dark-mode overrides below flow through the utilities automatically. */
+@theme inline {
+  --color-ink:         var(--ink);
+  --color-ink-soft:    var(--ink-soft);
+  --color-ink-muted:   var(--ink-muted);
+  --color-paper:       var(--paper);
+  --color-bg-alt:      var(--bg-alt);
+  --color-rule:        var(--rule);
+  --color-accent:      var(--accent);
+  --color-accent-fg:   var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+}
+
+/* -------------------------------------------------------------
+   Dark counterpart — the ink becomes the page.
+
+   Only the ten colour tokens are redefined. Everything downstream
+   follows on its own: 67 uses of --rule, 83 of --accent, and the 13
+   color-mix(in oklab, var(--ink) …) derivations all re-resolve here.
+
+   Deliberately NOT overridden: the physical objects in the scrapbook
+   (photo print #fdfaf3, sticky note #fff8c5, book spines) and the
+   status dot. A photo print stays the colour of paper whatever the
+   light in the room. The cursor-follower is likewise untouched — it
+   uses mix-blend-mode: difference, so it inverts itself.
+   ------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #141311;  /* the light palette's --ink, exactly */
+    --bg-alt:    #1e1b17;
+    --ink:       #ece7dc;  /* the light palette's --bg-alt: softer than
+                              full cream, which haloes on a dark field */
+    --ink-soft:  #b3aa9b;
+    --ink-muted: #8b8375;  /* 4.95:1 — actually clears AA, where the
+                              light counterpart only reaches 3.62:1 */
+    --rule:      #ece7dc1f;
+    --accent:    #7d9bff;  /* #1e48ff manages just 3.03:1 on this
+                              background; lightened to 7.08:1 */
+    --accent-fg: #141311;
+    --paper:     #1c1917;
+    --stamp:     #7d9bff;
+  }
 }
 
 @layer base {
@@ -61,6 +115,43 @@
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--ink) 20%, transparent); border-radius: 999px; }
   ::-webkit-scrollbar-track { background: transparent; }
+}
+
+/* =============================================================
+   CODE BLOCKS — shiki dual-theme wiring
+
+   CodeBlock.tsx calls codeToHtml with defaultColor:false, so shiki
+   emits no `color` of its own — only --shiki-light / --shiki-dark
+   custom properties per token. Without the rules below every token
+   simply inherits --ink and the block renders as flat, unhighlighted
+   text. Nothing consumed these variables before.
+
+   We take shiki's *syntax* colours but not its backgrounds: the block
+   sits on --paper so it stays in the Paper & Ink family rather than
+   dropping github-dark's cool #24292e slab onto warm paper. That also
+   reads better — github-dark's palette scores higher on our #1c1917
+   than on its own native background (keyword 6.58:1 vs 5.52:1).
+   ============================================================= */
+
+.shiki,
+.shiki span { color: var(--shiki-light); }
+
+@media (prefers-color-scheme: dark) {
+  .shiki,
+  .shiki span { color: var(--shiki-dark); }
+}
+
+/* .article code / .detail-article code style *inline* code with a
+   --bg-alt chip and padding. Shiki's output is <pre class="shiki"><code>,
+   which matches those selectors too, so the chip has to be undone
+   inside a highlighted block. */
+.article .shiki code,
+.detail-article .shiki code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
 }
 
 /* =============================================================
