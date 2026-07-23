@@ -39,6 +39,6 @@ describe('ReadingTime', () => {
   it('has correct styling classes', () => {
     render(<ReadingTime minutes={3} />);
     const span = screen.getByText('3 min read').closest('span');
-    expect(span).toHaveClass('text-sm', 'text-gray-500');
+    expect(span).toHaveClass('text-sm', 'text-ink-muted');
   });
 });

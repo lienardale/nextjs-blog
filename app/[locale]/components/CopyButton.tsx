@@ -15,13 +15,13 @@ export default function CopyButton({code}: {code: string}) {
   return (
     <button
       onClick={handleCopy}
-      className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+      className="p-1.5 rounded hover:bg-bg-alt transition-colors"
       aria-label={copied ? 'Copied' : 'Copy code'}
     >
       {copied ? (
         <CheckIcon className="h-4 w-4 text-green-500" />
       ) : (
-        <ClipboardIcon className="h-4 w-4 text-gray-400" />
+        <ClipboardIcon className="h-4 w-4 text-ink-muted" />
       )}
     </button>
   );

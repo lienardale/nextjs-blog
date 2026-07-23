@@ -7,8 +7,8 @@ const content = {
     summary: <p>Masters in International Marketing &amp; Communication at IAE Lille, University School of Management — digital strategy, branding, and intercultural management.</p>,
     body: (
       <>
-        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Masters in International Marketing &amp; Communication</a></p>
-        <p><a href="https://iaelille.fr/en/home/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">IAE Lille</a>, University School of Management</p>
+        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Masters in International Marketing &amp; Communication</a></p>
+        <p><a href="https://iaelille.fr/en/home/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">IAE Lille</a>, University School of Management</p>
         <p className="mt-4"><strong>Courses:</strong></p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Digital strategy &amp; Tools</li>
@@ -40,8 +40,8 @@ const content = {
     summary: <p>Master en Marketing International &amp; Communication à l&apos;IAE Lille, École Universitaire de Management — stratégie digitale, image de marque et management interculturel.</p>,
     body: (
       <>
-        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Master en marketing et communication internationale</a></p>
-        <p><a href="https://iaelille.fr/en/home/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">IAE de Lille</a>, École Universitaire de Management</p>
+        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Master en marketing et communication internationale</a></p>
+        <p><a href="https://iaelille.fr/en/home/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">IAE de Lille</a>, École Universitaire de Management</p>
         <p className="mt-4"><strong>Cours :</strong></p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Stratégie et outils numériques</li>
@@ -73,8 +73,8 @@ const content = {
     summary: <p>Master in Internationalem Marketing &amp; Kommunikation an der IAE Lille, Hochschule für Management — digitale Strategie, Branding und interkulturelles Management.</p>,
     body: (
       <>
-        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Master in Internationalem Marketing und Kommunikation</a></p>
-        <p><a href="https://iaelille.fr/en/home/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">IAE Lille</a>, Hochschule für Management</p>
+        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Master in Internationalem Marketing und Kommunikation</a></p>
+        <p><a href="https://iaelille.fr/en/home/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">IAE Lille</a>, Hochschule für Management</p>
         <p className="mt-4"><strong>Kurse:</strong></p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Digitale Strategie &amp; Tools</li>
@@ -106,8 +106,8 @@ const content = {
     summary: <p>Máster en Marketing Internacional y Comunicación en IAE Lille, Escuela Universitaria de Gestión — estrategia digital, marca y gestión intercultural.</p>,
     body: (
       <>
-        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Máster en Marketing y Comunicación Internacional</a></p>
-        <p><a href="https://iaelille.fr/en/home/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">IAE Lille</a>, Escuela Universitaria de Gestión</p>
+        <p><a href="https://iaelille.fr/eformations/master-2-marketing-communication-culture/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Máster en Marketing y Comunicación Internacional</a></p>
+        <p><a href="https://iaelille.fr/en/home/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">IAE Lille</a>, Escuela Universitaria de Gestión</p>
         <p className="mt-4"><strong>Cursos:</strong></p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Estrategia y herramientas digitales</li>

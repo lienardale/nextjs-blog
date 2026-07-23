@@ -47,16 +47,16 @@ export default function Timeline({entries}: {entries: TimelineEntry[]}) {
   return (
     <div className="relative">
       {/* Center line (desktop) / left line (mobile) */}
-      <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gray-300 dark:bg-gray-600 md:-translate-x-px" />
+      <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-bg-alt md:-translate-x-px" />
 
       {entries.map((entry, i) => {
         const isLeft = i % 2 === 0;
 
         const card = (
-          <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md hover:border-blue-300 dark:hover:border-blue-600 transition-all">
-            <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">{entry.date}</div>
+          <div className="p-4 rounded-lg border border-rule bg-paper shadow-sm hover:shadow-md hover:border-accent transition-all">
+            <div className="text-sm text-ink-muted mb-1">{entry.date}</div>
             <h3 className="text-lg font-semibold mb-2">{entry.title}</h3>
-            <div className="text-gray-700 dark:text-gray-300 text-sm">{entry.content}</div>
+            <div className="text-ink-soft text-sm">{entry.content}</div>
           </div>
         );
 
@@ -74,7 +74,7 @@ export default function Timeline({entries}: {entries: TimelineEntry[]}) {
             } ${isLeft ? 'md:pr-[calc(50%+1rem)] md:text-right' : 'md:pl-[calc(50%+1rem)]'}`}
           >
             {/* Dot */}
-            <div className="absolute left-4 md:left-1/2 top-6 w-4 h-4 -translate-x-1/2 rounded-full bg-blue-500 border-2 border-white dark:border-gray-900 z-10" />
+            <div className="absolute left-4 md:left-1/2 top-6 w-4 h-4 -translate-x-1/2 rounded-full bg-accent border-2 border-white z-10" />
 
             {wrappedCard}
           </div>

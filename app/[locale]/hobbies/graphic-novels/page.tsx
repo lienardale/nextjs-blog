@@ -3,7 +3,7 @@ const content = {
   en: {
     title: 'Graphic Novels',
     intro: (
-      <p className="text-gray-600 italic mb-6">
+      <p className="text-ink-soft italic mb-6">
         I like them (a lot). I buy them (when I can).
       </p>
     ),
@@ -12,7 +12,7 @@ const content = {
   fr: {
     title: 'Romans graphiques',
     intro: (
-      <p className="text-gray-600 italic mb-6">
+      <p className="text-ink-soft italic mb-6">
         Je les aime (beaucoup). J’en achète (quand je peux).
       </p>
     ),
@@ -21,7 +21,7 @@ const content = {
   de: {
     title: 'Graphic Novels',
     intro: (
-      <p className="text-gray-600 italic mb-6">
+      <p className="text-ink-soft italic mb-6">
         Ich mag sie (sehr). Ich kaufe sie (wenn ich kann).
       </p>
     ),
@@ -30,7 +30,7 @@ const content = {
   es: {
     title: 'Novelas gráficas',
     intro: (
-      <p className="text-gray-600 italic mb-6">
+      <p className="text-ink-soft italic mb-6">
         Me gustan (mucho). Los compro (cuando puedo).
       </p>
     ),
@@ -295,7 +295,7 @@ export default async function GraphicNovelsPage({params}: {params: Promise<{loca
             <div
               key={novel.title}
               data-testid="graphic-novel-card"
-              className="border border-gray-200 rounded-lg overflow-hidden flex flex-col"
+              className="border border-rule rounded-lg overflow-hidden flex flex-col"
             >
               <div
                 className="h-120 flex items-end p-1"
@@ -318,12 +318,12 @@ export default async function GraphicNovelsPage({params}: {params: Promise<{loca
               </div>
               <div className="p-4 flex flex-col gap-2 flex-1">
                 <div className="flex items-start justify-between gap-2">
-                  <span className="text-sm text-gray-500">{novel.author}</span>
+                  <span className="text-sm text-ink-muted">{novel.author}</span>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 whitespace-nowrap">
                     {novel.genre[locale as Locale] ?? novel.genre.en}
                   </span>
                 </div>
-                <p className="text-sm text-gray-700 italic leading-snug">{novel.take}</p>
+                <p className="text-sm text-ink-soft italic leading-snug">{novel.take}</p>
               </div>
             </div>
           ))}

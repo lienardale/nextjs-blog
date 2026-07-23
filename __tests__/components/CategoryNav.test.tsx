@@ -45,40 +45,40 @@ describe('CategoryNav', () => {
     expect(links[2]).toHaveAttribute('href', '/skills/nodejs');
   });
 
-  it('applies bg-blue-600 class to active item', () => {
+  it('applies bg-accent class to active item', () => {
     mockUsePathname.mockReturnValue('/skills/react');
     render(<CategoryNav items={mockItems} baseDir="skills" />);
 
     const reactLink = screen.getByText('React');
-    expect(reactLink).toHaveClass('bg-blue-600');
-    expect(reactLink).toHaveClass('text-white');
+    expect(reactLink).toHaveClass('bg-accent');
+    expect(reactLink).toHaveClass('text-accent-fg');
   });
 
-  it('applies bg-gray-100 class to inactive items', () => {
+  it('applies bg-bg-alt class to inactive items', () => {
     mockUsePathname.mockReturnValue('/skills/react');
     render(<CategoryNav items={mockItems} baseDir="skills" />);
 
     const tsLink = screen.getByText('TypeScript');
     const nodeLink = screen.getByText('Node.js');
 
-    expect(tsLink).toHaveClass('bg-gray-100');
-    expect(nodeLink).toHaveClass('bg-gray-100');
+    expect(tsLink).toHaveClass('bg-bg-alt');
+    expect(nodeLink).toHaveClass('bg-bg-alt');
   });
 
-  it('inactive items do not have bg-blue-600', () => {
+  it('inactive items do not have bg-accent', () => {
     mockUsePathname.mockReturnValue('/skills/react');
     render(<CategoryNav items={mockItems} baseDir="skills" />);
 
     const tsLink = screen.getByText('TypeScript');
-    expect(tsLink).not.toHaveClass('bg-blue-600');
+    expect(tsLink).not.toHaveClass('bg-accent');
   });
 
-  it('active item does not have bg-gray-100', () => {
+  it('active item does not have bg-bg-alt', () => {
     mockUsePathname.mockReturnValue('/skills/react');
     render(<CategoryNav items={mockItems} baseDir="skills" />);
 
     const reactLink = screen.getByText('React');
-    expect(reactLink).not.toHaveClass('bg-gray-100');
+    expect(reactLink).not.toHaveClass('bg-bg-alt');
   });
 
   it('matches active item based on pathname ending', () => {
@@ -87,10 +87,10 @@ describe('CategoryNav', () => {
     render(<CategoryNav items={mockItems} baseDir="skills" />);
 
     const tsLink = screen.getByText('TypeScript');
-    expect(tsLink).toHaveClass('bg-blue-600');
+    expect(tsLink).toHaveClass('bg-accent');
 
     const reactLink = screen.getByText('React');
-    expect(reactLink).toHaveClass('bg-gray-100');
+    expect(reactLink).toHaveClass('bg-bg-alt');
   });
 
   it('no items are active when pathname does not match any item', () => {
@@ -99,8 +99,8 @@ describe('CategoryNav', () => {
 
     const links = screen.getAllByRole('link');
     links.forEach((link) => {
-      expect(link).toHaveClass('bg-gray-100');
-      expect(link).not.toHaveClass('bg-blue-600');
+      expect(link).toHaveClass('bg-bg-alt');
+      expect(link).not.toHaveClass('bg-accent');
     });
   });
 
@@ -147,6 +147,6 @@ describe('CategoryNav', () => {
     render(<CategoryNav items={[{id: 'only', label: 'Only Item'}]} baseDir="skills" />);
 
     const link = screen.getByText('Only Item');
-    expect(link).toHaveClass('bg-blue-600');
+    expect(link).toHaveClass('bg-accent');
   });
 });

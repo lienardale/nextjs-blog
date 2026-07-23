@@ -156,6 +156,6 @@ describe('SkillBar', () => {
     expect(container.querySelector('.space-y-3')).toBeInTheDocument();
     expect(screen.getByText('Python')).toBeInTheDocument();
     expect(screen.getByText('70%')).toBeInTheDocument();
-    expect(container.querySelector('.bg-gray-200')).toBeInTheDocument();
+    expect(container.querySelector('.bg-bg-alt')).toBeInTheDocument();
   });
 });

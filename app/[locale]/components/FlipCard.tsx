@@ -32,11 +32,11 @@ export default function FlipCard({front, back}: Props) {
         data-testid="flip-inner"
       >
         {/* Front */}
-        <div className="absolute inset-0 [backface-visibility:hidden] flex items-center justify-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="absolute inset-0 [backface-visibility:hidden] flex items-center justify-center p-4 rounded-lg border border-rule bg-paper">
           {front}
         </div>
         {/* Back */}
-        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] flex items-center justify-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-blue-50 dark:bg-gray-900">
+        <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] flex items-center justify-center p-4 rounded-lg border border-rule bg-accent-soft">
           {back}
         </div>
       </div>

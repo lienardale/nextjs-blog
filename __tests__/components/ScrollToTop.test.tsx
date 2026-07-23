@@ -138,8 +138,8 @@ describe('ScrollToTop component', () => {
   it('has correct styling classes', () => {
     render(<ScrollToTop />);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-blue-600');
-    expect(button).toHaveClass('text-white');
+    expect(button).toHaveClass('bg-accent');
+    expect(button).toHaveClass('text-accent-fg');
     expect(button).toHaveClass('rounded-full');
     expect(button).toHaveClass('shadow-lg');
   });
