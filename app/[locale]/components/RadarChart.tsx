@@ -74,7 +74,7 @@ export default function RadarChart({skills}: {skills: Skill[]}) {
           points={polygonPoints(count, (level / 100) * RADIUS)}
           fill="none"
           stroke="currentColor"
-          className="text-gray-300 dark:text-gray-600"
+          className="text-ink-muted"
           strokeWidth={0.5}
         />
       ))}
@@ -90,7 +90,7 @@ export default function RadarChart({skills}: {skills: Skill[]}) {
             x2={x}
             y2={y}
             stroke="currentColor"
-            className="text-gray-300 dark:text-gray-600"
+            className="text-ink-muted"
             strokeWidth={0.5}
           />
         );
@@ -130,7 +130,7 @@ export default function RadarChart({skills}: {skills: Skill[]}) {
             y={y}
             textAnchor="middle"
             dominantBaseline="central"
-            className="fill-gray-700 dark:fill-gray-300 text-[10px]"
+            className="fill-ink-soft text-[10px]"
           >
             {skill.name}
           </text>

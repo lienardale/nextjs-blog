@@ -141,13 +141,13 @@ export default function WorldMap({languages}: Props) {
       {hoveredLangs.length > 0 && hoveredCountry && (
         <div
           data-testid="map-tooltip"
-          className="absolute top-2 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg px-3 py-2 shadow-lg pointer-events-none z-10"
+          className="absolute top-2 left-1/2 -translate-x-1/2 bg-paper border border-rule rounded-lg px-3 py-2 shadow-lg pointer-events-none z-10"
         >
-          <p className="font-semibold text-sm text-gray-800 dark:text-gray-200">
+          <p className="font-semibold text-sm text-ink">
             {COUNTRY_MAP[hoveredCountry]?.label}
           </p>
           {hoveredLangs.map((lang) => (
-            <p key={lang.name} className="text-xs text-gray-500 dark:text-gray-400">
+            <p key={lang.name} className="text-xs text-ink-muted">
               {lang.name} — {lang.level}
             </p>
           ))}
@@ -162,7 +162,7 @@ export default function WorldMap({languages}: Props) {
               className="w-3 h-3 rounded-full inline-block"
               style={{backgroundColor: lang.color}}
             />
-            <span className="text-gray-700 dark:text-gray-300">
+            <span className="text-ink-soft">
               {lang.name} — {lang.level}
             </span>
           </div>

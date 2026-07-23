@@ -18,10 +18,10 @@ export default async function CodeBlock({code, lang, filename}: Props) {
   });
 
   return (
-    <div className="my-6 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+    <div className="my-6 rounded-lg overflow-hidden border border-rule">
       {filename && (
-        <div className="flex items-center justify-between px-4 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-          <span className="text-xs text-gray-500 dark:text-gray-400 font-mono">{filename}</span>
+        <div className="flex items-center justify-between px-4 py-2 bg-bg-alt border-b border-rule">
+          <span className="text-xs text-ink-muted font-mono">{filename}</span>
           <CopyButton code={code} />
         </div>
       )}

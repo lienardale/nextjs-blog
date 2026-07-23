@@ -34,7 +34,7 @@ export default async function StackPage({params}: {params: Promise<{locale: stri
   return (
     <>      <article>
         <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="text-gray-500 mb-4">2022-05-12</div>
+        <div className="text-ink-muted mb-4">2022-05-12</div>
         <RadarChart skills={skills} />
         <h2 className="text-xl font-bold mt-8 mb-4">Proficiency</h2>
         <SkillBar skills={skills} />

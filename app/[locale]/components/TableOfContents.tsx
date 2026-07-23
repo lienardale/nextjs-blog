@@ -68,10 +68,10 @@ export default function TableOfContents() {
         style={{left: 'calc(50% + 20rem)'}}
         aria-label={t('toc')}
       >
-        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mb-3">
+        <p className="text-sm font-semibold text-ink mb-3">
           {t('toc')}
         </p>
-        <ul className="space-y-1.5 text-sm border-l-2 border-gray-200 dark:border-gray-700">
+        <ul className="space-y-1.5 text-sm border-l-2 border-rule">
           {headings.map((h) => (
             <li key={h.id}>
               <a
@@ -80,8 +80,8 @@ export default function TableOfContents() {
                   h.level === 3 ? 'pl-6' : 'pl-3'
                 } ${
                   activeId === h.id
-                    ? 'text-blue-600 dark:text-blue-400 border-l-2 border-blue-600 dark:border-blue-400 -ml-[2px]'
-                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                    ? 'text-accent border-l-2 border-accent -ml-[2px]'
+                    : 'text-ink-muted hover:text-ink'
                 }`}
               >
                 {h.text}
@@ -95,7 +95,7 @@ export default function TableOfContents() {
       <div className="xl:hidden mb-6">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+          className="flex items-center gap-2 text-sm font-medium text-ink-soft hover:text-ink transition-colors"
           aria-expanded={isOpen}
         >
           <svg
@@ -110,7 +110,7 @@ export default function TableOfContents() {
         </button>
         {isOpen && (
           <nav className="mt-2 ml-2" aria-label={t('toc')}>
-            <ul className="space-y-1 text-sm border-l-2 border-gray-200 dark:border-gray-700">
+            <ul className="space-y-1 text-sm border-l-2 border-rule">
               {headings.map((h) => (
                 <li key={h.id}>
                   <a
@@ -120,8 +120,8 @@ export default function TableOfContents() {
                       h.level === 3 ? 'pl-6' : 'pl-3'
                     } ${
                       activeId === h.id
-                        ? 'text-blue-600 dark:text-blue-400'
-                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                        ? 'text-accent'
+                        : 'text-ink-muted hover:text-ink'
                     }`}
                   >
                     {h.text}

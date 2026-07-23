@@ -72,7 +72,7 @@ describe('CopyButton', () => {
 
   it('has hover styling classes', () => {
     render(<CopyButton code="x" />);
-    expect(screen.getByRole('button')).toHaveClass('hover:bg-gray-200');
+    expect(screen.getByRole('button')).toHaveClass('hover:bg-bg-alt');
   });
 
   it('handles empty code string', async () => {

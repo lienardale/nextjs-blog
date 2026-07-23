@@ -40,13 +40,13 @@ export default async function InfosPage({params}: {params: Promise<{locale: stri
         <p>{t.intro}</p>
         <ul className="list-disc pl-6 mt-2 space-y-1">
           <li>
-            email : <a href="mailto:alienard.dev@gmail.com" className="text-blue-600 hover:underline">alienard.dev@gmail.com</a>
+            email : <a href="mailto:alienard.dev@gmail.com" className="text-accent hover:underline">alienard.dev@gmail.com</a>
           </li>
           <li>
-            <a href="https://lienardale.github.io/markdown-cv/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">CV</a>
+            <a href="https://lienardale.github.io/markdown-cv/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">CV</a>
           </li>
           <li>
-            <a href="https://www.linkedin.com/in/alienard/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/alienard/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </li>
         </ul>
 

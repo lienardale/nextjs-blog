@@ -8,7 +8,7 @@ const content = {
     body: (
       <>
         <p>For 3 years, I studied software engineering, software development, software architecture, all in one word: coding.</p>
-        <p className="mt-4"><a href="https://42.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">42</a> is a future-proof computer science training to educate the next generation of software engineers. The 42 program takes a project-based approach to progress and is designed to develop technical and people skills that match the expectations of the labor market.</p>
+        <p className="mt-4"><a href="https://42.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">42</a> is a future-proof computer science training to educate the next generation of software engineers. The 42 program takes a project-based approach to progress and is designed to develop technical and people skills that match the expectations of the labor market.</p>
         <p className="mt-4"><strong>NO COURSES. NO TEACHERS. NO CLASSES.</strong></p>
         <p>Thanks to its innovative teaching methods, 42 is able to offer training par excellence without resorting to lectures. The pedagogical staff is available to help the students find their own solutions. In order to progress at 42, you have to work in groups, lean with the community to overcome challenges and then, share your experience with your peers. You don&apos;t learn programming by copying algorithms on paper!</p>
         <p className="mt-4"><strong>PROJECT-BASED PEDAGOGY</strong></p>
@@ -30,7 +30,7 @@ const content = {
     body: (
       <>
         <p>Pendant 3 ans, j&apos;ai étudié le génie logiciel, le développement logiciel, l&apos;architecture logicielle, le tout en un mot : coder.</p>
-        <p className="mt-4"><a href="https://42.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">42</a> est une formation en informatique tournée vers l&apos;avenir, destinée à former la prochaine génération d&apos;ingénieurs en logiciel. Le programme 42 adopte une approche de progression par projet et est conçu pour développer des compétences techniques et humaines qui correspondent aux attentes du marché du travail.</p>
+        <p className="mt-4"><a href="https://42.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">42</a> est une formation en informatique tournée vers l&apos;avenir, destinée à former la prochaine génération d&apos;ingénieurs en logiciel. Le programme 42 adopte une approche de progression par projet et est conçu pour développer des compétences techniques et humaines qui correspondent aux attentes du marché du travail.</p>
         <p className="mt-4"><strong>PAS DE COURS. PAS DE PROFESSEURS. PAS DE CLASSE.</strong></p>
         <p>Grâce à ses méthodes pédagogiques innovantes, 42 est en mesure d&apos;offrir une formation d&apos;excellence sans recourir aux cours magistraux. L&apos;équipe pédagogique est disponible pour aider les étudiants à trouver leurs propres solutions. Pour progresser à 42, il faut travailler en groupe, s&apos;appuyer sur la communauté pour surmonter les difficultés et ensuite, partager son expérience avec ses pairs. On n&apos;apprend pas la programmation en copiant des algorithmes sur papier !</p>
         <p className="mt-4"><strong>PÉDAGOGIE PAR PROJET</strong></p>
@@ -52,7 +52,7 @@ const content = {
     body: (
       <>
         <p>3 Jahre lang habe ich Software-Engineering, Software-Entwicklung und Software-Architektur studiert, alles in einem Wort: Codierung.</p>
-        <p className="mt-4"><a href="https://42.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">42</a> ist eine zukunftssichere Informatikausbildung, die die nächste Generation von Softwareingenieuren ausbildet. Das 42-Programm verfolgt einen projektbasierten Ansatz, um Fortschritte zu erzielen, und ist darauf ausgerichtet, technische und menschliche Fähigkeiten zu entwickeln, die den Erwartungen des Arbeitsmarktes entsprechen.</p>
+        <p className="mt-4"><a href="https://42.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">42</a> ist eine zukunftssichere Informatikausbildung, die die nächste Generation von Softwareingenieuren ausbildet. Das 42-Programm verfolgt einen projektbasierten Ansatz, um Fortschritte zu erzielen, und ist darauf ausgerichtet, technische und menschliche Fähigkeiten zu entwickeln, die den Erwartungen des Arbeitsmarktes entsprechen.</p>
         <p className="mt-4"><strong>KEINE KURSE. KEINE LEHRER. KEINE KLASSEN.</strong></p>
         <p>Dank seiner innovativen Lehrmethoden ist 42 in der Lage, eine Ausbildung par excellence anzubieten, ohne auf Vorlesungen zurückgreifen zu müssen. Das pädagogische Personal steht zur Verfügung, um den Studenten zu helfen, ihre eigenen Lösungen zu finden. Um bei 42 voranzukommen, muss man in Gruppen arbeiten, sich mit der Gemeinschaft abstimmen, um Herausforderungen zu meistern, und dann seine Erfahrungen mit Gleichaltrigen teilen. Programmieren lernt man nicht durch das Kopieren von Algorithmen auf Papier!</p>
         <p className="mt-4"><strong>PROJEKTBASIERTE PÄDAGOGIK</strong></p>
@@ -74,7 +74,7 @@ const content = {
     body: (
       <>
         <p>Durante 3 años, estudié ingeniería de software, desarrollo de software, arquitectura de software, todo en una palabra: codificación.</p>
-        <p className="mt-4"><a href="https://42.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">42</a> es una formación en ciencias de la computación preparada para el futuro con el fin de educar a la próxima generación de ingenieros de software. El programa 42 adopta un enfoque de progreso basado en proyectos y está diseñado para desarrollar habilidades técnicas y humanas que coincidan con las expectativas del mercado laboral.</p>
+        <p className="mt-4"><a href="https://42.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">42</a> es una formación en ciencias de la computación preparada para el futuro con el fin de educar a la próxima generación de ingenieros de software. El programa 42 adopta un enfoque de progreso basado en proyectos y está diseñado para desarrollar habilidades técnicas y humanas que coincidan con las expectativas del mercado laboral.</p>
         <p className="mt-4"><strong>NO HAY CURSOS. SIN PROFESORES. SIN CLASES.</strong></p>
         <p>Gracias a sus innovadores métodos de enseñanza, 42 es capaz de ofrecer la formación por excelencia sin recurrir a las clases magistrales. El personal pedagógico está disponible para ayudar a los alumnos a encontrar sus propias soluciones. Para progresar en 42, hay que trabajar en grupo, apoyarse en la comunidad para superar los retos y luego, compartir la experiencia con los compañeros. No se aprende a programar copiando algoritmos en papel.</p>
         <p className="mt-4"><strong>PEDAGOGÍA BASADA EN PROYECTOS</strong></p>

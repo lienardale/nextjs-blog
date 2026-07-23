@@ -131,7 +131,7 @@ describe('Timeline', () => {
 
   it('renders timeline dots for each entry', () => {
     const {container} = render(<Timeline entries={mockEntries} />);
-    const dots = container.querySelectorAll('.rounded-full.bg-blue-500');
+    const dots = container.querySelectorAll('.rounded-full.bg-accent');
     expect(dots).toHaveLength(3);
   });
 
@@ -163,7 +163,7 @@ describe('Timeline', () => {
 
   it('renders the center line', () => {
     const {container} = render(<Timeline entries={mockEntries} />);
-    expect(container.querySelector('.bg-gray-300')).toBeInTheDocument();
+    expect(container.querySelector('.bg-bg-alt')).toBeInTheDocument();
   });
 
   it('handles single entry', () => {

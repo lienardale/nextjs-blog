@@ -88,7 +88,7 @@ describe('DurationBars', () => {
 
   it('uses blue color by default', () => {
     const {container} = render(<DurationBars items={mockItems} />);
-    const bar = container.querySelector('.bg-blue-500');
+    const bar = container.querySelector('.bg-accent');
     expect(bar).toBeInTheDocument();
   });
 

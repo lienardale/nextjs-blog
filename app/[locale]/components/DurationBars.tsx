@@ -59,11 +59,11 @@ export default function DurationBars({items, color = 'blue'}: Props) {
 
   const barColor = color === 'green'
     ? 'bg-green-500 dark:bg-green-400'
-    : 'bg-blue-500 dark:bg-blue-400';
+    : 'bg-accent';
 
   const bgColor = color === 'green'
     ? 'bg-green-100 dark:bg-green-900/30'
-    : 'bg-blue-100 dark:bg-blue-900/30';
+    : 'bg-accent-soft';
 
   return (
     <div ref={containerRef} className="space-y-3" data-testid="duration-bars">
@@ -72,8 +72,8 @@ export default function DurationBars({items, color = 'blue'}: Props) {
         return (
           <div key={item.title}>
             <div className="flex justify-between text-sm mb-1">
-              <span className="font-medium text-gray-800 dark:text-gray-200">{item.title}</span>
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="font-medium text-ink">{item.title}</span>
+              <span className="text-ink-muted">
                 {item.startDate} — {item.endDate} ({formatDuration(item.months)})
               </span>
             </div>
