@@ -10,7 +10,7 @@ export default async function CVPreview({url, locale}: Props) {
 
   return (
     <div data-testid="cv-preview">
-      <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+      <div className="border border-rule rounded-lg overflow-hidden">
         <iframe
           src={url}
           title="CV"
@@ -24,7 +24,7 @@ export default async function CVPreview({url, locale}: Props) {
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200"
+          className="inline-flex items-center gap-2 bg-accent hover:opacity-90 text-accent-fg font-medium py-2.5 px-4 rounded-lg transition-colors duration-200"
           data-testid="cv-open-button"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

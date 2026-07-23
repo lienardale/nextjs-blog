@@ -1,174 +1,111 @@
-# Quick Reference - Next.js 16 Project
+# Quick Reference — Next.js 16 Blog
 
-**Last Updated**: 2026-01-02
+**Last Updated**: 2026-07-23
 
 ## 🚀 Quick Start
 
 ```bash
-# Development (MUST use --webpack)
-npm run dev
-
-# Build
-npm run build
-
-# Production
-npm start
+nvm use            # Node 24 (required — see below)
+npm install
+npm run dev        # Turbopack dev server
+npm run build      # production build
+npm run start      # serve production build
+npm run lint       # ESLint 10 flat config
+npm run test       # Jest + ts-jest
 ```
 
-## ⚠️ Critical Information
+## ⚠️ Must-Know
 
-### Must-Know Issues
-1. **Always use webpack mode** - Turbopack breaks i18n translations
-2. **React 19 types** - Use `React.JSX.Element` not `JSX.Element`
-3. **Four languages** - en, fr, de, es (test all when adding translations)
+1. **App Router + next-intl + Turbopack.** Everything is under `app/[locale]/`. The dev
+   script is `next dev --turbopack`. There is no Pages Router, no `next-translate`, and no
+   `--webpack` flag. Any older note claiming otherwise predates the `474b44c` migration.
+2. **Node 24.** ESLint 10 crashes on Node < 20.19 (`util.styleText is not a function`) and
+   `@testing-library/jest-dom` 7 needs Node ≥ 22. `nvm use` reads `.nvmrc` (= 24).
+3. **TypeScript 5.x, never 7.x.** The Go-port compiler ships no compiler API and breaks
+   `next build` + `@typescript-eslint`. `renovate.json` caps it at `<7`.
+4. **React 19 types** — `React.JSX.Element`, not `JSX.Element`.
+5. **Four locales** — en, fr, de, es. Add every user-facing string to all four
+   `locales/*/common.json`.
+6. **Style with palette tokens**, not stock Tailwind greys/blues — see Styling below.
 
 ## 📁 File Organization
 
 ```
 nextjs-blog/
-├── .debug/              # Debug docs (Git: ✅ Production: ❌)
-│   ├── 001-upgrade-notes-2026-01-02.md
-│   ├── 002-i18n-fix-2026-01-02.md
-│   └── README.md
-├── .github/
-│   └── copilot-instructions.md
-├── pages/               # Next.js pages (Pages Router)
-├── components/          # React components
-├── locales/            # Translation files
-│   ├── en/common.json
-│   ├── fr/common.json
-│   ├── de/common.json
-│   └── es/common.json
-├── lib/                # Utility functions
-└── styles/             # CSS styles
+├── app/[locale]/           # App Router — pages + components/
+│   ├── components/         # ~40 React components (CodeBlock, TripCard, …)
+│   ├── posts/<slug>/       # article bodies authored as TSX, per locale
+│   ├── layout.tsx, page.tsx
+│   ├── sitemap.ts, robots.ts
+├── lib/
+│   ├── registry.ts         # THE content model (typed, per-locale) — not markdown
+│   ├── drafts.ts           # draftsVisible flag
+│   ├── draft-post-meta.ts  # draft listing strings (kept out of locale bundles)
+│   └── i18n/               # routing.ts, request.ts, navigation.ts (next-intl v4)
+├── locales/{en,fr,de,es}/common.json
+├── styles/globals.css      # Paper & Ink tokens + dark mode + shiki mapping
+├── proxy.ts                # next-intl middleware + draft 404 gating
+├── next.config.ts          # createNextIntlPlugin('./lib/i18n/request.ts')
+└── .debug/                 # these docs (gitignored; force-added)
 ```
 
-## 🔧 Common Commands
-
-```bash
-# Development
-npm run dev              # Start dev server with webpack
-
-# Building
-npm run build            # Production build with webpack
-
-# Dependencies
-npm install              # Install dependencies
-npm audit fix            # Fix security issues
-
-# Utilities
-npx update-browserslist-db@latest  # Update browser data
-```
-
-## 🐛 Known Issues & Solutions
-
-| Issue | Solution | Reference |
-|-------|----------|-----------|
-| Translations not working | Use `npm run dev` (has --webpack flag) | 002-i18n-fix |
-| JSX.Element type error | Use `React.JSX.Element` | 001-upgrade-notes |
-| Hydration mismatch | Check date/time formatting | agent.md |
-
-## 📝 Translation Usage
+## 🌍 Translations
 
 ```tsx
-import useTranslation from 'next-translate/useTranslation'
+// Server component
+import {getTranslations} from 'next-intl/server';
+const t = await getTranslations({locale});
 
-function MyComponent() {
-  const { t } = useTranslation('common')
-  
-  return <h1>{t('title')}</h1>
-}
+// Client component
+import {useTranslations} from 'next-intl';
+const t = useTranslations();
+
+<h1>{t('some.key')}</h1>   // add `some.key` to all four common.json files
 ```
 
-## 🔑 Key Configuration
+## 🧭 Content
 
-### package.json scripts
-```json
-"dev": "next dev --webpack",      // ⚠️ --webpack is critical
-"build": "next build --webpack"   // ⚠️ --webpack is critical
-```
+Content lives in `lib/registry.ts` — a typed `registry: Record<category, ContentItem[]>`
+with per-locale `title`/`description` objects. Use `getSortedItems(category, locale)` for
+listings. Draft posts (`draft: true`) are collected into `draftPostIds` and 404'd by
+`proxy.ts` unless `draftsVisible` (dev, or `SHOW_DRAFTS=1`).
 
-### tsconfig.json
-```json
-"moduleResolution": "bundler",    // Required for Next.js 16
-"target": "ES2017"                // Better performance
-```
+## 🎨 Styling — Paper & Ink
 
-### next.config.js
-```js
-turbopack: {},                    // Explicit config
-webpack: (config) => { ... }      // Keep for compatibility
-```
+`styles/globals.css` (Tailwind v4, CSS-first — no `tailwind.config`; root
+`tailwindcss-config.js` is dead). Ten colour tokens in `:root` flip in a
+`@media (prefers-color-scheme: dark)` block. An `@theme inline` block exposes them as
+utilities — **use these, not stock Tailwind colours**:
 
-## 📚 Documentation Priority
+| Use | Token utility |
+|-----|---------------|
+| Body / strong text | `text-ink` |
+| Secondary text | `text-ink-soft` |
+| Muted / meta | `text-ink-muted` |
+| Card surface | `bg-paper` |
+| Subtle fill / track | `bg-bg-alt` |
+| Hairlines | `border-rule` / `divide-rule` |
+| Brand / links / CTAs | `text-accent` / `bg-accent` / `text-accent-fg` |
+| Soft accent chip | `bg-accent-soft` |
 
-1. `.debug/` directory (latest file first)
-2. `agent.md` (coding standards)
-3. Configuration files
-4. External docs
+No `dark:` variants for these (they flip already). Code blocks: `CodeBlock.tsx` uses shiki
+with `defaultColor: false`; `globals.css` maps `--shiki-light` / `--shiki-dark`. Categorical
+data colours (SkillBar/RadarChart series, success-green, error-red) intentionally stay as
+explicit palette hues.
 
-## 🎯 Adding New Debug Files
+## 📊 Project Status (2026-07-23)
 
-```bash
-# Pattern: NNN-description-YYYY-MM-DD.md
-# Example: 003-new-feature-2026-01-15.md
+| Package | Version |
+|---------|---------|
+| Next.js | 16.2.x |
+| React | 19.2.x |
+| next-intl | 4.13.x |
+| TypeScript | 5.9.x (capped `<7`) |
+| ESLint | 10.x (flat config) |
+| Tailwind | 4.3.x |
+| Node | 24 (Active LTS) |
 
-# Steps:
-1. Create file in .debug/
-2. Update .debug/README.md
-3. Add to File Index table
-4. Commit to Git
-```
+## 🎯 Adding a Debug File
 
-## 🔍 Troubleshooting Checklist
-
-- [ ] Are you using `npm run dev` (not `next dev` directly)?
-- [ ] Is webpack mode active? (check terminal output)
-- [ ] Are translations in all 4 languages? (en, fr, de, es)
-- [ ] Did you check `.debug/` for similar issues?
-- [ ] Is TypeScript configured correctly? (moduleResolution: bundler)
-
-## 📞 Get Help
-
-1. Check `.debug/README.md` for relevant documentation
-2. Review `agent.md` for coding patterns
-3. Check latest `.debug/NNN-*.md` file for recent changes
-4. Verify configuration in upgrade notes
-
-## 🎨 Code Style Quick Reference
-
-```tsx
-// ✅ Good
-interface UserProps {
-  name: string
-}
-
-export function UserProfile({ name }: UserProps): React.JSX.Element {
-  return <div>{name}</div>
-}
-
-// ❌ Bad (old React 18 pattern)
-export function UserProfile({ name }: UserProps): JSX.Element {
-  return <div>{name}</div>
-}
-```
-
-## 🌍 Supported Locales
-
-- `en` - English (default)
-- `fr` - French (Français)
-- `de` - German (Deutsch)
-- `es` - Spanish (Español)
-
-## 📊 Project Status
-
-| Component | Version | Status |
-|-----------|---------|--------|
-| Next.js | 16.1.1 | ✅ Latest |
-| React | 19.2.3 | ✅ Latest |
-| TypeScript | 5.3.3 | ✅ Current |
-| next-translate | 2.6.2 | ⚠️ Webpack only |
-
----
-
-**Quick Tip**: When in doubt, check `.debug/README.md` first!
+Pattern `NNN-description-YYYY-MM-DD.md`. Create it, add a row to `.debug/README.md`, then
+`git add -f` it (`.debug/*` is gitignored but the notes are tracked).

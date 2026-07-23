@@ -45,7 +45,7 @@ export default function ContactForm() {
       >
         <svg
           viewBox="0 0 64 48"
-          className="w-20 h-16 text-blue-500 dark:text-blue-400"
+          className="w-20 h-16 text-accent"
           data-testid="envelope-icon"
         >
           {/* Envelope body */}
@@ -102,7 +102,7 @@ export default function ContactForm() {
               name="name"
               type="text"
               required
-              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
@@ -115,7 +115,7 @@ export default function ContactForm() {
               name="email"
               type="email"
               required
-              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             />
           </div>
 
@@ -128,7 +128,7 @@ export default function ContactForm() {
               name="message"
               required
               rows={4}
-              className="w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent resize-none"
             />
           </div>
 
@@ -139,7 +139,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={status === 'sending'}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200"
+            className="w-full bg-accent hover:opacity-90 disabled:opacity-50 text-accent-fg font-medium py-2.5 px-4 rounded-lg transition-colors duration-200"
           >
             {status === 'sending' ? t('contact_sending') : t('contact_send')}
           </button>

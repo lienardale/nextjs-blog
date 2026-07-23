@@ -7,7 +7,7 @@ const content = {
     summary: <p>Product Manager at ESF Sciences Humaines (2018-2019) — business strategy, analysis, and digital marketing.</p>,
     body: (
       <>
-        <p>Product Manager - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
+        <p>Product Manager - <a href="https://www.esf-scienceshumaines.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
         <p className="mt-4">Missions:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Business Strategy (diversify acquisition sources)</li>
@@ -22,7 +22,7 @@ const content = {
     summary: <p>Chef de produit chez ESF Sciences Humaines (2018-2019) — stratégie commerciale, analyse et marketing digital.</p>,
     body: (
       <>
-        <p>Chef de produit - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
+        <p>Chef de produit - <a href="https://www.esf-scienceshumaines.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
         <p className="mt-4">Missions :</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Stratégie commerciale (diversifier les sources d&apos;acquisition)</li>
@@ -37,7 +37,7 @@ const content = {
     summary: <p>Produktmanager bei ESF Sciences Humaines (2018-2019) — Geschäftsstrategie, Analyse und digitales Marketing.</p>,
     body: (
       <>
-        <p>Produktmanager - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
+        <p>Produktmanager - <a href="https://www.esf-scienceshumaines.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
         <p className="mt-4">Aufgaben:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Geschäftsstrategie (Diversifizierung der Erwerbsquellen)</li>
@@ -52,7 +52,7 @@ const content = {
     summary: <p>Gerente de producto en ESF Sciences Humaines (2018-2019) — estrategia comercial, análisis y marketing digital.</p>,
     body: (
       <>
-        <p>Responsable de producto - <a href="https://www.esf-scienceshumaines.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
+        <p>Responsable de producto - <a href="https://www.esf-scienceshumaines.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">ESF Sciences Humaines</a> (2018 - 2019)</p>
         <p className="mt-4">Misiones:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Estrategia comercial (diversificar las fuentes de adquisición)</li>

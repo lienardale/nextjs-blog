@@ -8,7 +8,7 @@ const content = {
     body: (
       <>
         <p>Preparatory class for the French Grandes Écoles in Literature and Social Sciences.</p>
-        <p>At <a href="https://www.ndplille.fr/cpge" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
+        <p>At <a href="https://www.ndplille.fr/cpge" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
         <p>(Hypokhâgne/Khâgne)</p>
         <p className="mt-4">Advanced courses:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
@@ -29,7 +29,7 @@ const content = {
     body: (
       <>
         <p>Classe préparatoire aux Grandes Écoles françaises de lettres et de sciences sociales.</p>
-        <p>À <a href="https://www.ndplille.fr/cpge" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
+        <p>À <a href="https://www.ndplille.fr/cpge" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
         <p>(Hypokhâgne/Khâgne)</p>
         <p className="mt-4">Cours avancés :</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
@@ -50,7 +50,7 @@ const content = {
     body: (
       <>
         <p>Vorbereitungsklasse für die französischen Grandes Écoles in Literatur und Sozialwissenschaften.</p>
-        <p>In <a href="https://www.ndplille.fr/cpge" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
+        <p>In <a href="https://www.ndplille.fr/cpge" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
         <p>(Hypokhâgne/Khâgne)</p>
         <p className="mt-4">Fortgeschrittene Kurse:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
@@ -71,7 +71,7 @@ const content = {
     body: (
       <>
         <p>Clase preparatoria para las Grandes Écoles francesas de Literatura y Ciencias Sociales.</p>
-        <p>En <a href="https://www.ndplille.fr/cpge" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
+        <p>En <a href="https://www.ndplille.fr/cpge" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Notre Dame de la Paix</a>, Lille.</p>
         <p>(Hypokhâgne/Khâgne)</p>
         <p className="mt-4">Cursos de perfeccionamiento:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">

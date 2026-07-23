@@ -7,7 +7,7 @@ const content = {
     summary: <p>Marketing Assistant at Editions Denoël (2015-2017) — brand identity, sales promotion, and business analysis.</p>,
     body: (
       <>
-        <p>Marketing Assistant - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - apprenticeship</p>
+        <p>Marketing Assistant - <a href="http://www.denoel.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - apprenticeship</p>
         <p className="mt-4">Missions:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Brand Identity (makeover supervision)</li>
@@ -22,7 +22,7 @@ const content = {
     summary: <p>Assistant Marketing chez Editions Denoël (2015-2017) — identité de marque, promotion des ventes et analyse commerciale.</p>,
     body: (
       <>
-        <p>Assistant Marketing - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - apprentissage</p>
+        <p>Assistant Marketing - <a href="http://www.denoel.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - apprentissage</p>
         <p className="mt-4">Missions :</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Identité de marque (supervision de la refondation)</li>
@@ -37,7 +37,7 @@ const content = {
     summary: <p>Marketingassistent bei Editions Denoël (2015-2017) — Markenidentität, Verkaufsförderung und Geschäftsanalyse.</p>,
     body: (
       <>
-        <p>Marketingassistent - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - Ausbildung</p>
+        <p>Marketingassistent - <a href="http://www.denoel.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - Ausbildung</p>
         <p className="mt-4">Aufgaben:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Markenidentität (Überwachung der Umgestaltung)</li>
@@ -52,7 +52,7 @@ const content = {
     summary: <p>Asistente de marketing en Editions Denoël (2015-2017) — identidad de marca, promoción de ventas y análisis comercial.</p>,
     body: (
       <>
-        <p>Asistente de marketing - <a href="http://www.denoel.fr/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - aprendizaje</p>
+        <p>Asistente de marketing - <a href="http://www.denoel.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Editions Denoël</a> (2015 - 2017) - aprendizaje</p>
         <p className="mt-4">Misiones:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Identidad de marca (supervisión del cambio de imagen)</li>

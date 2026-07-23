@@ -15,8 +15,8 @@ export default function RelatedPosts({postId, locale}: Props) {
   if (related.length === 0) return null;
 
   return (
-    <section className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-      <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+    <section className="mt-12 pt-8 border-t border-rule">
+      <h2 className="text-xl font-bold mb-4 text-ink">
         {t('related_posts')}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -24,14 +24,14 @@ export default function RelatedPosts({postId, locale}: Props) {
           <Link
             key={post.id}
             href={`/${locale}/posts/${post.id}`}
-            className="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-colors no-underline"
+            className="block p-4 rounded-lg border border-rule hover:border-accent transition-colors no-underline"
           >
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">
+            <h3 className="font-semibold text-ink mb-1 text-sm">
               {post.title}
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">{post.date}</p>
+            <p className="text-xs text-ink-muted mb-2">{post.date}</p>
             {post.description && (
-              <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
+              <p className="text-sm text-ink-soft mb-3 line-clamp-2">
                 {post.description}
               </p>
             )}

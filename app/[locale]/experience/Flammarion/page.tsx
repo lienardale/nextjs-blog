@@ -7,7 +7,7 @@ const content = {
     summary: <p>Press Relationships Assistant at Flammarion (2015) — database management and media research.</p>,
     body: (
       <>
-        <p>Press Relationships Assistant - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - internship</p>
+        <p>Press Relationships Assistant - <a href="https://editions.flammarion.com/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - internship</p>
         <p className="mt-4">Missions:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Database management: Eudonet and Data Press.</li>
@@ -26,7 +26,7 @@ const content = {
     summary: <p>Assistant relations presse chez Flammarion (2015) — gestion de bases de données et veille médias.</p>,
     body: (
       <>
-        <p>Assistant relations presse - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - stage</p>
+        <p>Assistant relations presse - <a href="https://editions.flammarion.com/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - stage</p>
         <p className="mt-4">Missions :</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Gestion des bases de données : Eudonet et Data Press.</li>
@@ -45,7 +45,7 @@ const content = {
     summary: <p>Assistentin für Pressearbeit bei Flammarion (2015) — Datenbankverwaltung und Medienforschung.</p>,
     body: (
       <>
-        <p>Assistentin für Pressearbeit - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - Praktikum</p>
+        <p>Assistentin für Pressearbeit - <a href="https://editions.flammarion.com/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - Praktikum</p>
         <p className="mt-4">Aufgaben:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Datenbankverwaltung: Eudonet und Data Press.</li>
@@ -64,7 +64,7 @@ const content = {
     summary: <p>Asistente de relaciones con la prensa en Flammarion (2015) — gestión de bases de datos e investigación de medios.</p>,
     body: (
       <>
-        <p>Asistente de relaciones con la prensa - <a href="https://editions.flammarion.com/" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - prácticas</p>
+        <p>Asistente de relaciones con la prensa - <a href="https://editions.flammarion.com/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">Flammarion</a> (2015) - prácticas</p>
         <p className="mt-4">Misiones:</p>
         <ul className="list-disc pl-6 my-2 space-y-1">
           <li>Gestión de bases de datos: Eudonet y Data Press.</li>
