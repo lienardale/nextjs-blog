@@ -159,7 +159,7 @@
         "fact_background": "Hintergrund",
         "fact_background_v": "Marketing + Produkt + Code",
         "trips_label": "Radreisen",
-        "trips_meta": "10 Reisen · 2.723 km · 32 Tage",
+        "trips_meta": "{trips} Reisen · {km} km · {days} Tage",
         "trip_day": "Tag",
         "trip_days": "Tage",
         "komoot_full_log": "Vollständiges Log auf",

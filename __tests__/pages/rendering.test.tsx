@@ -283,9 +283,10 @@ describe('About Me overview page', () => {
     expect(screen.getByText('Based in')).toBeInTheDocument();
     expect(screen.getByText('Marseille')).toBeInTheDocument();
 
-    // 13 trips, all collapsed
+    // 13 trips, all collapsed, and a label whose totals are summed from them
     const toggles = screen.getAllByRole('button', {expanded: false});
     expect(toggles).toHaveLength(13);
+    expect(screen.getByText('Bike trips · 13 trips · 3,000 km · 34 days')).toBeInTheDocument();
     expect(container.querySelector('iframe')).toBeNull();
 
     // 2 bikes + 6 covers linking to the full shelf
