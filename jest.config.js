@@ -10,9 +10,6 @@ module.exports = {
     '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.ts',
     '^@vnedyalk0v/react19-simple-maps$': '<rootDir>/__mocks__/react-simple-maps.tsx',
     '\\.*/countries-110m\\.json$': '<rootDir>/__mocks__/countries-110m.json',
-    '^react-leaflet$': '<rootDir>/__mocks__/react-leaflet.tsx',
-    '^leaflet$': '<rootDir>/__mocks__/leaflet.ts',
-    '^leaflet/dist/leaflet\\.css$': '<rootDir>/__mocks__/styleMock.ts',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   // .claude/worktrees holds full checkouts (with their own __tests__ and

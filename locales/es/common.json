@@ -159,7 +159,7 @@
         "fact_background": "Trayectoria",
         "fact_background_v": "marketing + producto + código",
         "trips_label": "Viajes en bici",
-        "trips_meta": "10 viajes · 2.723 km · 32 días",
+        "trips_meta": "{trips} viajes · {km} km · {days} días",
         "trip_day": "día",
         "trip_days": "días",
         "komoot_full_log": "Registro completo en",

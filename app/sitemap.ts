@@ -7,12 +7,14 @@ const baseUrl = 'https://alienard.vercel.app';
 // their URLs still resolve. Draft posts (`draft: true` in lib/registry.ts) must
 // NOT be listed: they 404 in production.
 const categories: Record<string, string[]> = {
-  experience: ['Junior-42-Paris', 'ESF-Sciences-Humaines', 'Editions-Denoel', 'Flammarion'],
+  experience: ['Wiremind', 'Junior-42-Paris', 'ESF-Sciences-Humaines', 'Editions-Denoel', 'Flammarion'],
   education: ['42-Paris', 'IAE-Lille', 'CPGE_BL'],
   skills: ['projects', 'soft-skills', 'stack'],
   about_me: ['infos', 'languages', 'cv'],
   hobbies: ['graphic-novels'],
   posts: ['ssg-ssr', 'pre-rendering', 'building-modern-blog', 'typescript-react-patterns', 'next-intl-guide'],
+  // Overview only, no detail pages.
+  contact: [],
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

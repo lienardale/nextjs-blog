@@ -23,6 +23,14 @@ const trips: Trip[] = [
   {year: '2017', name: 'Lille → Amsterdam → Lille', km: '600', days: '8', pathD: 'M30 70 Q 80 20 130 30 Q 160 40 130 60 Q 80 80 30 70'},
 ];
 
+// Totals for the section label, derived from the list so they can't drift
+// from it. Days are tenths (0.3, 0.7), hence the rounding.
+const tripTotals = {
+  trips: trips.length,
+  km: trips.reduce((sum, trip) => sum + Number(trip.km), 0),
+  days: Math.round(trips.reduce((sum, trip) => sum + Number(trip.days), 0) * 10) / 10,
+};
+
 const bikes = [
   {src: '/bikes/motobecane.jpeg', nameKey: 'about.bike_01_name', metaKey: 'about.bike_01_meta'},
   {src: '/bikes/kona.jpeg', nameKey: 'about.bike_02_name', metaKey: 'about.bike_02_meta'},
@@ -84,7 +92,12 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
               </a>
             }
           >
-            {t('about.trips_label')} · {t('about.trips_meta')}
+            {t('about.trips_label')} ·{' '}
+            {t('about.trips_meta', {
+              trips: tripTotals.trips,
+              km: tripTotals.km.toLocaleString(locale),
+              days: tripTotals.days.toLocaleString(locale),
+            })}
           </SectionLabel>
           <TripExpand trips={trips} />
         </section>

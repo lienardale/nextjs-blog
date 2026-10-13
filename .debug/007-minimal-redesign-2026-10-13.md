@@ -47,6 +47,8 @@ presentation changed and the decorative effects went. `styles/globals.css` shran
 | Contact form posted to `formspree.io/f/placeholder` | Mailto only: submit opens a prefilled email; the confirmation says the mail app was opened, not that the message was sent |
 | DE/ES `/education/42-Paris` read "At the age of 42" | "Bei 42" / "En 42" (also DE "Gleichaltrigen" → "Mitstudierenden") |
 | Location | Marseille in the header clock and the "Based in" fact; Experience cities "Paris · Marseille" |
+| About totals said "10 trips · 2,723 km · 32 days" over a list of 13 | Summed from the trip list at render time (13 · 3,000 km · 34 days), formatted per locale |
+| `sitemap.ts` omitted `/experience/Wiremind` and `/contact` | Added; `__tests__/lib/sitemap.test.ts` checks it against the registry and that drafts stay out |
 
 ## Removed
 
@@ -55,14 +57,13 @@ Components (with their tests): `CursorFollower`, `Scrapbook`, `FlipCard`, `TiltC
 `ExpandableCard`, `LanguageSwitcher`, `Timeline`, `TripCard`, `KomootEmbed`, `RouteMap`,
 `TripSummary`, `TypingText`. 82 unreferenced locale keys per file (243 → 161).
 
+Dependencies left without an importer by those removals: `@headlessui/react`, `leaflet`,
+`react-leaflet`, `@types/leaflet`, `date-fns`, `classnames` — uninstalled, along with the
+leaflet jest mocks/mappers and the `ResizeObserver` polyfill that only headlessui needed.
+
 ## Left for later
 
 - `TagPill.tsx` has no importer any more.
-- Dependencies with no importer after the removals: `@headlessui/react`, `leaflet`,
-  `react-leaflet`, `@types/leaflet`, `date-fns`, `classnames` (plus the leaflet jest mocks
-  and the `ResizeObserver` polyfill in `jest.setup.ts`).
-- About page totals ("10 trips · 2,723 km · 32 days") do not match the 13 listed trips
-  (~3,000 km, 34 days).
-- `app/sitemap.ts` omits `/experience/Wiremind` and `/contact`.
 - `public/images/profile.jpg` is 1.7 MB and `public/covers/bea-wolf.jpg` 8 MB (both now go
   through `next/image`).
+- `npm audit` reports 10 advisories again (it was 0 after the July upgrade); not looked at here.
