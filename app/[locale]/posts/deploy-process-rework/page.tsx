@@ -40,7 +40,6 @@ curl -sX POST "$GRAFANA_URL/api/annotations" \\
 const content = {
   en: {
     title: 'Reworking a Deploy Process for a Whole Team',
-    readingTime: 6,
     body: (
       <>
         <p>The team had a deploy process. It was a 200-line bash script, three slightly-different flags depending on the service, an SSH step in the middle, and a tribal-knowledge layer that lived in Slack threads. It worked. It also burned 90 minutes per deploy, deferred to one engineer who held all the context, and broke whenever two people pushed at the same time.</p>
@@ -92,7 +91,6 @@ const content = {
   },
   fr: {
     title: 'Refondre le processus de déploiement d’une équipe entière',
-    readingTime: 6,
     body: (
       <>
         <p>L’équipe avait un processus de déploiement. C’était un script bash de 200 lignes, trois flags légèrement différents selon le service, une étape SSH au milieu, et une couche de savoir tribal qui vivait dans des threads Slack. Ça marchait. Ça brûlait aussi 90 minutes par déploiement, ça reposait sur un ingénieur qui portait tout le contexte, et ça cassait dès que deux personnes poussaient en même temps.</p>
@@ -144,7 +142,6 @@ const content = {
   },
   de: {
     title: 'Den Deploy-Prozess für ein ganzes Team neu denken',
-    readingTime: 6,
     body: (
       <>
         <p>Das Team hatte einen Deploy-Prozess. Ein 200-Zeilen-Bash-Skript, drei leicht unterschiedliche Flags je nach Service, ein SSH-Schritt in der Mitte und eine Schicht aus Stammeswissen, die in Slack-Threads lebte. Es funktionierte. Es verbrannte aber auch 90 Minuten pro Deploy, hing an einem Engineer, der den gesamten Kontext kannte, und brach immer dann, wenn zwei Leute gleichzeitig pushten.</p>
@@ -196,7 +193,6 @@ const content = {
   },
   es: {
     title: 'Rehacer el proceso de despliegue para todo un equipo',
-    readingTime: 6,
     body: (
       <>
         <p>El equipo tenía un proceso de despliegue. Un script bash de 200 líneas, tres flags ligeramente distintos según el servicio, un paso SSH en medio y una capa de conocimiento tribal que vivía en hilos de Slack. Funcionaba. También quemaba 90 minutos por despliegue, dependía de un ingeniero que cargaba todo el contexto y se rompía en cuanto dos personas pusheaban a la vez.</p>
@@ -264,15 +260,13 @@ export default async function DeployProcessReworkPage({params}: {params: Promise
   return (
     <>
       <PostDetail
+        postId="deploy-process-rework"
         postIndex="02"
         title={t.title}
         date="2026-05-03"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="deploy-process-rework" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="deploy-process-rework" locale={locale} />
-      </div>
     </>
   );
 }

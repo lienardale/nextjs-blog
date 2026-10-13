@@ -1,56 +1,70 @@
 'use client';
 
-import {useEffect, useRef, useState} from 'react';
+export type BarSkill = {name: string; level: number; tag?: string; note?: string};
 
-type Skill = {name: string; level: number; color?: string};
-
-const colors = [
-  'bg-blue-500',
-  'bg-green-500',
-  'bg-purple-500',
-  'bg-orange-500',
-  'bg-red-500',
-  'bg-cyan-500',
-  'bg-pink-500',
-  'bg-yellow-500',
-];
-
-export default function SkillBar({skills}: {skills: Skill[]}) {
-  const [animated, setAnimated] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimated(true);
-          observer.disconnect();
-        }
-      },
-      {threshold: 0.2}
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+// Skill rows with a 2px level bar. `detailed` adds the index, tag and note
+// columns (Skills overview); `compact` is name / bar / level (Stack).
+export default function SkillBar({
+  skills,
+  variant = 'compact',
+  active,
+  onActiveChange,
+}: {
+  skills: BarSkill[];
+  variant?: 'detailed' | 'compact';
+  active?: number;
+  onActiveChange?: (index: number) => void;
+}) {
+  const detailed = variant === 'detailed';
 
   return (
-    <div ref={containerRef} data-testid="skill-bar" className="space-y-3">
-      {skills.map((skill, i) => (
-        <div key={skill.name}>
-          <div className="flex justify-between mb-1">
-            <span className="text-sm font-medium">{skill.name}</span>
-            <span className="text-xs text-ink-muted">{skill.level}%</span>
-          </div>
-          <div className="w-full bg-bg-alt rounded-full h-2.5 overflow-hidden">
-            <div
-              className={`h-2.5 rounded-full transition-all duration-1000 ease-out ${skill.color ?? colors[i % colors.length]}`}
-              style={{width: animated ? `${skill.level}%` : '0%'}}
-            />
-          </div>
-        </div>
-      ))}
-    </div>
+    <ol data-testid="skill-bar">
+      {skills.map((skill, i) => {
+        const isActive = i === active;
+        const activate = onActiveChange ? () => onActiveChange(i) : undefined;
+        return (
+          <li
+            key={skill.name}
+            className={`row cursor-default items-center gap-[14px] py-[11px] text-[14px] ${
+              detailed
+                ? 'grid-cols-[24px_minmax(0,1.3fr)_minmax(0,1fr)_28px]'
+                : 'grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)_28px]'
+            }`}
+            data-active={isActive ? 'true' : undefined}
+            onPointerEnter={activate}
+            onClick={activate}
+          >
+            {detailed ? (
+              <span className={`font-mono text-[11px] ${isActive ? 'text-accent' : 'text-ink-muted'}`}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+            ) : null}
+            {detailed ? (
+              <span className="flex flex-col leading-[1.35]">
+                <span className="font-medium">
+                  {skill.name}{' '}
+                  {skill.tag ? (
+                    <span className="font-mono text-[10px] font-normal text-ink-muted">{skill.tag}</span>
+                  ) : null}
+                </span>
+                {skill.note ? <span className="text-[12px] text-ink-muted">{skill.note}</span> : null}
+              </span>
+            ) : (
+              <span className="font-medium">{skill.name}</span>
+            )}
+            <span className="relative h-0.5 overflow-hidden rounded-[2px] bg-rule">
+              <span
+                className={`absolute inset-y-0 left-0 transition-colors duration-200 ${
+                  isActive ? 'bg-accent' : 'bg-ink-muted'
+                }`}
+                style={{width: `${skill.level}%`}}
+                data-testid="skill-bar-fill"
+              />
+            </span>
+            <span className="text-right font-mono text-[12px]">{skill.level}</span>
+          </li>
+        );
+      })}
+    </ol>
   );
 }

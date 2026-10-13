@@ -31,7 +31,6 @@ memlab:
 const content = {
   en: {
     title: 'Memory Tests with memlab — What They Catch, What They Don’t',
-    readingTime: 5,
     body: (
       <>
         <p>memlab is a tool from Meta that takes heap snapshots before and after a scripted browser interaction, then diffs them to flag objects that should have been garbage-collected but weren’t. On paper, that sounds like exactly the thing you want for catching React leaks before they hit production.</p>
@@ -68,7 +67,6 @@ const content = {
   },
   fr: {
     title: 'Tests mémoire avec memlab — ce qu’ils attrapent, ce qu’ils ratent',
-    readingTime: 5,
     body: (
       <>
         <p>memlab est un outil de Meta qui prend des snapshots du heap avant et après une interaction browser scriptée, puis les compare pour signaler les objets qui auraient dû être garbage-collectés mais ne l’ont pas été. Sur le papier, c’est exactement ce qu’on veut pour attraper les fuites React avant la prod.</p>
@@ -105,7 +103,6 @@ const content = {
   },
   de: {
     title: 'Memory-Tests mit memlab — was sie finden und was nicht',
-    readingTime: 5,
     body: (
       <>
         <p>memlab ist ein Tool von Meta, das Heap-Snapshots vor und nach einer skriptgesteuerten Browser-Interaktion macht und sie dann diffed, um Objekte zu finden, die hätten garbage-collected werden sollen, es aber nicht wurden. Auf dem Papier klingt das genau nach dem Werkzeug, das man will, um React-Leaks vor Produktion zu erwischen.</p>
@@ -142,7 +139,6 @@ const content = {
   },
   es: {
     title: 'Tests de memoria con memlab — lo que detectan y lo que no',
-    readingTime: 5,
     body: (
       <>
         <p>memlab es una herramienta de Meta que toma snapshots del heap antes y después de una interacción browser scripteada y luego los diffea para señalar objetos que debían haber sido garbage-collecteados pero no lo fueron. Sobre el papel, es justo lo que quieres para cazar fugas de React antes de producción.</p>
@@ -195,15 +191,13 @@ export default async function MemoryTestsMemlabPage({params}: {params: Promise<{
   return (
     <>
       <PostDetail
+        postId="memory-tests-memlab"
         postIndex="03"
         title={t.title}
         date="2026-05-03"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="memory-tests-memlab" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="memory-tests-memlab" locale={locale} />
-      </div>
     </>
   );
 }

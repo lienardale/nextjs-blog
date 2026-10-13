@@ -1,23 +1,16 @@
+const ROW_WIDTHS = ['72%', '58%', '66%', '48%'];
+
 export default function Loading() {
   return (
-    <div className="section-page" aria-busy="true" aria-label="Loading">
-      <div className="skeleton-crumbs">
-        <span className="sk sk-text" style={{width: 80}} />
+    <div className="flex flex-col gap-10" aria-busy="true" aria-label="Loading">
+      <div className="flex flex-col gap-3">
+        <span className="sk h-8 w-48" />
+        <span className="sk h-3.5 w-72 max-w-full" />
       </div>
-      <div className="section-head">
-        <div>
-          <span className="sk sk-text" style={{width: 140, height: 11}} />
-          <span className="sk sk-display" />
-        </div>
-        <span className="sk sk-text" style={{width: 200}} />
-      </div>
-      <div className="skeleton-rows">
-        {Array.from({length: 4}).map((_, i) => (
-          <div key={i} className="skeleton-row">
-            <span className="sk sk-text" style={{width: 32}} />
-            <span className="sk sk-display" style={{height: 38}} />
-            <span className="sk sk-text" style={{width: 120}} />
-            <span className="sk sk-arrow" />
+      <div>
+        {ROW_WIDTHS.map((width) => (
+          <div key={width} className="border-t border-rule py-[18px]">
+            <span className="sk h-3.5" style={{width}} />
           </div>
         ))}
       </div>

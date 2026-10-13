@@ -51,7 +51,6 @@ export async function generateMetadata({ params }) {
 const content = {
   en: {
     title: 'Internationalization with next-intl',
-    readingTime: 5,
     body: (
       <>
         <p>Adding multi-language support to a Next.js application is straightforward with next-intl. It provides a complete solution for both server and client components, with built-in support for ICU message formatting, pluralization, and date/number formatting.</p>
@@ -82,7 +81,6 @@ const content = {
   },
   fr: {
     title: 'Internationalisation avec next-intl',
-    readingTime: 5,
     body: (
       <>
         <p>Ajouter le support multilingue à une application Next.js est simple avec next-intl. Il fournit une solution complète pour les composants serveur et client, avec un support intégré pour le formatage de messages ICU, la pluralisation et le formatage des dates et nombres.</p>
@@ -113,7 +111,6 @@ const content = {
   },
   de: {
     title: 'Internationalisierung mit next-intl',
-    readingTime: 5,
     body: (
       <>
         <p>Das Hinzufügen von Mehrsprachunterstützung zu einer Next.js-Anwendung ist mit next-intl unkompliziert. Es bietet eine vollständige Lösung für Server- und Client-Komponenten mit integrierter Unterstützung für ICU-Nachrichtenformatierung, Pluralisierung und Datums-/Zahlenformatierung.</p>
@@ -144,7 +141,6 @@ const content = {
   },
   es: {
     title: 'Internacionalización con next-intl',
-    readingTime: 5,
     body: (
       <>
         <p>Agregar soporte multilingüe a una aplicación Next.js es sencillo con next-intl. Proporciona una solución completa para componentes de servidor y cliente, con soporte integrado para formateo de mensajes ICU, pluralización y formateo de fechas y números.</p>
@@ -189,15 +185,13 @@ export default async function NextIntlGuidePage({params}: {params: Promise<{loca
   return (
     <>
       <PostDetail
+        postId="next-intl-guide"
         postIndex="03"
         title={t.title}
         date="2026-03-05"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="next-intl-guide" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="next-intl-guide" locale={locale} />
-      </div>
     </>
   );
 }

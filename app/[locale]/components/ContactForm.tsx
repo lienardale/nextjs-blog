@@ -3,145 +3,77 @@
 import {useState, type FormEvent} from 'react';
 import {useTranslations} from 'next-intl';
 
-type Status = 'idle' | 'sending' | 'success' | 'error';
+const CONTACT_EMAIL = 'alienard.dev@gmail.com';
 
+type Status = 'idle' | 'opened';
+
+const fieldClass =
+  'w-full rounded-lg border border-rule bg-transparent px-3 py-[9px] text-[14px] text-ink outline-none transition-colors duration-[180ms] focus:border-accent';
+const labelClass = 'flex flex-col gap-1.5 text-[13px] text-ink-soft';
+
+// No backend: submitting hands the message to the visitor's own mail app as
+// a prefilled email. We can't know whether they then send it, so the
+// confirmation says what happened rather than claiming it was delivered.
 export default function ContactForm() {
   const t = useTranslations();
   const [status, setStatus] = useState<Status>('idle');
-  const [hovered, setHovered] = useState(false);
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus('sending');
 
-    const form = e.currentTarget;
-    const data = new FormData(form);
+    const data = new FormData(e.currentTarget);
+    const name = String(data.get('name') ?? '').trim();
+    const email = String(data.get('email') ?? '').trim();
+    const message = String(data.get('message') ?? '').trim();
 
-    try {
-      const res = await fetch('https://formspree.io/f/placeholder', {
-        method: 'POST',
-        body: data,
-        headers: {Accept: 'application/json'},
-      });
+    const subject = t('contact_mail_subject', {name});
+    const body = `${message}\n\n— ${name} <${email}>`;
+    const href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      if (res.ok) {
-        setStatus('success');
-        form.reset();
-      } else {
-        setStatus('error');
-      }
-    } catch {
-      setStatus('error');
-    }
+    window.open(href, '_self');
+    setStatus('opened');
   }
 
   return (
     <div data-testid="contact-form">
-      {/* Animated envelope */}
-      <div
-        className="flex justify-center mb-6"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <svg
-          viewBox="0 0 64 48"
-          className="w-20 h-16 text-accent"
-          data-testid="envelope-icon"
+      {status === 'opened' ? (
+        <div
+          className="flex flex-col items-start gap-2.5 rounded-lg border border-rule p-4 text-[14px]"
+          role="status"
         >
-          {/* Envelope body */}
-          <rect
-            x="2"
-            y="12"
-            width="60"
-            height="34"
-            rx="3"
-            fill="currentColor"
-            opacity={0.2}
-            stroke="currentColor"
-            strokeWidth={2}
-          />
-          {/* Envelope flap */}
-          <path
-            d="M2 12 L32 32 L62 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            className={`transition-transform duration-300 origin-top ${
-              hovered ? '[transform:rotateX(180deg)]' : ''
-            }`}
-            data-testid="envelope-flap"
-          />
-          {/* Envelope flap top */}
-          <path
-            d={hovered ? 'M2 12 L32 -4 L62 12' : 'M2 12 L32 0 L62 12'}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            className="transition-all duration-300"
-          />
-        </svg>
-      </div>
-
-      {status === 'success' ? (
-        <div className="text-center p-6 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800">
-          <svg className="w-10 h-10 mx-auto mb-3 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <p className="text-green-700 dark:text-green-300 font-medium">{t('contact_success')}</p>
+          <span>{t('contact_mail_opened', {email: CONTACT_EMAIL})}</span>
+          <button type="button" className="link-muted text-[13px]" onClick={() => setStatus('idle')}>
+            {t('contact_back')}
+          </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="contact-name" className="block text-sm font-medium mb-1">
-              {t('contact_name')}
-            </label>
-            <input
-              id="contact-name"
-              name="name"
-              type="text"
-              required
-              className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-[14px]">
+          <label htmlFor="contact-name" className={labelClass}>
+            <span>{t('contact_name')}</span>
+            <input id="contact-name" name="name" type="text" required className={fieldClass} />
+          </label>
 
-          <div>
-            <label htmlFor="contact-email" className="block text-sm font-medium mb-1">
-              {t('contact_email')}
-            </label>
-            <input
-              id="contact-email"
-              name="email"
-              type="email"
-              required
-              className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
+          <label htmlFor="contact-email" className={labelClass}>
+            <span>{t('contact_email')}</span>
+            <input id="contact-email" name="email" type="email" required className={fieldClass} />
+          </label>
 
-          <div>
-            <label htmlFor="contact-message" className="block text-sm font-medium mb-1">
-              {t('contact_message')}
-            </label>
+          <label htmlFor="contact-message" className={labelClass}>
+            <span>{t('contact_message')}</span>
             <textarea
               id="contact-message"
               name="message"
               required
               rows={4}
-              className="w-full rounded-lg border border-rule bg-paper px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+              className={`${fieldClass} resize-y`}
             />
-          </div>
-
-          {status === 'error' && (
-            <p className="text-red-600 dark:text-red-400 text-sm">{t('contact_error')}</p>
-          )}
+          </label>
 
           <button
             type="submit"
-            disabled={status === 'sending'}
-            className="w-full bg-accent hover:opacity-90 disabled:opacity-50 text-accent-fg font-medium py-2.5 px-4 rounded-lg transition-colors duration-200"
+            className="self-start rounded-lg border border-ink bg-ink px-[18px] py-[9px] text-[14px] text-bg transition-opacity duration-[180ms] hover:opacity-85"
           >
-            {status === 'sending' ? t('contact_sending') : t('contact_send')}
+            {t('contact_send')}
           </button>
         </form>
       )}

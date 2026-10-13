@@ -2,13 +2,17 @@
 
 import {useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
+import FilterBar from './FilterBar';
 import ProjectCard from './ProjectCard';
-import TiltCard from './TiltCard';
 
 export type ProjectsListItem = {
   id: string;
   date: string;
   name: string;
+  /** Repository name, shown under the display name. */
+  title: string;
+  /** "solo" / "5 contrib" */
+  stamp: string;
   description: string;
   github: string;
   live?: string;
@@ -41,55 +45,40 @@ export default function ProjectsList({
     );
   }, [items, activeTag, newestFirst]);
 
+  const labels = {live: t('live'), lines: t('lines'), commits: t('commits')};
+
   return (
     <>
-      <div className="post-meta-bar" data-reveal>
-        <div className="filters" role="tablist" aria-label="Filter projects by tech">
-          {filters.map((p) => {
-            const isActive = activeTag === p.tag;
-            return (
-              <button
-                key={p.tag ?? 'all'}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                className={isActive ? 'is-active' : ''}
-                onClick={() => setActiveTag(p.tag)}
-              >
-                {p.label}
-              </button>
-            );
-          })}
-        </div>
-        <button
-          type="button"
-          className="sort"
-          aria-label="Toggle sort order"
-          onClick={() => setNewestFirst((v) => !v)}
-        >
-          {newestFirst ? t('sort_newest') : t('sort_oldest')}
-        </button>
-        <span aria-live="polite">{t('results', {count: filtered.length})}</span>
-      </div>
+      <FilterBar
+        filters={filters}
+        activeTag={activeTag}
+        onSelect={setActiveTag}
+        filterLabel="Filter projects by tech"
+        sortLabel={newestFirst ? t('sort_newest') : t('sort_oldest')}
+        onToggleSort={() => setNewestFirst((v) => !v)}
+        countLabel={t('results', {count: filtered.length})}
+      />
 
       {filtered.length === 0 ? (
-        <p className="posts-empty">{t('empty')}</p>
+        <p className="py-6 text-[14px] text-ink-muted">{t('empty')}</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
           {filtered.map((p) => (
-            <TiltCard key={p.id}>
-              <ProjectCard
-                project={{
-                  name: p.name,
-                  description: p.description,
-                  github: p.github,
-                  live: p.live,
-                  tech: p.tech,
-                  stats: p.stats,
-                  image: p.image,
-                }}
-              />
-            </TiltCard>
+            <ProjectCard
+              key={p.id}
+              labels={labels}
+              project={{
+                name: p.name,
+                title: p.title,
+                stamp: p.stamp,
+                description: p.description,
+                github: p.github,
+                live: p.live,
+                tech: p.tech,
+                stats: p.stats,
+                image: p.image,
+              }}
+            />
           ))}
         </div>
       )}

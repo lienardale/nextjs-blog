@@ -24,7 +24,6 @@ export default async function Dashboard() {
 const content = {
   en: {
     title: 'Two Forms of Pre-rendering',
-    readingTime: 2,
     body: (
       <>
         <p>Next.js has two forms of pre-rendering: <strong>Static Generation</strong> and <strong>Server-side Rendering</strong>. The difference is in <strong>when</strong> it generates the HTML for a page.</p>
@@ -42,7 +41,6 @@ const content = {
   },
   fr: {
     title: 'Deux formes de pré-rendering',
-    readingTime: 2,
     body: (
       <>
         <p>Next.js propose deux formes de pré-rendu : <strong>Génération statique</strong> et <strong>Rendu côté serveur</strong>. La différence réside dans le <strong>quand</strong> il génère le HTML d&apos;une page.</p>
@@ -60,7 +58,6 @@ const content = {
   },
   de: {
     title: 'Zwei Formen des Pre-Rendering',
-    readingTime: 2,
     body: (
       <>
         <p>Next.js verfügt über zwei Formen des Pre-Rendering: <strong>Statische Generierung</strong> und <strong>Server-seitiges Rendering</strong>. Der Unterschied liegt darin, <strong>wann</strong> das HTML für eine Seite generiert wird.</p>
@@ -78,7 +75,6 @@ const content = {
   },
   es: {
     title: 'Dos formas de pre-renderización',
-    readingTime: 2,
     body: (
       <>
         <p>Next.js tiene dos formas de pre-renderización: <strong>Generación estática</strong> y <strong>Renderización del lado del servidor</strong>. La diferencia está en <strong>cuándo</strong> se genera el HTML de una página.</p>
@@ -110,15 +106,13 @@ export default async function PreRenderingPage({params}: {params: Promise<{local
   return (
     <>
       <PostDetail
+        postId="pre-rendering"
         postIndex="05"
         title={t.title}
         date="2020-01-01"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="pre-rendering" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="pre-rendering" locale={locale} />
-      </div>
     </>
   );
 }

@@ -105,12 +105,11 @@ export default async function CpgeBlPage({params}: {params: Promise<{locale: str
       section="education"
       sectionLabel={tr('nav.education')}
       indexLabel={tr('nav.index')}
-      eyebrow="// 2012 → 2014 · Lille"
-      title={`${t.title}<em>.</em>`}
-      meta="03 / Education"
+      eyebrow={`${tr('education.years_03')} · Lille`}
+      title={t.title}
+      subtitle={tr('education.title_03')}
       summary={t.summary}
       body={t.body}
-      footerLabel="03 / Education"
     />
   );
 }

@@ -1,39 +1,34 @@
-import {Link} from '../../../lib/i18n/navigation';
+const LINKS: {href: string; label: string}[] = [
+  {href: 'https://github.com/lienardale', label: 'GitHub'},
+  {href: 'https://www.linkedin.com/in/alienard/', label: 'LinkedIn'},
+  {href: 'https://www.komoot.com/user/1617431265877', label: 'Komoot'},
+  {href: 'mailto:alienard.dev@gmail.com', label: 'alienard.dev@gmail.com'},
+];
 
-type Variant = 'home' | 'section';
-
-export default function SiteFooter({
-  variant = 'section',
-  rightLabel,
-}: {
-  variant?: Variant;
-  rightLabel?: string;
-}) {
+export default function SiteFooter() {
   const year = new Date().getFullYear();
 
-  if (variant === 'home') {
-    return (
-      <footer className="site-footer">
-        <div className="wordmark">alienard<em>.</em></div>
-        <div className="l">© {year} · Alexandre Lienard</div>
-        <div className="social">
-          <a href="https://github.com/lienardale" target="_blank" rel="noopener" data-cursor="github">GitHub</a>
-          <a href="https://www.linkedin.com/in/alienard/" target="_blank" rel="noopener" data-cursor="linkedin">LinkedIn</a>
-          <a href="https://www.komoot.com/user/1617431265877" target="_blank" rel="noopener" data-cursor="komoot">Komoot</a>
-          <a href="mailto:alienard.dev@gmail.com" data-cursor="email">alienard.dev@gmail.com</a>
-        </div>
-        <div className="r">EN · FR · DE · ES</div>
-      </footer>
-    );
-  }
-
   return (
-    <footer className="site-footer" style={{marginTop: 80}}>
-      <div className="l">© {year}</div>
-      <div className="social">
-        <Link href="/" data-cursor="back">← back to index</Link>
+    <footer className="site-column">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-t border-rule pt-5 pb-10 text-[12px] text-ink-muted">
+        <span>© {year} Alexandre Lienard</span>
+        <div className="flex flex-wrap gap-4">
+          {LINKS.map(({href, label}) => {
+            const external = href.startsWith('http');
+            return (
+              <a
+                key={href}
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener' : undefined}
+                className="transition-colors duration-[180ms] hover:text-ink"
+              >
+                {label}
+              </a>
+            );
+          })}
+        </div>
       </div>
-      <div className="r">{rightLabel ?? ''}</div>
     </footer>
   );
 }

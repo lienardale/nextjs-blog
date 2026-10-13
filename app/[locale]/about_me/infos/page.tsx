@@ -1,4 +1,7 @@
+import {getTranslations} from 'next-intl/server';
+import AboutHeader from '../../components/AboutHeader';
 import ContactForm from '../../components/ContactForm';
+import SectionLabel from '../../components/SectionLabel';
 
 const content = {
   en: {
@@ -33,28 +36,44 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
 export default async function InfosPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = content[locale as Locale] ?? content.en;
+  const tr = await getTranslations({locale});
+
+  const rows = [
+    {label: tr('contact_email'), value: 'alienard.dev@gmail.com', href: 'mailto:alienard.dev@gmail.com'},
+    {label: tr('contact.cv_lb'), value: 'lienardale.github.io/markdown-cv', href: 'https://lienardale.github.io/markdown-cv/'},
+    {label: 'LinkedIn', value: 'linkedin.com/in/alienard', href: 'https://www.linkedin.com/in/alienard/'},
+  ];
 
   return (
-    <>      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <p>{t.intro}</p>
-        <ul className="list-disc pl-6 mt-2 space-y-1">
-          <li>
-            email : <a href="mailto:alienard.dev@gmail.com" className="text-accent hover:underline">alienard.dev@gmail.com</a>
-          </li>
-          <li>
-            <a href="https://lienardale.github.io/markdown-cv/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">CV</a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/alienard/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          </li>
-        </ul>
+    <div className="flex flex-col gap-8">
+      <AboutHeader active="infos" t={tr} />
 
-        <h2 className="text-xl font-bold mt-10 mb-4">{t.contact_heading}</h2>
-        <div className="max-w-md">
+      <div className="flex flex-col gap-10 pt-2">
+        <div>
+          <p className="lede mb-3">{t.intro}</p>
+          {rows.map((row) => {
+            const external = row.href.startsWith('http');
+            return (
+              <a
+                key={row.href}
+                href={row.href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                className="row grid-cols-[96px_minmax(0,1fr)_auto] py-3 text-[14px]"
+              >
+                <span className="text-[13px] text-ink-muted">{row.label}</span>
+                <span className="break-words">{row.value}</span>
+                <span className="text-ink-muted" aria-hidden="true">↗</span>
+              </a>
+            );
+          })}
+        </div>
+
+        <div className="max-w-[440px]">
+          <SectionLabel>{t.contact_heading}</SectionLabel>
           <ContactForm />
         </div>
-      </article>
-    </>
+      </div>
+    </div>
   );
 }

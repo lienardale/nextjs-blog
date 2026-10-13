@@ -1,136 +1,91 @@
 'use client';
 
-import {useEffect, useRef, useState} from 'react';
+export type RadarSkill = {name: string; level: number};
 
-type Skill = {name: string; level: number};
+const RADIUS = 100;
+const RINGS = [0.25, 0.5, 0.75, 1];
+const LABEL_OFFSET = 14;
 
-const SIZE = 400;
-const CENTER = SIZE / 2;
-const RADIUS = 120;
-const LABEL_OFFSET = 32;
-const GRID_LEVELS = [25, 50, 75, 100];
+type Point = readonly [number, number];
 
-function polarToCartesian(angle: number, radius: number): [number, number] {
-  // Start from top (-90°) and go clockwise
-  const rad = ((angle - 90) * Math.PI) / 180;
-  return [CENTER + radius * Math.cos(rad), CENTER + radius * Math.sin(rad)];
-}
+const format = ([x, y]: Point) => `${x.toFixed(1)},${y.toFixed(1)}`;
 
-function polygonPoints(count: number, radius: number): string {
-  const step = 360 / count;
-  return Array.from({length: count}, (_, i) => polarToCartesian(i * step, radius))
-    .map(([x, y]) => `${x},${y}`)
-    .join(' ');
-}
-
-function dataPoints(skills: Skill[], animated: boolean): string {
-  const count = skills.length;
-  const step = 360 / count;
-  return skills
-    .map((skill, i) => {
-      const r = animated ? (skill.level / 100) * RADIUS : 0;
-      return polarToCartesian(i * step, r);
-    })
-    .map(([x, y]) => `${x},${y}`)
-    .join(' ');
-}
-
-export default function RadarChart({skills}: {skills: Skill[]}) {
-  const [animated, setAnimated] = useState(false);
-  const containerRef = useRef<SVGSVGElement>(null);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setAnimated(true);
-          observer.disconnect();
-        }
-      },
-      {threshold: 0.2}
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
+// One radar for every skills view. Purely presentational: the parent owns
+// which axis is active and is told when a label is hovered.
+export default function RadarChart({
+  skills,
+  active,
+  onActiveChange,
+}: {
+  skills: RadarSkill[];
+  active?: number;
+  onActiveChange?: (index: number) => void;
+}) {
   if (skills.length < 3) return null;
 
   const count = skills.length;
-  const step = 360 / count;
+  // Start at the top and go clockwise.
+  const vertex = (i: number, radius: number): Point => {
+    const angle = -Math.PI / 2 + (i / count) * Math.PI * 2;
+    return [Math.cos(angle) * radius, Math.sin(angle) * radius];
+  };
+  const ring = (radius: number) => skills.map((_, i) => format(vertex(i, radius))).join(' ');
+  const points = skills.map((skill, i) => vertex(i, (RADIUS * skill.level) / 100));
 
   return (
     <svg
-      ref={containerRef}
-      viewBox={`0 0 ${SIZE} ${SIZE}`}
-      className="w-full max-w-sm mx-auto"
+      viewBox="-215 -125 430 250"
+      className="mx-auto block w-full max-w-[460px] overflow-visible"
       data-testid="radar-chart"
+      aria-hidden="true"
     >
-      {/* Grid polygons */}
-      {GRID_LEVELS.map((level) => (
-        <polygon
-          key={level}
-          points={polygonPoints(count, (level / 100) * RADIUS)}
-          fill="none"
-          stroke="currentColor"
-          className="text-ink-muted"
-          strokeWidth={0.5}
+      <g fill="none" stroke="var(--rule)" strokeWidth={1}>
+        {RINGS.map((share) => (
+          <polygon key={share} points={ring(RADIUS * share)} />
+        ))}
+        {skills.map((skill, i) => {
+          const [x, y] = vertex(i, RADIUS);
+          return <line key={skill.name} x1={0} y1={0} x2={x.toFixed(1)} y2={y.toFixed(1)} />;
+        })}
+      </g>
+
+      <polygon
+        points={points.map(format).join(' ')}
+        fill="var(--accent)"
+        fillOpacity={0.1}
+        stroke="var(--accent)"
+        strokeWidth={1.25}
+        strokeLinejoin="round"
+        data-testid="radar-shape"
+      />
+
+      {points.map(([x, y], i) => (
+        <circle
+          key={skills[i].name}
+          cx={x.toFixed(1)}
+          cy={y.toFixed(1)}
+          r={i === active ? 4 : 2.5}
+          fill={i === active ? 'var(--accent)' : 'var(--bg)'}
+          stroke="var(--accent)"
+          strokeWidth={1.25}
         />
       ))}
 
-      {/* Axis lines */}
-      {skills.map((_, i) => {
-        const [x, y] = polarToCartesian(i * step, RADIUS);
-        return (
-          <line
-            key={i}
-            x1={CENTER}
-            y1={CENTER}
-            x2={x}
-            y2={y}
-            stroke="currentColor"
-            className="text-ink-muted"
-            strokeWidth={0.5}
-          />
-        );
-      })}
-
-      {/* Data polygon */}
-      <polygon
-        points={dataPoints(skills, animated)}
-        className="fill-blue-500/25 stroke-blue-500 dark:fill-blue-400/25 dark:stroke-blue-400"
-        strokeWidth={2}
-        style={{transition: 'all 0.8s ease-out'}}
-      />
-
-      {/* Data dots */}
       {skills.map((skill, i) => {
-        const r = animated ? (skill.level / 100) * RADIUS : 0;
-        const [x, y] = polarToCartesian(i * step, r);
-        return (
-          <circle
-            key={i}
-            cx={x}
-            cy={y}
-            r={3}
-            className="fill-blue-500 dark:fill-blue-400"
-            style={{transition: 'all 0.8s ease-out'}}
-          />
-        );
-      })}
-
-      {/* Labels */}
-      {skills.map((skill, i) => {
-        const [x, y] = polarToCartesian(i * step, RADIUS + LABEL_OFFSET);
+        const [x, y] = vertex(i, RADIUS + LABEL_OFFSET);
+        const cos = Math.cos(Math.atan2(y, x));
+        const anchor = cos > 0.25 ? 'start' : cos < -0.25 ? 'end' : 'middle';
         return (
           <text
             key={skill.name}
-            x={x}
-            y={y}
-            textAnchor="middle"
-            dominantBaseline="central"
-            className="fill-ink-soft text-[10px]"
+            x={x.toFixed(1)}
+            y={y.toFixed(1)}
+            textAnchor={anchor}
+            dominantBaseline="middle"
+            fontSize={10}
+            className="cursor-default font-mono transition-[fill] duration-200"
+            fill={i === active ? 'var(--ink)' : 'var(--ink-muted)'}
+            onMouseEnter={onActiveChange ? () => onActiveChange(i) : undefined}
           >
             {skill.name}
           </text>

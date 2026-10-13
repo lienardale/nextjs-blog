@@ -4,9 +4,11 @@ import {notFound} from 'next/navigation';
 import {Suspense} from 'react';
 import {Instrument_Serif, Inter_Tight, JetBrains_Mono} from 'next/font/google';
 import {routing} from '../../lib/i18n/routing';
-import CursorFollower from './components/CursorFollower';
+import PageTransition from './components/PageTransition';
 import ScrollProgressBar from './components/ScrollProgressBar';
 import ScrollToTop from './components/ScrollToTop';
+import SiteFooter from './components/SiteFooter';
+import ThemeScript from './components/ThemeScript';
 import TopBar from './components/TopBar';
 import '../../styles/globals.css';
 
@@ -75,7 +77,12 @@ export default async function LocaleLayout({children, params}: Props) {
   const fontVars = `${instrumentSerif.variable} ${interTight.variable} ${jetbrainsMono.variable}`;
 
   return (
-    <html lang={locale} data-palette="a" className={fontVars} suppressHydrationWarning>
+    // data-palette is deliberately absent: the head script owns it, and
+    // suppressHydrationWarning covers the attribute it adds before hydration.
+    <html lang={locale} className={fontVars} data-scroll-behavior="smooth" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body>
         <a
           href="#main-content"
@@ -85,11 +92,13 @@ export default async function LocaleLayout({children, params}: Props) {
         </a>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ScrollProgressBar />
-          <CursorFollower />
           <TopBar />
-          <main id="main-content" className="page-shell">
-            <Suspense>{children}</Suspense>
+          <main id="main-content" className="site-column">
+            <PageTransition>
+              <Suspense>{children}</Suspense>
+            </PageTransition>
           </main>
+          <SiteFooter />
           <ScrollToTop />
         </NextIntlClientProvider>
       </body>

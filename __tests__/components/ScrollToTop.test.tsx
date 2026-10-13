@@ -3,8 +3,8 @@ import {render, screen, fireEvent, act} from '@testing-library/react';
 import ScrollToTop from '../../app/[locale]/components/ScrollToTop';
 
 // Mock the heroicons module
-jest.mock('@heroicons/react/24/solid', () => ({
-  ChevronUpIcon: (props: any) => <svg data-testid="chevron-up-icon" {...props} />,
+jest.mock('@heroicons/react/24/outline', () => ({
+  ArrowUpIcon: (props: any) => <svg data-testid="arrow-up-icon" {...props} />,
 }));
 
 describe('ScrollToTop component', () => {
@@ -40,18 +40,12 @@ describe('ScrollToTop component', () => {
     expect(button).toHaveClass('pointer-events-none');
   });
 
-  it('has translate-y-4 when hidden', () => {
-    render(<ScrollToTop />);
-    const button = screen.getByRole('button');
-    expect(button).toHaveClass('translate-y-4');
-  });
-
-  it('becomes visible after scrolling past 300px', () => {
+  it('becomes visible after scrolling past 480px', () => {
     render(<ScrollToTop />);
     const button = screen.getByRole('button');
 
-    // Simulate scrolling past 300px
-    Object.defineProperty(window, 'scrollY', {value: 301, writable: true, configurable: true});
+    // Simulate scrolling past 480px
+    Object.defineProperty(window, 'scrollY', {value: 481, writable: true, configurable: true});
     act(() => {
       fireEvent.scroll(window);
     });
@@ -60,23 +54,23 @@ describe('ScrollToTop component', () => {
     expect(button).not.toHaveClass('opacity-0');
   });
 
-  it('has translate-y-0 when visible', () => {
+  it('accepts clicks again once visible', () => {
     render(<ScrollToTop />);
     const button = screen.getByRole('button');
 
-    Object.defineProperty(window, 'scrollY', {value: 400, writable: true, configurable: true});
+    Object.defineProperty(window, 'scrollY', {value: 600, writable: true, configurable: true});
     act(() => {
       fireEvent.scroll(window);
     });
 
-    expect(button).toHaveClass('translate-y-0');
+    expect(button).not.toHaveClass('pointer-events-none');
   });
 
-  it('remains hidden when scrollY is exactly 300', () => {
+  it('remains hidden when scrollY is exactly 480', () => {
     render(<ScrollToTop />);
     const button = screen.getByRole('button');
 
-    Object.defineProperty(window, 'scrollY', {value: 300, writable: true, configurable: true});
+    Object.defineProperty(window, 'scrollY', {value: 480, writable: true, configurable: true});
     act(() => {
       fireEvent.scroll(window);
     });
@@ -84,12 +78,12 @@ describe('ScrollToTop component', () => {
     expect(button).toHaveClass('opacity-0');
   });
 
-  it('hides again when scrolling back up below 300px', () => {
+  it('hides again when scrolling back up below 480px', () => {
     render(<ScrollToTop />);
     const button = screen.getByRole('button');
 
     // Scroll down
-    Object.defineProperty(window, 'scrollY', {value: 500, writable: true, configurable: true});
+    Object.defineProperty(window, 'scrollY', {value: 700, writable: true, configurable: true});
     act(() => {
       fireEvent.scroll(window);
     });
@@ -122,26 +116,27 @@ describe('ScrollToTop component', () => {
     expect(scrollToMock).toHaveBeenCalledTimes(2);
   });
 
-  it('renders the ChevronUpIcon', () => {
+  it('renders the ArrowUpIcon', () => {
     render(<ScrollToTop />);
-    expect(screen.getByTestId('chevron-up-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('arrow-up-icon')).toBeInTheDocument();
   });
 
   it('has fixed positioning classes', () => {
     render(<ScrollToTop />);
     const button = screen.getByRole('button');
     expect(button).toHaveClass('fixed');
-    expect(button).toHaveClass('bottom-6');
-    expect(button).toHaveClass('right-6');
+    expect(button).toHaveClass('bottom-5');
+    expect(button).toHaveClass('right-5');
   });
 
   it('has correct styling classes', () => {
     render(<ScrollToTop />);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-accent');
-    expect(button).toHaveClass('text-accent-fg');
+    expect(button).toHaveClass('size-9');
     expect(button).toHaveClass('rounded-full');
-    expect(button).toHaveClass('shadow-lg');
+    expect(button).toHaveClass('border', 'border-rule');
+    expect(button).toHaveClass('bg-bg');
+    expect(button.className).not.toMatch(/shadow/);
   });
 
   it('removes the scroll event listener on unmount', () => {

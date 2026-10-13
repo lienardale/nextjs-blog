@@ -6,7 +6,6 @@ import RelatedPosts from '../../components/RelatedPosts';
 const content = {
   en: {
     title: 'A Year of AI-Augmented Development',
-    readingTime: 8,
     body: (
       <>
         <p>I gave myself a 78 on the skills radar for "AI-augmented dev". I want to justify the score, and I want to be honest about why it isn’t a 90. After a year of using Claude Code and GPT Codex daily — for a real backend at work and a few side projects — here’s what I actually believe.</p>
@@ -51,7 +50,6 @@ const content = {
   },
   fr: {
     title: 'Une année de développement augmenté par l’IA',
-    readingTime: 8,
     body: (
       <>
         <p>Je me suis donné 78 sur le radar de skills pour "AI-augmented dev". Je veux justifier la note, et je veux être honnête sur pourquoi ce n’est pas 90. Après un an de Claude Code et GPT Codex au quotidien — pour un vrai backend au boulot et quelques projets perso — voici ce que je pense vraiment.</p>
@@ -96,7 +94,6 @@ const content = {
   },
   de: {
     title: 'Ein Jahr KI-gestützte Entwicklung',
-    readingTime: 8,
     body: (
       <>
         <p>Ich habe mir auf dem Skills-Radar eine 78 für „AI-augmented dev“ gegeben. Ich will den Score begründen — und ehrlich sagen, warum es keine 90 ist. Nach einem Jahr Claude Code und GPT Codex im Alltag — für ein echtes Backend bei der Arbeit und ein paar Nebenprojekte — hier, was ich wirklich glaube.</p>
@@ -141,7 +138,6 @@ const content = {
   },
   es: {
     title: 'Un año de desarrollo aumentado por IA',
-    readingTime: 8,
     body: (
       <>
         <p>Me puse un 78 en el radar de skills para "AI-augmented dev". Quiero justificar la nota y ser honesto sobre por qué no es un 90. Tras un año usando a diario Claude Code y GPT Codex — para un backend de verdad en el trabajo y algunos side projects — esto es lo que de verdad creo.</p>
@@ -202,15 +198,13 @@ export default async function AiAugmentedDevPage({params}: {params: Promise<{loc
   return (
     <>
       <PostDetail
+        postId="ai-augmented-dev"
         postIndex="04"
         title={t.title}
         date="2026-05-03"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="ai-augmented-dev" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="ai-augmented-dev" locale={locale} />
-      </div>
     </>
   );
 }

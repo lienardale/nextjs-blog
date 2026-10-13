@@ -1,39 +1,27 @@
+import Image from 'next/image';
+import {getTranslations} from 'next-intl/server';
+import Breadcrumbs from '../../components/Breadcrumbs';
+import PageHeader from '../../components/PageHeader';
 
 const content = {
   en: {
     title: 'Graphic Novels',
-    intro: (
-      <p className="text-ink-soft italic mb-6">
-        I like them (a lot). I buy them (when I can).
-      </p>
-    ),
+    intro: 'I like them (a lot). I buy them (when I can).',
     favoritesTitle: 'On the shelf',
   },
   fr: {
     title: 'Romans graphiques',
-    intro: (
-      <p className="text-ink-soft italic mb-6">
-        Je les aime (beaucoup). J’en achète (quand je peux).
-      </p>
-    ),
+    intro: 'Je les aime (beaucoup). J’en achète (quand je peux).',
     favoritesTitle: 'Sur l’étagère',
   },
   de: {
     title: 'Graphic Novels',
-    intro: (
-      <p className="text-ink-soft italic mb-6">
-        Ich mag sie (sehr). Ich kaufe sie (wenn ich kann).
-      </p>
-    ),
+    intro: 'Ich mag sie (sehr). Ich kaufe sie (wenn ich kann).',
     favoritesTitle: 'Im Regal',
   },
   es: {
     title: 'Novelas gráficas',
-    intro: (
-      <p className="text-ink-soft italic mb-6">
-        Me gustan (mucho). Los compro (cuando puedo).
-      </p>
-    ),
+    intro: 'Me gustan (mucho). Los compro (cuando puedo).',
     favoritesTitle: 'En la estantería',
   },
 } as const;
@@ -283,52 +271,49 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
 export default async function GraphicNovelsPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = content[locale as Locale] ?? content.en;
+  const tr = await getTranslations({locale});
 
   return (
-    <>      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        {t.intro}
+    <div className="flex flex-col gap-8">
+      <Breadcrumbs
+        items={[
+          {label: tr('nav.index'), href: '/'},
+          {label: tr('nav.hobbies'), href: '/about_me'},
+          {label: t.title},
+        ]}
+      />
+      <PageHeader title={t.title} lede={<span className="italic">{t.intro}</span>} />
 
-        <h2 className="text-xl font-bold mb-4">{t.favoritesTitle}</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {novels.map((novel) => (
+      <h2 className="section-label">
+        {t.favoritesTitle} · {novels.length}
+      </h2>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-x-4 gap-y-7">
+        {novels.map((novel) => (
+          <div key={novel.title} data-testid="graphic-novel-card" className="flex flex-col gap-2">
             <div
-              key={novel.title}
-              data-testid="graphic-novel-card"
-              className="border border-rule rounded-lg overflow-hidden flex flex-col"
+              className="relative aspect-[2/3] overflow-hidden rounded-sm"
+              style={{background: `linear-gradient(135deg, ${novel.c1}, ${novel.c2})`}}
             >
-              <div
-                className="h-120 flex items-end p-1"
-                style={{
-                  backgroundImage: `url(${novel.cover_url}), linear-gradient(135deg, ${novel.c1}, ${novel.c2})`,
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center',
-
-                }}
-              >
-                {/* <img
+              {novel.cover_url ? (
+                <Image
                   src={novel.cover_url}
-                  alt={`Couverture de ${novel.title}`}
-                  className="w-40 rounded-md shadow-md"
-                /> */}
-                <h3 className="font-semibold text-white text-lg leading-tight drop-shadow-sm">
-                  {novel.title}
-                </h3>
-              </div>
-              <div className="p-4 flex flex-col gap-2 flex-1">
-                <div className="flex items-start justify-between gap-2">
-                  <span className="text-sm text-ink-muted">{novel.author}</span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 whitespace-nowrap">
-                    {novel.genre[locale as Locale] ?? novel.genre.en}
-                  </span>
-                </div>
-                <p className="text-sm text-ink-soft italic leading-snug">{novel.take}</p>
-              </div>
+                  alt={novel.title}
+                  fill
+                  sizes="(min-width: 712px) 156px, 45vw"
+                  className="object-cover"
+                />
+              ) : null}
             </div>
-          ))}
-        </div>
-      </article>
-    </>
+            <div className="flex flex-col gap-0.5">
+              <h3 className="text-[14px] font-medium leading-[1.3]">{novel.title}</h3>
+              <span className="text-[12px] text-ink-muted">
+                {novel.author} · {novel.genre[locale as Locale] ?? novel.genre.en}
+              </span>
+              <span className="mt-1 text-pretty text-[12px] leading-[1.45] text-ink-soft">{novel.take}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

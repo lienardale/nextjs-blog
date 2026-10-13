@@ -288,12 +288,11 @@ export default async function WiremindPage({params}: {params: Promise<{locale: s
       section="experience"
       sectionLabel={tr('nav.experience')}
       indexLabel={tr('nav.index')}
-      eyebrow="// 2022 → present · Paris"
-      title={`${t.title}<em>.</em>`}
-      meta="01 / Experience"
+      eyebrow={`${tr('experience.years_01')} · Paris`}
+      title={t.title}
+      subtitle={tr('experience.role_01')}
       summary={t.summary}
       body={t.body}
-      footerLabel="01 / Experience"
     />
   );
 }

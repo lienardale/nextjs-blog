@@ -1,31 +1,33 @@
+import {getTranslations} from 'next-intl/server';
+import AboutHeader from '../../components/AboutHeader';
 import WorldMap from '../../components/WorldMap';
 
 const content = {
   en: {
     title: 'Languages',
     languages: [
-      {name: 'French', level: 'native', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'French', level: 'native', color: 'var(--accent)', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
       {name: 'English', level: 'fluent', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
   fr: {
     title: 'Langues',
     languages: [
-      {name: 'Français', level: 'natif', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'Français', level: 'natif', color: 'var(--accent)', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
       {name: 'Anglais', level: 'courant', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
   de: {
     title: 'Sprachen',
     languages: [
-      {name: 'Französisch', level: 'Muttersprache', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'Französisch', level: 'Muttersprache', color: 'var(--accent)', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
       {name: 'Englisch', level: 'fließend', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
   es: {
     title: 'Idiomas',
     languages: [
-      {name: 'Francés', level: 'nativo', color: '#3b82f6', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
+      {name: 'Francés', level: 'nativo', color: 'var(--accent)', countries: ['france', 'belgium', 'canada', 'congo', 'cameroon']},
       {name: 'Inglés', level: 'fluido', color: '#22c55e', countries: ['uk', 'usa', 'canada', 'australia', 'india', 'south_africa']},
     ],
   },
@@ -41,12 +43,14 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
 export default async function LanguagesPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
   const t = content[locale as Locale] ?? content.en;
+  const tr = await getTranslations({locale});
 
   return (
-    <>      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
+    <div className="flex flex-col gap-8">
+      <AboutHeader active="languages" t={tr} />
+      <div className="pt-2">
         <WorldMap languages={[...t.languages]} />
-      </article>
-    </>
+      </div>
+    </div>
   );
 }

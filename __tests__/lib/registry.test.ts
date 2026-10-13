@@ -1,4 +1,4 @@
-import {getNavItems, getSortedItems, getRelatedPosts} from '../../lib/registry';
+import {getNavItems, getSortedItems, getRelatedPosts, getReadingMinutes} from '../../lib/registry';
 
 describe('registry', () => {
   // ---------- getNavItems ----------
@@ -104,6 +104,35 @@ describe('registry', () => {
       const ids = getNavItems('posts', 'en').map((i) => i.id);
       expect(ids).toContain('ssg-ssr');
       expect(ids).toContain('pre-rendering');
+    });
+  });
+
+  // ---------- reading time ----------
+  describe('reading time', () => {
+    it('is the same on the posts list as getReadingMinutes reports for the post page', () => {
+      const listed = getSortedItems('posts', 'en');
+      expect(listed.length).toBeGreaterThan(0);
+      for (const post of listed) {
+        expect(post.readingMinutes).toBe(getReadingMinutes(post.id));
+      }
+    });
+
+    it.each([
+      ['next-intl-guide', 5],
+      ['typescript-react-patterns', 4],
+      ['building-modern-blog', 5],
+    ])('%s reads in %i minutes', (id, minutes) => {
+      expect(getReadingMinutes(id)).toBe(minutes);
+    });
+
+    it('covers archived posts, whose pages still render', () => {
+      expect(getReadingMinutes('ssg-ssr')).toBe(2);
+      expect(getReadingMinutes('pre-rendering')).toBe(2);
+    });
+
+    it('carries the description to listings', () => {
+      const post = getSortedItems('posts', 'fr').find((p) => p.id === 'next-intl-guide');
+      expect(post?.description).toBeTruthy();
     });
   });
 

@@ -1,6 +1,6 @@
 import {type ReactNode} from 'react';
 import {Link} from '../../../lib/i18n/navigation';
-import SiteFooter from './SiteFooter';
+import Breadcrumbs from './Breadcrumbs';
 
 type Props = {
   /** Section the detail belongs to (e.g. "experience"). Used to resolve crumbs and the back link. */
@@ -9,18 +9,16 @@ type Props = {
   sectionLabel: string;
   /** Localized index label ("Index"). */
   indexLabel: string;
-  /** "// 01 · technical mode" style mono eyebrow. */
+  /** Mono line above the title: date range and place ("2022 → present · Paris"). */
   eyebrow?: string;
-  /** Display title. May contain HTML (`<em>`, `<br/>`). */
+  /** Company or school name, plain text. */
   title: string;
-  /** One-line subtitle in the section-head right column (date range, location, etc.). */
-  meta?: string;
+  /** Role held, or degree for education. */
+  subtitle?: string;
   /** Optional summary block rendered above the body. */
   summary?: ReactNode;
   /** Article body — already React JSX. */
   body: ReactNode;
-  /** Footer right-side label (e.g. "01 · Junior 42 Paris"). */
-  footerLabel?: string;
 };
 
 const sectionToHref: Record<Props['section'], string> = {
@@ -37,40 +35,35 @@ export default function DetailPage({
   indexLabel,
   eyebrow,
   title,
-  meta,
+  subtitle,
   summary,
   body,
-  footerLabel,
 }: Props) {
   const sectionHref = sectionToHref[section];
 
   return (
-    <div className="section-page narrow detail-page">
-      <div className="crumbs">
-        <Link href="/">{indexLabel}</Link> /{' '}
-        <Link href={sectionHref}>{sectionLabel}</Link> /{' '}
-        <span dangerouslySetInnerHTML={{__html: stripTags(title)}} />
+    <article className="flex flex-col gap-7">
+      <Breadcrumbs
+        items={[
+          {label: indexLabel, href: '/'},
+          {label: sectionLabel, href: sectionHref},
+          {label: title},
+        ]}
+      />
+
+      <div className="flex flex-col gap-2">
+        {eyebrow ? <span className="font-mono text-[11px] text-ink-muted">{eyebrow}</span> : null}
+        <h1 className="page-h1">{title}</h1>
+        {subtitle ? <span className="text-[14px] text-ink-muted">{subtitle}</span> : null}
       </div>
 
-      <div className="section-head">
-        <div>
-          {eyebrow ? <span className="kind">{eyebrow}</span> : null}
-          <h1 data-reveal dangerouslySetInnerHTML={{__html: title}} />
-        </div>
-        {meta ? <div className="kind">{meta}</div> : null}
-      </div>
+      {summary ? <div className="detail-summary">{summary}</div> : null}
 
-      {summary ? <div className="detail-summary" data-reveal>{summary}</div> : null}
+      <div className="prose-detail">{body}</div>
 
-      <article className="detail-article" data-reveal style={{['--d' as string]: 1} as React.CSSProperties}>
-        {body}
-      </article>
-
-      <SiteFooter rightLabel={footerLabel} />
-    </div>
+      <Link href={sectionHref} className="link-muted self-start text-[13px]">
+        ← {sectionLabel}
+      </Link>
+    </article>
   );
-}
-
-function stripTags(html: string): string {
-  return html.replace(/<[^>]+>/g, '');
 }

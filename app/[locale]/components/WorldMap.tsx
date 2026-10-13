@@ -41,7 +41,9 @@ const NUMERIC_TO_SLUG: Record<string, string> = Object.fromEntries(
   Object.entries(COUNTRY_MAP).map(([slug, {numericId}]) => [numericId, slug]),
 );
 
-const COLORS = {ocean: '#ece7dc', land: '#e5dfd0', border: '#cdc5b3', graticule: '#cdc5b3'};
+// Palette tokens, so the map follows the light/dark switch.
+const COLORS = {ocean: 'var(--bg-alt)', land: 'var(--bg)', border: 'var(--ink-muted)', graticule: 'var(--rule)'};
+const BORDER_OPACITY = 0.35;
 
 function getCountryLanguages(slug: string, languages: Language[]): Language[] {
   return languages.filter((lang) => lang.countries.includes(slug));
@@ -68,7 +70,7 @@ export default function WorldMap({languages}: Props) {
       const langs = slugToLangs[slug];
       if (langs && langs.length >= 2) return [langs[0].color, langs[1].color];
     }
-    return ['#3b82f6', '#22c55e'];
+    return ['var(--accent)', '#22c55e'];
   })();
 
   function getFill(slug: string): string {
@@ -78,13 +80,14 @@ export default function WorldMap({languages}: Props) {
   }
 
   return (
-    <div className="relative" data-testid="world-map">
+    <div className="flex flex-col gap-5" data-testid="world-map">
+      <div className="relative overflow-hidden rounded-lg">
       <ComposableMap
         projection="geoEqualEarth"
         projectionConfig={{scale: 147, center: createCoordinates(0, 0)}}
         width={800}
         height={400}
-        className="w-full max-w-2xl mx-auto"
+        className="block w-full"
       >
         <defs>
           <pattern
@@ -103,12 +106,12 @@ export default function WorldMap({languages}: Props) {
           id="map-sphere"
           fill={colors.ocean}
           stroke={colors.border}
+          strokeOpacity={BORDER_OPACITY}
           strokeWidth={0.5}
         />
         <Graticule stroke={colors.graticule} strokeWidth={0.3} />
 
         <Geographies geography={geoData}>
-          {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
           {({geographies}: {geographies: any[]}) =>
             geographies.map((geo) => {
               const slug = NUMERIC_TO_SLUG[geo.id];
@@ -122,7 +125,8 @@ export default function WorldMap({languages}: Props) {
                   data-testid={isInteractive ? `country-${slug}` : undefined}
                   fill={isInteractive ? getFill(slug) : colors.land}
                   stroke={colors.border}
-                  strokeWidth={isHovered ? 1.5 : 0.3}
+                  strokeOpacity={isHovered ? 1 : BORDER_OPACITY}
+                  strokeWidth={isHovered ? 1 : 0.5}
                   style={{
                     default: {opacity: isInteractive ? 0.8 : 1, outline: 'none'},
                     hover: {opacity: 1, outline: 'none'},
@@ -141,29 +145,33 @@ export default function WorldMap({languages}: Props) {
       {hoveredLangs.length > 0 && hoveredCountry && (
         <div
           data-testid="map-tooltip"
-          className="absolute top-2 left-1/2 -translate-x-1/2 bg-paper border border-rule rounded-lg px-3 py-2 shadow-lg pointer-events-none z-10"
+          className="pointer-events-none absolute top-2.5 left-1/2 z-10 flex -translate-x-1/2 flex-col gap-0.5 whitespace-nowrap rounded-lg border border-rule bg-bg px-3 py-2 text-[13px]"
         >
-          <p className="font-semibold text-sm text-ink">
-            {COUNTRY_MAP[hoveredCountry]?.label}
-          </p>
+          <span className="font-medium">{COUNTRY_MAP[hoveredCountry]?.label}</span>
           {hoveredLangs.map((lang) => (
-            <p key={lang.name} className="text-xs text-ink-muted">
+            <span key={lang.name} className="text-[12px] text-ink-muted">
               {lang.name} — {lang.level}
-            </p>
+            </span>
           ))}
         </div>
       )}
+      </div>
 
       {/* Legend */}
-      <div className="flex flex-wrap justify-center gap-6 mt-4">
+      <div>
         {languages.map((lang) => (
-          <div key={lang.name} className="flex items-center gap-2 text-sm">
-            <span
-              className="w-3 h-3 rounded-full inline-block"
-              style={{backgroundColor: lang.color}}
-            />
-            <span className="text-ink-soft">
-              {lang.name} — {lang.level}
+          <div
+            key={lang.name}
+            className="row grid-cols-[12px_minmax(0,1fr)_auto] items-center gap-3 py-3 text-[14px]"
+            data-testid="map-legend-row"
+          >
+            <span className="size-2 rounded-full" style={{backgroundColor: lang.color}} />
+            <span>
+              <span className="font-medium">{lang.name}</span>{' '}
+              <span className="text-ink-muted">— {lang.level}</span>
+            </span>
+            <span className="text-right text-[12px] text-ink-muted">
+              {lang.countries.map((slug) => COUNTRY_MAP[slug]?.label ?? slug).join(', ')}
             </span>
           </div>
         ))}

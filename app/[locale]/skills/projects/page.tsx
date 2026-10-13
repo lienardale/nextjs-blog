@@ -1,6 +1,7 @@
 import {getTranslations} from 'next-intl/server';
 import {getProjects} from '../../../../lib/registry';
 import ProjectsList, {type ProjectsListItem, type ProjectsFilter} from '../../components/ProjectsList';
+import SkillsHeader from '../../components/SkillsHeader';
 
 const pageTitle: Record<string, string> = {
   en: 'Projects',
@@ -28,6 +29,8 @@ export default async function ProjectsPage({params}: {params: Promise<{locale: s
     id: p.id,
     date: p.date,
     name: p.name,
+    title: p.title,
+    stamp: p.stamp,
     description: p.description,
     github: p.github,
     live: p.live,
@@ -52,11 +55,11 @@ export default async function ProjectsPage({params}: {params: Promise<{locale: s
   ];
 
   return (
-    <article>
-      <h1 className="text-3xl font-extrabold tracking-tight my-4">
-        {pageTitle[locale] ?? pageTitle.en}
-      </h1>
-      <ProjectsList items={items} filters={filters} />
-    </article>
+    <div className="flex flex-col gap-8">
+      <SkillsHeader active="projects" t={t} />
+      <div className="flex flex-col gap-5 pt-2">
+        <ProjectsList items={items} filters={filters} />
+      </div>
+    </div>
   );
 }
