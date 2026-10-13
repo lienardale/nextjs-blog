@@ -18,24 +18,12 @@ export default async function CodeBlock({code, lang, filename}: Props) {
   });
 
   return (
-    <div className="my-6 rounded-lg overflow-hidden border border-rule">
-      {filename && (
-        <div className="flex items-center justify-between px-4 py-2 bg-bg-alt border-b border-rule">
-          <span className="text-xs text-ink-muted font-mono">{filename}</span>
-          <CopyButton code={code} />
-        </div>
-      )}
-      <div className="relative group">
-        {!filename && (
-          <div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <CopyButton code={code} />
-          </div>
-        )}
-        <div
-          className="overflow-x-auto text-sm [&_pre]:!p-4 [&_pre]:!m-0"
-          dangerouslySetInnerHTML={{__html: html}}
-        />
+    <div className="code-block">
+      <div className="flex items-center justify-between gap-3 border-b border-rule py-1.5 pr-2 pl-3 font-mono text-[11px] text-ink-muted">
+        <span>{filename}</span>
+        <CopyButton code={code} />
       </div>
+      <div dangerouslySetInnerHTML={{__html: html}} />
     </div>
   );
 }

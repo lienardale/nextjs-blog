@@ -153,12 +153,11 @@ export default async function IaeLillePage({params}: {params: Promise<{locale: s
       section="education"
       sectionLabel={tr('nav.education')}
       indexLabel={tr('nav.index')}
-      eyebrow="// 2014 → 2017 · Lille"
-      title={`${t.title}<em>.</em>`}
-      meta="02 / Education"
+      eyebrow={`${tr('education.years_02')} · Lille`}
+      title={t.title}
+      subtitle={tr('education.title_02')}
       summary={t.summary}
       body={t.body}
-      footerLabel="02 / Education"
     />
   );
 }

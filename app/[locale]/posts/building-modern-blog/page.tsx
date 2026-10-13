@@ -45,7 +45,6 @@ export async function generateMetadata({ params }) {
 const content = {
   en: {
     title: 'Building a Modern Blog with Next.js App Router',
-    readingTime: 5,
     body: (
       <>
         <p>The Next.js App Router fundamentally changes how we build web applications. With server components as the default, layouts that persist across navigation, and streaming built in, it provides a powerful foundation for content-rich sites like blogs.</p>
@@ -72,7 +71,6 @@ const content = {
   },
   fr: {
     title: 'Construire un blog moderne avec le App Router de Next.js',
-    readingTime: 5,
     body: (
       <>
         <p>Le App Router de Next.js change fondamentalement la manière dont nous construisons des applications web. Avec les composants serveur par défaut, des layouts persistants entre les navigations, et le streaming intégré, il fournit une base puissante pour les sites riches en contenu comme les blogs.</p>
@@ -99,7 +97,6 @@ const content = {
   },
   de: {
     title: 'Einen modernen Blog mit dem Next.js App Router erstellen',
-    readingTime: 5,
     body: (
       <>
         <p>Der Next.js App Router verändert grundlegend, wie wir Webanwendungen erstellen. Mit Server-Komponenten als Standard, Layouts die zwischen Navigationen bestehen bleiben, und integriertem Streaming bietet er eine leistungsstarke Grundlage für inhaltsreiche Seiten wie Blogs.</p>
@@ -126,7 +123,6 @@ const content = {
   },
   es: {
     title: 'Construyendo un blog moderno con el App Router de Next.js',
-    readingTime: 5,
     body: (
       <>
         <p>El App Router de Next.js cambia fundamentalmente cómo construimos aplicaciones web. Con componentes de servidor por defecto, layouts que persisten entre navegaciones, y streaming integrado, proporciona una base poderosa para sitios ricos en contenido como blogs.</p>
@@ -167,15 +163,13 @@ export default async function BuildingModernBlogPage({params}: {params: Promise<
   return (
     <>
       <PostDetail
+        postId="building-modern-blog"
         postIndex="01"
         title={t.title}
         date="2026-03-15"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="building-modern-blog" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="building-modern-blog" locale={locale} />
-      </div>
     </>
   );
 }

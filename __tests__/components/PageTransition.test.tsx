@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen, act} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import PageTransition from '../../app/[locale]/components/PageTransition';
 
 // Mock next/navigation
@@ -8,31 +8,16 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn(() => ({replace: jest.fn(), push: jest.fn()})),
 }));
 
+const {usePathname} = require('next/navigation') as {usePathname: jest.Mock};
+
+function setPathname(pathname: string) {
+  usePathname.mockReturnValue(pathname);
+}
+
 describe('PageTransition component', () => {
-  let rafCallbacks: Array<FrameRequestCallback>;
-  let rafIdCounter: number;
-
   beforeEach(() => {
-    rafCallbacks = [];
-    rafIdCounter = 0;
-
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
-      rafCallbacks.push(cb);
-      return ++rafIdCounter;
-    });
-
-    jest.spyOn(window, 'cancelAnimationFrame').mockImplementation(() => {});
+    setPathname('/');
   });
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  function flushRAF() {
-    const callbacks = [...rafCallbacks];
-    rafCallbacks = [];
-    callbacks.forEach((cb) => cb(performance.now()));
-  }
 
   it('renders children', () => {
     render(
@@ -54,116 +39,96 @@ describe('PageTransition component', () => {
     expect(screen.getByText('Second')).toBeInTheDocument();
   });
 
-  it('initially has opacity-100 class (visible on first render to avoid hydration mismatch)', () => {
+  it('wraps children in a div so the page root is its direct child', () => {
     render(
       <PageTransition>
         <p>Content</p>
       </PageTransition>
     );
-    const wrapper = screen.getByText('Content').parentElement!;
-    expect(wrapper).toHaveClass('opacity-100');
-    expect(wrapper).not.toHaveClass('opacity-0');
+    const wrapper = screen.getByText('Content').parentElement;
+    expect(wrapper?.tagName).toBe('DIV');
   });
 
-  it('has transition-opacity class for CSS transitions', () => {
+  it('does not fade on first load', () => {
     render(
       <PageTransition>
         <p>Content</p>
       </PageTransition>
     );
-    const wrapper = screen.getByText('Content').parentElement!;
-    expect(wrapper).toHaveClass('transition-opacity');
-    expect(wrapper).toHaveClass('duration-300');
-    expect(wrapper).toHaveClass('ease-out');
+    expect(screen.getByText('Content').parentElement).not.toHaveClass('route-fade');
   });
 
-  it('does not call requestAnimationFrame on initial mount (no route change)', () => {
-    render(
-      <PageTransition>
-        <p>Content</p>
-      </PageTransition>
-    );
-    expect(window.requestAnimationFrame).not.toHaveBeenCalled();
-  });
-
-  it('resets to opacity-0 when pathname changes and then transitions to opacity-100', () => {
-    const {usePathname} = require('next/navigation');
-
-    // Start with path '/'
-    usePathname.mockReturnValue('/');
+  it('does not fade when re-rendered on the same pathname', () => {
     const {rerender} = render(
       <PageTransition>
         <p>Content</p>
       </PageTransition>
     );
-
-    act(() => {
-      flushRAF();
-    });
-
-    const wrapper = screen.getByText('Content').parentElement!;
-    expect(wrapper).toHaveClass('opacity-100');
-
-    // Change the pathname
-    usePathname.mockReturnValue('/about');
     rerender(
       <PageTransition>
         <p>Content</p>
       </PageTransition>
     );
-
-    // After re-render with new pathname, it should reset to opacity-0
-    // because the effect sets isVisible to false before scheduling rAF
-    expect(wrapper).toHaveClass('opacity-0');
-
-    // After rAF fires, it should transition to opacity-100
-    act(() => {
-      flushRAF();
-    });
-    expect(wrapper).toHaveClass('opacity-100');
+    expect(screen.getByText('Content').parentElement).not.toHaveClass('route-fade');
   });
 
-  it('does not call cancelAnimationFrame on unmount without route change', () => {
+  it('enables the fade on the first navigation', () => {
+    const {rerender} = render(
+      <PageTransition>
+        <p>Home</p>
+      </PageTransition>
+    );
+
+    setPathname('/posts');
+    rerender(
+      <PageTransition>
+        <p>Posts</p>
+      </PageTransition>
+    );
+
+    expect(screen.getByText('Posts').parentElement).toHaveClass('route-fade');
+  });
+
+  it('keeps the fade enabled for later navigations, including back to the first page', () => {
+    const {rerender} = render(
+      <PageTransition>
+        <p>Home</p>
+      </PageTransition>
+    );
+
+    setPathname('/posts');
+    rerender(
+      <PageTransition>
+        <p>Posts</p>
+      </PageTransition>
+    );
+
+    setPathname('/');
+    rerender(
+      <PageTransition>
+        <p>Home again</p>
+      </PageTransition>
+    );
+
+    expect(screen.getByText('Home again').parentElement).toHaveClass('route-fade');
+  });
+
+  it('starts unarmed again after a remount (locale switch)', () => {
+    setPathname('/posts');
     const {unmount} = render(
       <PageTransition>
-        <p>Content</p>
+        <p>Posts</p>
       </PageTransition>
     );
-
     unmount();
 
-    expect(window.cancelAnimationFrame).not.toHaveBeenCalled();
-  });
-
-  it('cancels the animation frame on unmount during route change', () => {
-    const {usePathname} = require('next/navigation');
-    usePathname.mockReturnValue('/');
-    const {rerender, unmount} = render(
-      <PageTransition>
-        <p>Content</p>
-      </PageTransition>
-    );
-
-    // Trigger a route change to schedule a rAF
-    usePathname.mockReturnValue('/new');
-    rerender(
-      <PageTransition>
-        <p>Content</p>
-      </PageTransition>
-    );
-
-    unmount();
-
-    expect(window.cancelAnimationFrame).toHaveBeenCalled();
-  });
-
-  it('wraps children in a div element', () => {
+    setPathname('/fr/posts');
     render(
       <PageTransition>
-        <p>Content</p>
+        <p>Articles</p>
       </PageTransition>
     );
-    const wrapper = screen.getByText('Content').parentElement!;
-    expect(wrapper.tagName).toBe('DIV');
+
+    expect(screen.getByText('Articles').parentElement).not.toHaveClass('route-fade');
   });
 });

@@ -15,7 +15,10 @@ module.exports = {
     '^leaflet/dist/leaflet\\.css$': '<rootDir>/__mocks__/styleMock.ts',
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+  // .claude/worktrees holds full checkouts (with their own __tests__ and
+  // __mocks__) that jest would otherwise run and warn about.
+  testPathIgnorePatterns: ['/node_modules/', '/.next/', '/.claude/'],
+  modulePathIgnorePatterns: ['<rootDir>/.claude/'],
   collectCoverageFrom: [
     'lib/**/*.{ts,tsx}',
     'app/\\[locale\\]/components/**/*.{ts,tsx}',

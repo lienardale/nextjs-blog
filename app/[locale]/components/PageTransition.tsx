@@ -1,39 +1,23 @@
 'use client';
 
 import {usePathname} from 'next/navigation';
-import {useEffect, useRef, useState, type ReactNode} from 'react';
+import {useLayoutEffect, useRef, useState, type ReactNode} from 'react';
 
+// Fades each incoming page in. The animation itself is CSS (.route-fade in
+// globals.css) and runs on whatever element becomes the page root, so it
+// also plays when streamed content replaces the loading skeleton. This
+// component only decides *when* that rule applies: never on first load —
+// the server-rendered page should simply be there — and from the first
+// navigation onwards.
 export default function PageTransition({children}: {children: ReactNode}) {
   const pathname = usePathname();
-  const [isVisible, setIsVisible] = useState(true);
-  const prevPathnameRef = useRef(pathname);
-  const hasMounted = useRef(false);
+  const initialPathname = useRef(pathname);
+  const [armed, setArmed] = useState(false);
 
-  useEffect(() => {
-    // Skip the first effect run (initial mount / hydration) to avoid
-    // a flash of opacity-0 when server and client pathnames differ
-    // (e.g. next-intl strips the locale prefix for the default locale).
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      prevPathnameRef.current = pathname;
-      return;
-    }
-
-    if (pathname !== prevPathnameRef.current) {
-      setIsVisible(false);
-      prevPathnameRef.current = pathname;
-      const frame = requestAnimationFrame(() => setIsVisible(true));
-      return () => cancelAnimationFrame(frame);
-    }
+  // A layout effect, so the class lands before the new page is painted.
+  useLayoutEffect(() => {
+    if (pathname !== initialPathname.current) setArmed(true);
   }, [pathname]);
 
-  return (
-    <div
-      className={`transition-opacity duration-300 ease-out ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
-    >
-      {children}
-    </div>
-  );
+  return <div className={armed ? 'route-fade' : undefined}>{children}</div>;
 }

@@ -28,6 +28,7 @@ Files are named using the pattern: `NNN-description-YYYY-MM-DD.md`
 | 004 | 2026-01-02 | [004-vercel-build-fix-2026-01-02.md](./004-vercel-build-fix-2026-01-02.md) | 🔧 Vercel deployment build fix - file system safety |
 | 005 | 2026-01-02 | [005-vercel-deployment-troubleshooting-2026-01-02.md](./005-vercel-deployment-troubleshooting-2026-01-02.md) | 🚀 Vercel deployment troubleshooting guide |
 | 006 | 2026-07-22 | [006-dependency-upgrade-2026-07-22.md](./006-dependency-upgrade-2026-07-22.md) | ⬆️ Node 20→24 + 19 package bumps; audit 12→0; why not TypeScript 7 |
+| 007 | 2026-10-13 | [007-minimal-redesign-2026-10-13.md](./007-minimal-redesign-2026-10-13.md) | 🎨 Minimal single-column redesign + light/dark switch; theme-script gotchas; 3 bug fixes |
 
 ## Quick Links
 

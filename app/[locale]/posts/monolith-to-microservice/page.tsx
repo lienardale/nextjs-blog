@@ -38,7 +38,6 @@ WHERE m.created_at > now() - interval '24 hours'
 const content = {
   en: {
     title: 'Decoupling a Critical Service from a Monolith',
-    readingTime: 9,
     body: (
       <>
         <p>Pulling a load-bearing piece of a monolith into its own service is one of those projects where the fun parts — picking a stack, sketching the new schema — take 10% of the time. The other 90% is a careful, boring migration that nobody notices when it works.</p>
@@ -74,7 +73,6 @@ const content = {
   },
   fr: {
     title: 'Découper un service critique d’un monolithe',
-    readingTime: 9,
     body: (
       <>
         <p>Extraire un morceau porteur d’un monolithe pour en faire un service à part, c’est typiquement le genre de projet où les parties amusantes — choisir une stack, dessiner le nouveau schéma — prennent 10% du temps. Les 90% restants, c’est une migration prudente et ennuyeuse que personne ne remarque quand ça marche.</p>
@@ -110,7 +108,6 @@ const content = {
   },
   de: {
     title: 'Einen kritischen Dienst aus einem Monolithen herauslösen',
-    readingTime: 9,
     body: (
       <>
         <p>Ein tragendes Stück aus einem Monolithen herauszulösen und in einen eigenen Dienst zu schieben, ist eines dieser Projekte, bei denen die schönen Teile — Stack auswählen, Schema skizzieren — 10% der Zeit kosten. Die anderen 90% sind eine vorsichtige, langweilige Migration, die niemand bemerkt, wenn sie klappt.</p>
@@ -146,7 +143,6 @@ const content = {
   },
   es: {
     title: 'Desacoplar un servicio crítico de un monolito',
-    readingTime: 9,
     body: (
       <>
         <p>Sacar una pieza de carga de un monolito hacia su propio servicio es uno de esos proyectos en los que la parte divertida — elegir el stack, esbozar el esquema nuevo — se lleva el 10% del tiempo. El otro 90% es una migración cuidadosa y aburrida que nadie nota cuando funciona.</p>
@@ -198,15 +194,13 @@ export default async function MonolithToMicroservicePage({params}: {params: Prom
   return (
     <>
       <PostDetail
+        postId="monolith-to-microservice"
         postIndex="01"
         title={t.title}
         date="2026-05-03"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="monolith-to-microservice" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="monolith-to-microservice" locale={locale} />
-      </div>
     </>
   );
 }

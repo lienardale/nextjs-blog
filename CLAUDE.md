@@ -35,6 +35,8 @@ a `registry: Record<string, ContentItem[]>` keyed by category (`experience`, `ed
 
 Long-form article bodies (the `/posts/<slug>` pages) are authored as TSX in
 `app/[locale]/posts/<slug>/page.tsx`, one `<CodeBlock>`/section per locale.
+A post's reading time is `readingMinutes` on its registry entry — the single source for
+both the posts list and the post page (`getReadingMinutes`).
 
 ### Internationalization — `next-intl` v4
 
@@ -55,21 +57,47 @@ draft blocking: requests to a `draft: true` post are rewritten so Next returns a
 with the correct status. Drafts are visible in `npm run dev` and when `SHOW_DRAFTS=1`, and
 hidden everywhere else (see `lib/drafts.ts`).
 
-### Styling — Paper & Ink design system
+### Layout — one 672px column
+
+`app/[locale]/layout.tsx` mounts the chrome once: `TopBar` (menu with Home first, then
+clock / locale buttons / `ThemeToggle`), `<main>`, `SiteFooter`, plus `ScrollProgressBar`,
+`ScrollToTop` and `PageTransition` (a `.25s` fade on route change). Header, main and footer
+share `.site-column` (`max-width: 672px; padding: 0 20px`). Pages do **not** render their
+own footer or wide wrappers.
+
+Pages are built from a few primitives in `styles/globals.css` — `.page-h1` (the only
+display-size type, 32px), `.lede`, `.section-label`, `.row` (top rule + grid; pass
+`grid-cols-[…]`), `.pill`, `.link-muted`, `.prose-detail` / `.prose-post` — and small
+components: `PageHeader`, `SectionLabel`, `Breadcrumbs`, `SubTabs`, `FilterBar`.
+`/skills/*` and `/about_me/*` each render `SkillsHeader` / `AboutHeader` (title + sub-tabs)
+themselves; the nested layouts are passthroughs.
+
+### Styling — tokens and the light/dark switch
 
 Global CSS is `styles/globals.css` (Tailwind v4, CSS-first — there is no
 `tailwind.config`; the 22 KB `tailwindcss-config.js` at the root is dead). Colour is a
-locked token palette in `:root` (`--bg`, `--ink`, `--ink-soft`, `--ink-muted`, `--rule`,
-`--accent`, `--paper`, …), with a `@media (prefers-color-scheme: dark)` block that flips
-those ten tokens for dark mode.
+token palette in `:root` (`--bg`, `--bg-alt`, `--ink`, `--ink-soft`, `--ink-muted`, `--rule`,
+`--accent`, `--accent-fg`, `--paper`): palette `a` (Paper & Ink, light) by default and
+palette `b` (Void & Sky, dark) under `:root[data-palette="b"]`.
+
+`data-palette` is **not** in the layout's JSX. `ThemeScript` inlines a blocking script
+(`lib/theme.ts`) that sets it before first paint from `localStorage['al-theme']`, falling
+back to `prefers-color-scheme`; `ThemeToggle` flips it and re-applies it on mount, because
+a locale switch remounts the root layout and React resets `<html>`'s attributes. Shiki and
+Tailwind's `dark:` variant are keyed on the same attribute.
 
 An `@theme inline` block exposes the tokens as Tailwind utilities. **Prefer these over
-stock Tailwind colours** so components track the palette and dark mode automatically:
-`text-ink` / `text-ink-soft` / `text-ink-muted`, `bg-paper` / `bg-bg-alt`, `border-rule` /
-`divide-rule`, `bg-accent` / `text-accent` / `text-accent-fg` / `bg-accent-soft`. Do **not**
-reintroduce `bg-gray-*` / `text-blue-*` for chrome, and do not add `dark:` variants for
-these — the tokens already flip. Genuinely categorical data colours (the SkillBar/RadarChart
-series, success-green, error-red) are the one exception and stay as explicit palette hues.
+stock Tailwind colours** so components track the palette automatically:
+`text-ink` / `text-ink-soft` / `text-ink-muted`, `bg-bg` / `bg-bg-alt`, `border-rule`,
+`bg-accent` / `text-accent` / `text-accent-fg`. Do **not** reintroduce `bg-gray-*` /
+`text-blue-*`, and do not add `dark:` variants — the tokens already flip. The only fixed
+hues are `text-danger` (`#ef4444`), English on the languages map (`#22c55e`) and the white
+CV iframe. Radii are stock `rounded-sm/md/lg` (4/6/8px) and `rounded-full`; no shadows.
+Use arbitrary sizes (`text-[13px]`) for the design's type scale so line-height is inherited.
+
+Locale strings are plain text rendered with `t()`; `__tests__/lib/locales.test.ts` fails on
+any HTML in them (only `home.builtWith` may carry its `<link>` rich tag) and on key drift
+between the four files.
 
 ### Key TypeScript constraints
 

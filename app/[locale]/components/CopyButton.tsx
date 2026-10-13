@@ -1,28 +1,27 @@
 'use client';
 
 import {useState} from 'react';
-import {ClipboardIcon, CheckIcon} from '@heroicons/react/24/outline';
+import {useTranslations} from 'next-intl';
+
+const COPIED_MS = 1400;
 
 export default function CopyButton({code}: {code: string}) {
+  const t = useTranslations();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), COPIED_MS);
   };
 
   return (
     <button
+      type="button"
       onClick={handleCopy}
-      className="p-1.5 rounded hover:bg-bg-alt transition-colors"
-      aria-label={copied ? 'Copied' : 'Copy code'}
+      className="rounded-md border border-rule bg-transparent px-2 py-0.5 font-mono text-[11px] text-ink-muted transition-colors duration-[180ms] hover:border-ink-muted hover:text-ink"
     >
-      {copied ? (
-        <CheckIcon className="h-4 w-4 text-green-500" />
-      ) : (
-        <ClipboardIcon className="h-4 w-4 text-ink-muted" />
-      )}
+      <span aria-live="polite">{copied ? t('code_copied') : t('code_copy')}</span>
     </button>
   );
 }

@@ -1,3 +1,5 @@
+import {getTranslations} from 'next-intl/server';
+import AboutHeader from '../../components/AboutHeader';
 import CVPreview from '../../components/CVPreview';
 
 const CV_URL = 'https://lienardale.github.io/markdown-cv/';
@@ -16,14 +18,14 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
 
 export default async function CVPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
+  const t = await getTranslations({locale});
 
   return (
-    <>      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">
-          {pageTitle[locale] ?? pageTitle.en}
-        </h1>
+    <div className="flex flex-col gap-8">
+      <AboutHeader active="cv" t={t} />
+      <div className="pt-2">
         <CVPreview url={CV_URL} locale={locale} />
-      </article>
-    </>
+      </div>
+    </div>
   );
 }

@@ -17,7 +17,6 @@ export default async function Feed() {
 const content = {
   en: {
     title: 'When to Use Static Generation v.s. Server-side Rendering',
-    readingTime: 2,
     body: (
       <>
         <p>We recommend using <strong>Static Generation</strong> (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.</p>
@@ -38,7 +37,6 @@ const content = {
   },
   fr: {
     title: 'Quand utiliser la génération statique ou le rendu côté serveur ?',
-    readingTime: 2,
     body: (
       <>
         <p>Nous recommandons d&apos;utiliser la <strong>Génération statique</strong> (avec et sans données) chaque fois que cela est possible, car votre page peut être construite une fois et servie par le CDN, ce qui la rend beaucoup plus rapide que si un serveur devait rendre la page à chaque requête.</p>
@@ -59,7 +57,6 @@ const content = {
   },
   de: {
     title: 'Wann sollte man statische Generierung und wann serverseitiges Rendering verwenden?',
-    readingTime: 2,
     body: (
       <>
         <p>Wir empfehlen die <strong>Statische Generierung</strong> (mit und ohne Daten), wann immer dies möglich ist, da Ihre Seite einmal erstellt und über das CDN bereitgestellt werden kann, was viel schneller ist, als wenn ein Server die Seite bei jeder Anfrage rendert.</p>
@@ -80,7 +77,6 @@ const content = {
   },
   es: {
     title: 'Cuándo utilizar la generación estática frente a la renderización del lado del servidor',
-    readingTime: 2,
     body: (
       <>
         <p>Recomendamos usar <strong>Generación Estática</strong> (con y sin datos) siempre que sea posible porque su página puede ser construida una vez y servida por CDN, lo que hace que sea mucho más rápido que tener un servidor renderizando la página en cada petición.</p>
@@ -115,15 +111,13 @@ export default async function SsgSsrPage({params}: {params: Promise<{locale: str
   return (
     <>
       <PostDetail
+        postId="ssg-ssr"
         postIndex="04"
         title={t.title}
         date="2020-01-02"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="ssg-ssr" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="ssg-ssr" locale={locale} />
-      </div>
     </>
   );
 }

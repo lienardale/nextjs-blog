@@ -10,20 +10,10 @@ jest.mock('next-intl', () => ({
   }),
 }));
 
-// Mock @heroicons/react
-jest.mock('@heroicons/react/24/outline', () => ({
-  ClockIcon: (props: any) => <svg data-testid="clock-icon" {...props} />,
-}));
-
 describe('ReadingTime', () => {
   it('renders reading time text', () => {
     render(<ReadingTime minutes={3} />);
     expect(screen.getByText('3 min read')).toBeInTheDocument();
-  });
-
-  it('renders clock icon', () => {
-    render(<ReadingTime minutes={5} />);
-    expect(screen.getByTestId('clock-icon')).toBeInTheDocument();
   });
 
   it('renders for 1 minute', () => {
@@ -36,9 +26,11 @@ describe('ReadingTime', () => {
     expect(screen.getByText('15 min read')).toBeInTheDocument();
   });
 
-  it('has correct styling classes', () => {
-    render(<ReadingTime minutes={3} />);
-    const span = screen.getByText('3 min read').closest('span');
-    expect(span).toHaveClass('text-sm', 'text-ink-muted');
+  it('is plain inline text that takes its style from where it sits', () => {
+    const {container} = render(<ReadingTime minutes={3} />);
+    const span = screen.getByText('3 min read');
+    expect(span.tagName).toBe('SPAN');
+    expect(span).not.toHaveAttribute('class');
+    expect(container.querySelector('svg')).toBeNull();
   });
 });

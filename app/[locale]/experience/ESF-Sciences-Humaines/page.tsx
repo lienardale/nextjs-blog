@@ -81,12 +81,11 @@ export default async function EsfPage({params}: {params: Promise<{locale: string
       section="experience"
       sectionLabel={tr('nav.experience')}
       indexLabel={tr('nav.index')}
-      eyebrow="// 2018 → 2019 · Paris"
-      title={`${t.title}<em>.</em>`}
-      meta="03 / Experience"
+      eyebrow={`${tr('experience.years_03')} · Paris`}
+      title={t.title}
+      subtitle={tr('experience.role_03')}
       summary={t.summary}
       body={t.body}
-      footerLabel="03 / Experience"
     />
   );
 }

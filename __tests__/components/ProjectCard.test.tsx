@@ -67,9 +67,39 @@ describe('ProjectCard', () => {
     expect(stat).toHaveTextContent('926 commits');
   });
 
-  it('renders border and rounded styling', () => {
+  it('shows the contributor stamp in place of the raw count when given', () => {
+    render(<ProjectCard project={{...mockProject, stamp: '5 contrib'}} />);
+    expect(screen.getByTestId('stat-contributors')).toHaveTextContent('5 contrib');
+  });
+
+  it('renders the repository name under the display name', () => {
+    render(<ProjectCard project={{...mockProject, title: 'ft_transcendence'}} />);
+    expect(screen.getByText('ft_transcendence')).toBeInTheDocument();
+  });
+
+  it('uses the labels it is given', () => {
+    render(
+      <ProjectCard
+        project={mockProject}
+        labels={{live: 'En ligne', lines: 'lignes', commits: 'commits'}}
+      />
+    );
+    expect(screen.getByLabelText('Multiplayer Pong live site')).toHaveTextContent('En ligne');
+    expect(screen.getByTestId('stat-lines')).toHaveTextContent('11,702 lignes');
+  });
+
+  it('renders the screenshot only when an image is provided', () => {
+    const {container, rerender} = render(<ProjectCard project={mockProject} />);
+    expect(container.querySelector('img')).toBeNull();
+
+    rerender(<ProjectCard project={{...mockProject, image: '/images/projects/pong.png'}} />);
+    expect(screen.getByAltText('Multiplayer Pong screenshot')).toHaveAttribute('src', '/images/projects/pong.png');
+  });
+
+  it('renders a bordered card with no shadow', () => {
     const {container} = render(<ProjectCard project={mockProject} />);
     const card = container.firstElementChild!;
-    expect(card).toHaveClass('border', 'rounded-lg');
+    expect(card).toHaveClass('border', 'border-rule', 'rounded-lg');
+    expect(card.className).not.toMatch(/shadow/);
   });
 });

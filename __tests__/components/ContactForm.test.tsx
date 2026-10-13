@@ -1,24 +1,41 @@
 import React from 'react';
-import {render, screen, fireEvent, waitFor} from '@testing-library/react';
+import {render, screen, fireEvent} from '@testing-library/react';
 import ContactForm from '../../app/[locale]/components/ContactForm';
 
 // Mock next-intl
 jest.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => {
+  useTranslations: () => (key: string, values?: Record<string, string>) => {
     const map: Record<string, string> = {
       contact_name: 'Name',
       contact_email: 'Email',
       contact_message: 'Message',
       contact_send: 'Send message',
-      contact_sending: 'Sending...',
-      contact_success: 'Message sent! Thank you.',
-      contact_error: 'Something went wrong.',
+      contact_back: '← Back',
+      contact_mail_subject: `Message from ${values?.name}`,
+      contact_mail_opened: `Your email app should have opened. If nothing happened, write to ${values?.email}.`,
     };
     return map[key] ?? key;
   },
 }));
 
+function fillAndSubmit() {
+  fireEvent.change(screen.getByLabelText('Name'), {target: {value: 'Ada Lovelace'}});
+  fireEvent.change(screen.getByLabelText('Email'), {target: {value: 'ada@test.com'}});
+  fireEvent.change(screen.getByLabelText('Message'), {target: {value: 'Hello & welcome\nSecond line'}});
+  fireEvent.submit(screen.getByRole('button', {name: 'Send message'}));
+}
+
 describe('ContactForm', () => {
+  let openMock: jest.Mock;
+  let fetchMock: jest.Mock;
+
+  beforeEach(() => {
+    openMock = jest.fn();
+    window.open = openMock;
+    fetchMock = jest.fn();
+    global.fetch = fetchMock as unknown as typeof fetch;
+  });
+
   it('renders form fields', () => {
     render(<ContactForm />);
     expect(screen.getByLabelText('Name')).toBeInTheDocument();
@@ -48,64 +65,45 @@ describe('ContactForm', () => {
     expect(screen.getByTestId('contact-form')).toBeInTheDocument();
   });
 
-  it('renders envelope icon', () => {
+  it('opens a prefilled email to the site owner on submit', () => {
     render(<ContactForm />);
-    expect(screen.getByTestId('envelope-icon')).toBeInTheDocument();
+    fillAndSubmit();
+
+    expect(openMock).toHaveBeenCalledTimes(1);
+    const [href, target] = openMock.mock.calls[0];
+    expect(target).toBe('_self');
+
+    const url = new URL(href);
+    expect(url.protocol).toBe('mailto:');
+    expect(url.pathname).toBe('alienard.dev@gmail.com');
+    expect(url.searchParams.get('subject')).toBe('Message from Ada Lovelace');
+    expect(url.searchParams.get('body')).toBe('Hello & welcome\nSecond line\n\n— Ada Lovelace <ada@test.com>');
   });
 
-  it('shows sending state on submit', async () => {
-    // Mock fetch to hang
-    global.fetch = jest.fn(() => new Promise(() => {})) as any;
-
+  it('posts nothing to a third party', () => {
     render(<ContactForm />);
+    fillAndSubmit();
 
-    fireEvent.change(screen.getByLabelText('Name'), {target: {value: 'Test'}});
-    fireEvent.change(screen.getByLabelText('Email'), {target: {value: 'test@test.com'}});
-    fireEvent.change(screen.getByLabelText('Message'), {target: {value: 'Hello'}});
-    fireEvent.submit(screen.getByRole('button', {name: 'Send message'}));
-
-    await waitFor(() => {
-      expect(screen.getByText('Sending...')).toBeInTheDocument();
-    });
-
-    (global.fetch as jest.Mock).mockRestore();
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('shows success message after successful submit', async () => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({ok: true})
-    ) as any;
-
+  it('says the mail app was opened, without claiming the message was sent', () => {
     render(<ContactForm />);
+    fillAndSubmit();
 
-    fireEvent.change(screen.getByLabelText('Name'), {target: {value: 'Test'}});
-    fireEvent.change(screen.getByLabelText('Email'), {target: {value: 'test@test.com'}});
-    fireEvent.change(screen.getByLabelText('Message'), {target: {value: 'Hello'}});
-    fireEvent.submit(screen.getByRole('button', {name: 'Send message'}));
-
-    await waitFor(() => {
-      expect(screen.getByText('Message sent! Thank you.')).toBeInTheDocument();
-    });
-
-    (global.fetch as jest.Mock).mockRestore();
+    expect(screen.getByRole('status')).toHaveTextContent(
+      'Your email app should have opened. If nothing happened, write to alienard.dev@gmail.com.'
+    );
+    expect(screen.queryByRole('button', {name: 'Send message'})).not.toBeInTheDocument();
   });
 
-  it('shows error message on failed submit', async () => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({ok: false})
-    ) as any;
-
+  it('returns to an empty form with "← Back"', () => {
     render(<ContactForm />);
+    fillAndSubmit();
 
-    fireEvent.change(screen.getByLabelText('Name'), {target: {value: 'Test'}});
-    fireEvent.change(screen.getByLabelText('Email'), {target: {value: 'test@test.com'}});
-    fireEvent.change(screen.getByLabelText('Message'), {target: {value: 'Hello'}});
-    fireEvent.submit(screen.getByRole('button', {name: 'Send message'}));
+    fireEvent.click(screen.getByRole('button', {name: '← Back'}));
 
-    await waitFor(() => {
-      expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
-    });
-
-    (global.fetch as jest.Mock).mockRestore();
+    expect(screen.getByLabelText('Name')).toHaveValue('');
+    expect(screen.getByRole('button', {name: 'Send message'})).toBeInTheDocument();
   });
 });

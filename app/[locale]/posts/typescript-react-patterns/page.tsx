@@ -48,7 +48,6 @@ function Text<C extends React.ElementType = 'span'>({
 const content = {
   en: {
     title: 'TypeScript Patterns for React 19',
-    readingTime: 4,
     body: (
       <>
         <p>React 19 combined with TypeScript offers powerful patterns for building type-safe components. Here are the most useful patterns that improve developer experience and catch bugs at compile time.</p>
@@ -79,7 +78,6 @@ const content = {
   },
   fr: {
     title: 'Patterns TypeScript pour React 19',
-    readingTime: 4,
     body: (
       <>
         <p>React 19 combiné avec TypeScript offre des patterns puissants pour construire des composants type-safe. Voici les patterns les plus utiles qui améliorent l&apos;expérience développeur et détectent les bugs à la compilation.</p>
@@ -110,7 +108,6 @@ const content = {
   },
   de: {
     title: 'TypeScript-Patterns für React 19',
-    readingTime: 4,
     body: (
       <>
         <p>React 19 in Kombination mit TypeScript bietet leistungsstarke Patterns für die Erstellung typsicherer Komponenten. Hier sind die nützlichsten Patterns, die die Entwicklererfahrung verbessern und Fehler zur Kompilierzeit erkennen.</p>
@@ -141,7 +138,6 @@ const content = {
   },
   es: {
     title: 'Patrones TypeScript para React 19',
-    readingTime: 4,
     body: (
       <>
         <p>React 19 combinado con TypeScript ofrece patrones poderosos para construir componentes con tipado seguro. Aquí están los patrones más útiles que mejoran la experiencia del desarrollador y detectan errores en tiempo de compilación.</p>
@@ -186,15 +182,13 @@ export default async function TypeScriptReactPatternsPage({params}: {params: Pro
   return (
     <>
       <PostDetail
+        postId="typescript-react-patterns"
         postIndex="02"
         title={t.title}
         date="2026-03-10"
-        readingMinutes={t.readingTime}
         body={t.body}
+        related={<RelatedPosts postId="typescript-react-patterns" locale={locale} />}
       />
-      <div style={{maxWidth: 720, margin: '0 auto', padding: '0 36px 60px'}}>
-        <RelatedPosts postId="typescript-react-patterns" locale={locale} />
-      </div>
     </>
   );
 }

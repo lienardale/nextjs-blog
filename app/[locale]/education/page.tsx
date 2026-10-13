@@ -1,11 +1,11 @@
 import {getTranslations} from 'next-intl/server';
 import {Link} from '../../../lib/i18n/navigation';
-import SiteFooter from '../components/SiteFooter';
+import PageHeader from '../components/PageHeader';
 
 const schools = [
-  {id: '42-Paris', yearsKey: 'education.years_01', titleKey: 'education.title_01', bodyKey: 'education.body_01', metaKey: 'education.meta_01'},
-  {id: 'IAE-Lille', yearsKey: 'education.years_02', titleKey: 'education.title_02', bodyKey: 'education.body_02', metaKey: 'education.meta_02'},
-  {id: 'CPGE_BL', yearsKey: 'education.years_03', titleKey: 'education.title_03', bodyKey: 'education.body_03', metaKey: 'education.meta_03'},
+  {id: '42-Paris', school: '42 Paris', yearsKey: 'education.years_01', titleKey: 'education.title_01', bodyKey: 'education.body_01', metaKey: 'education.meta_01'},
+  {id: 'IAE-Lille', school: 'IAE Lille', yearsKey: 'education.years_02', titleKey: 'education.title_02', bodyKey: 'education.body_02', metaKey: 'education.meta_02'},
+  {id: 'CPGE_BL', school: 'Notre Dame de la Paix', yearsKey: 'education.years_03', titleKey: 'education.title_03', bodyKey: 'education.body_03', metaKey: 'education.meta_03'},
 ];
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
@@ -19,39 +19,28 @@ export default async function EducationPage({params}: {params: Promise<{locale: 
   const t = await getTranslations({locale});
 
   return (
-    <div className="section-page narrow">
-      <div className="crumbs">
-        <Link href="/">{t('nav.index')}</Link> / <span>{t('nav.education')}</span>
-      </div>
-      <div className="section-head">
-        <div>
-          <span className="kind">{t('education.eyebrow')}</span>
-          <h1 data-reveal dangerouslySetInnerHTML={{__html: t.raw('education.title') as string}} />
-        </div>
-        <div className="kind">{t('education.summary')}</div>
-      </div>
+    <div className="flex flex-col gap-10">
+      <PageHeader title={t('nav.education')} lede={t('education.summary')} />
 
-      <div className="edu-list">
-        {schools.map((s, i) => (
+      <div>
+        {schools.map((s) => (
           <Link
             key={s.id}
             href={`/education/${s.id}`}
-            className="edu-row"
-            data-reveal
-            data-cursor="open"
-            style={{['--d' as string]: i} as React.CSSProperties}
+            className="row grid-cols-[104px_minmax(0,1fr)_16px] py-[18px]"
           >
-            <div className="yr">{t(s.yearsKey)}</div>
-            <div>
-              <h3 dangerouslySetInnerHTML={{__html: t.raw(s.titleKey) as string}} />
-              <p>{t(s.bodyKey)}</p>
-              <div className="meta">{t(s.metaKey)}</div>
-            </div>
+            <span className="font-mono text-[12px] text-ink-muted">{t(s.yearsKey)}</span>
+            <span className="flex flex-col gap-1">
+              <span className="font-medium">
+                {t(s.titleKey)} <span className="font-normal text-ink-muted">· {s.school}</span>
+              </span>
+              <span className="text-pretty text-[14px] text-ink-soft">{t(s.bodyKey)}</span>
+              <span className="font-mono text-[11px] text-ink-muted">{t(s.metaKey)}</span>
+            </span>
+            <span className="text-[13px] text-ink-muted" aria-hidden="true">→</span>
           </Link>
         ))}
       </div>
-
-      <SiteFooter rightLabel="02 / Education" />
     </div>
   );
 }

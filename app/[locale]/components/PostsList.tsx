@@ -3,11 +3,13 @@
 import {useMemo, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {Link} from '../../../lib/i18n/navigation';
+import FilterBar from './FilterBar';
 
 export type PostsListItem = {
   id: string;
   date: string;
   title: string;
+  description: string;
   topic: string;
   read: string;
   tags: string[];
@@ -44,53 +46,34 @@ export default function PostsList({
 
   return (
     <>
-      <div className="post-meta-bar" data-reveal>
-        <div className="filters" role="tablist" aria-label="Filter posts by topic">
-          {filters.map((p) => {
-            const isActive = activeTag === p.tag;
-            return (
-              <button
-                key={p.tag ?? 'all'}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                className={isActive ? 'is-active' : ''}
-                onClick={() => setActiveTag(p.tag)}
-              >
-                {p.label}
-              </button>
-            );
-          })}
-        </div>
-        <button
-          type="button"
-          className="sort"
-          aria-label="Toggle sort order"
-          onClick={() => setNewestFirst((v) => !v)}
-        >
-          {newestFirst ? t('sort_newest') : t('sort_oldest')}
-        </button>
-        <span aria-live="polite">{t('results', {count: filtered.length})}</span>
-      </div>
+      <FilterBar
+        filters={filters}
+        activeTag={activeTag}
+        onSelect={setActiveTag}
+        filterLabel="Filter posts by topic"
+        sortLabel={newestFirst ? t('sort_newest') : t('sort_oldest')}
+        onToggleSort={() => setNewestFirst((v) => !v)}
+        countLabel={t('results', {count: filtered.length})}
+      />
 
-      <div className="posts-list">
-        {filtered.map((p, i) => (
-          <Link
-            key={p.id}
-            href={`/posts/${p.id}`}
-            className="post-row"
-            data-cursor="read"
-            data-reveal
-            style={{['--d' as string]: i} as React.CSSProperties}
-          >
-            <span className="yr">{fmtYear(p.date)}</span>
-            <h3 dangerouslySetInnerHTML={{__html: p.title}} />
-            <span className="topic">{p.topic}</span>
-            <span className="read">{p.read}</span>
+      <div>
+        {filtered.map((p) => (
+          <Link key={p.id} href={`/posts/${p.id}`} className="row grid-cols-[72px_minmax(0,1fr)_auto]">
+            <span className="font-mono text-[11px] text-ink-muted">{fmtYear(p.date)}</span>
+            <span className="flex flex-col gap-0.5">
+              <h3 className="text-[15px] font-normal">{p.title}</h3>
+              {p.description ? (
+                <span className="text-pretty text-[13px] text-ink-muted">{p.description}</span>
+              ) : null}
+            </span>
+            <span className="flex flex-col items-end text-[12px] leading-[1.5] text-ink-muted">
+              <span>{p.topic}</span>
+              <span>{p.read}</span>
+            </span>
           </Link>
         ))}
         {filtered.length === 0 ? (
-          <p className="posts-empty">{t('empty')}</p>
+          <p className="border-t border-rule py-6 text-[14px] text-ink-muted">{t('empty')}</p>
         ) : null}
       </div>
     </>

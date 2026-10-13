@@ -71,10 +71,15 @@ describe('WorldMap', () => {
     expect(screen.queryByTestId('map-tooltip')).not.toBeInTheDocument();
   });
 
-  it('renders legend with language names and levels', () => {
+  it('renders a legend row per language with its level and countries', () => {
     render(<WorldMap languages={mockLanguages} />);
-    expect(screen.getByText(/French — native/)).toBeInTheDocument();
-    expect(screen.getByText(/English — fluent/)).toBeInTheDocument();
+    const rows = screen.getAllByTestId('map-legend-row');
+
+    expect(rows).toHaveLength(mockLanguages.length);
+    expect(rows[0]).toHaveTextContent('French — native');
+    expect(rows[0]).toHaveTextContent('France');
+    expect(rows[1]).toHaveTextContent('English — fluent');
+    expect(rows[1]).toHaveTextContent('United Kingdom');
   });
 
   it('applies correct fill color to single-language countries', () => {

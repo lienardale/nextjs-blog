@@ -97,12 +97,11 @@ export default async function FlammarionPage({params}: {params: Promise<{locale:
       section="experience"
       sectionLabel={tr('nav.experience')}
       indexLabel={tr('nav.index')}
-      eyebrow="// 2015 · Paris"
-      title={`${t.title}<em>.</em>`}
-      meta="05 / Experience"
+      eyebrow={`${tr('experience.years_05')} · Paris`}
+      title={t.title}
+      subtitle={tr('experience.role_05')}
       summary={t.summary}
       body={t.body}
-      footerLabel="05 / Experience"
     />
   );
 }

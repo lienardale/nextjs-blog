@@ -14,11 +14,13 @@ function slugify(text: string): string {
     .trim();
 }
 
+// Inline, collapsible "On this page" box, open by default. Built from the
+// h2/h3 headings of the page's <article>.
 export default function TableOfContents() {
   const t = useTranslations();
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>('');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function TableOfContents() {
           setActiveId(visible[0].target.id);
         }
       },
-      {rootMargin: '-80px 0px -60% 0px', threshold: 0}
+      {rootMargin: '-24px 0px -60% 0px', threshold: 0}
     );
 
     elements.forEach((el) => observerRef.current!.observe(el));
@@ -61,77 +63,38 @@ export default function TableOfContents() {
   if (headings.length === 0) return null;
 
   return (
-    <>
-      {/* Desktop: fixed sidebar */}
-      <nav
-        className="hidden xl:block fixed top-24 w-56"
-        style={{left: 'calc(50% + 20rem)'}}
-        aria-label={t('toc')}
+    <nav className="rounded-lg border border-rule px-4 py-3" aria-label={t('toc')}>
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="section-label flex w-full items-center justify-between"
+        aria-expanded={isOpen}
       >
-        <p className="text-sm font-semibold text-ink mb-3">
-          {t('toc')}
-        </p>
-        <ul className="space-y-1.5 text-sm border-l-2 border-rule">
+        {t('toc_toggle')}
+        <span
+          className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        >
+          ▾
+        </span>
+      </button>
+      {isOpen && (
+        <ul className="flex flex-col gap-1.5 pt-2.5">
           {headings.map((h) => (
-            <li key={h.id}>
+            <li key={h.id} data-level={h.level} className={h.level === 3 ? 'pl-[14px]' : undefined}>
               <a
                 href={`#${h.id}`}
-                className={`block py-0.5 transition-colors ${
-                  h.level === 3 ? 'pl-6' : 'pl-3'
-                } ${
-                  activeId === h.id
-                    ? 'text-accent border-l-2 border-accent -ml-[2px]'
-                    : 'text-ink-muted hover:text-ink'
+                className={`text-[13px] transition-colors duration-[180ms] hover:text-accent ${
+                  activeId === h.id ? 'text-ink' : 'text-ink-soft'
                 }`}
+                aria-current={activeId === h.id ? 'location' : undefined}
               >
                 {h.text}
               </a>
             </li>
           ))}
         </ul>
-      </nav>
-
-      {/* Mobile: collapsible panel */}
-      <div className="xl:hidden mb-6">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 text-sm font-medium text-ink-soft hover:text-ink transition-colors"
-          aria-expanded={isOpen}
-        >
-          <svg
-            className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-90' : ''}`}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-          {t('toc_toggle')}
-        </button>
-        {isOpen && (
-          <nav className="mt-2 ml-2" aria-label={t('toc')}>
-            <ul className="space-y-1 text-sm border-l-2 border-rule">
-              {headings.map((h) => (
-                <li key={h.id}>
-                  <a
-                    href={`#${h.id}`}
-                    onClick={() => setIsOpen(false)}
-                    className={`block py-0.5 transition-colors ${
-                      h.level === 3 ? 'pl-6' : 'pl-3'
-                    } ${
-                      activeId === h.id
-                        ? 'text-accent'
-                        : 'text-ink-muted hover:text-ink'
-                    }`}
-                  >
-                    {h.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-      </div>
-    </>
+      )}
+    </nav>
   );
 }

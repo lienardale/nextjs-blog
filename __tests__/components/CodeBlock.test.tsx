@@ -1,12 +1,16 @@
 import React from 'react';
-import {render, screen, act, waitFor} from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import {render, screen, act} from '@testing-library/react';
 import CopyButton from '../../app/[locale]/components/CopyButton';
 
-// Mock @heroicons/react
-jest.mock('@heroicons/react/24/outline', () => ({
-  ClipboardIcon: (props: any) => <svg data-testid="clipboard-icon" {...props} />,
-  CheckIcon: (props: any) => <svg data-testid="check-icon" {...props} />,
+// Mock next-intl
+jest.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => {
+    const map: Record<string, string> = {
+      code_copy: 'Copy',
+      code_copied: 'Copied',
+    };
+    return map[key] ?? key;
+  },
 }));
 
 // Setup clipboard mock globally
@@ -21,12 +25,9 @@ describe('CopyButton', () => {
     mockWriteText.mockClear();
   });
 
-  it('renders a button with clipboard icon', () => {
+  it('renders a text button labelled "Copy"', () => {
     render(<CopyButton code="const x = 1;" />);
-    const button = screen.getByRole('button');
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute('aria-label', 'Copy code');
-    expect(screen.getByTestId('clipboard-icon')).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: 'Copy'})).toBeInTheDocument();
   });
 
   it('copies code to clipboard on click', async () => {
@@ -39,18 +40,17 @@ describe('CopyButton', () => {
     expect(mockWriteText).toHaveBeenCalledWith('const x = 1;');
   });
 
-  it('shows check icon and "Copied" label after click', async () => {
+  it('shows "Copied" after click', async () => {
     render(<CopyButton code="hello" />);
 
     await act(async () => {
       screen.getByRole('button').click();
     });
 
-    expect(screen.getByRole('button')).toHaveAttribute('aria-label', 'Copied');
-    expect(screen.getByTestId('check-icon')).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: 'Copied'})).toBeInTheDocument();
   });
 
-  it('reverts to clipboard icon after 2 seconds', async () => {
+  it('reverts to "Copy" after 1.4 seconds', async () => {
     jest.useFakeTimers();
     render(<CopyButton code="hello" />);
 
@@ -58,21 +58,23 @@ describe('CopyButton', () => {
       screen.getByRole('button').click();
     });
 
-    expect(screen.getByTestId('check-icon')).toBeInTheDocument();
+    act(() => {
+      jest.advanceTimersByTime(1399);
+    });
+    expect(screen.getByRole('button', {name: 'Copied'})).toBeInTheDocument();
 
     act(() => {
-      jest.advanceTimersByTime(2000);
+      jest.advanceTimersByTime(1);
     });
-
-    expect(screen.getByTestId('clipboard-icon')).toBeInTheDocument();
-    expect(screen.getByRole('button')).toHaveAttribute('aria-label', 'Copy code');
+    expect(screen.getByRole('button', {name: 'Copy'})).toBeInTheDocument();
 
     jest.useRealTimers();
   });
 
-  it('has hover styling classes', () => {
-    render(<CopyButton code="x" />);
-    expect(screen.getByRole('button')).toHaveClass('hover:bg-bg-alt');
+  it('is a bordered text button, not an icon', () => {
+    const {container} = render(<CopyButton code="x" />);
+    expect(screen.getByRole('button')).toHaveClass('border', 'border-rule', 'font-mono');
+    expect(container.querySelector('svg')).toBeNull();
   });
 
   it('handles empty code string', async () => {

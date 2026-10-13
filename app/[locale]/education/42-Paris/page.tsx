@@ -54,11 +54,11 @@ const content = {
         <p>3 Jahre lang habe ich Software-Engineering, Software-Entwicklung und Software-Architektur studiert, alles in einem Wort: Codierung.</p>
         <p className="mt-4"><a href="https://42.fr/" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">42</a> ist eine zukunftssichere Informatikausbildung, die die nächste Generation von Softwareingenieuren ausbildet. Das 42-Programm verfolgt einen projektbasierten Ansatz, um Fortschritte zu erzielen, und ist darauf ausgerichtet, technische und menschliche Fähigkeiten zu entwickeln, die den Erwartungen des Arbeitsmarktes entsprechen.</p>
         <p className="mt-4"><strong>KEINE KURSE. KEINE LEHRER. KEINE KLASSEN.</strong></p>
-        <p>Dank seiner innovativen Lehrmethoden ist 42 in der Lage, eine Ausbildung par excellence anzubieten, ohne auf Vorlesungen zurückgreifen zu müssen. Das pädagogische Personal steht zur Verfügung, um den Studenten zu helfen, ihre eigenen Lösungen zu finden. Um bei 42 voranzukommen, muss man in Gruppen arbeiten, sich mit der Gemeinschaft abstimmen, um Herausforderungen zu meistern, und dann seine Erfahrungen mit Gleichaltrigen teilen. Programmieren lernt man nicht durch das Kopieren von Algorithmen auf Papier!</p>
+        <p>Dank seiner innovativen Lehrmethoden ist 42 in der Lage, eine Ausbildung par excellence anzubieten, ohne auf Vorlesungen zurückgreifen zu müssen. Das pädagogische Personal steht zur Verfügung, um den Studenten zu helfen, ihre eigenen Lösungen zu finden. Um bei 42 voranzukommen, muss man in Gruppen arbeiten, sich mit der Gemeinschaft abstimmen, um Herausforderungen zu meistern, und dann seine Erfahrungen mit Mitstudierenden teilen. Programmieren lernt man nicht durch das Kopieren von Algorithmen auf Papier!</p>
         <p className="mt-4"><strong>PROJEKTBASIERTE PÄDAGOGIK</strong></p>
         <p>Bei 42 handeln die Studenten für ihren eigenen Erfolg im Rahmen eines 100 % praktischen Lehrplans. Über sich selbst hinauszuwachsen ist der einzige Weg, um voranzukommen: Man kann sich immer auf die Stärke der Gruppe verlassen, Informationen weitergeben und austauschen sowie gleichzeitig lernen und trainieren. Diese wachsende kollektive Intelligenz hilft den Schülern zu verstehen, wie ein professionelles Umfeld funktioniert. Jeder Teil muss sich auf den anderen verlassen können, um ein Projekt zu verwirklichen.</p>
         <p className="mt-4"><strong>SCHEITERN IST EIN FORTSCHRITT</strong></p>
-        <p>Bei 42 ist das Scheitern nicht das Ende. Es ist EIN Ende. Es ist der Weg zum Erfolg: Testen Sie ein Programm, erkennen Sie Ihre Fehler, korrigieren Sie sie und machen Sie weiter. Mit 42 werden Sie dafür belohnt, dass Sie Ihre eigenen Lösungen finden. Hier geht es nicht darum, gedankenlos ein Modell zu kopieren. Der Erfolg ist das Einzige, was zählt, egal auf welchem Weg Sie ihn erreichen.</p>
+        <p>Bei 42 ist das Scheitern nicht das Ende. Es ist EIN Ende. Es ist der Weg zum Erfolg: Testen Sie ein Programm, erkennen Sie Ihre Fehler, korrigieren Sie sie und machen Sie weiter. Bei 42 werden Sie dafür belohnt, dass Sie Ihre eigenen Lösungen finden. Hier geht es nicht darum, gedankenlos ein Modell zu kopieren. Der Erfolg ist das Einzige, was zählt, egal auf welchem Weg Sie ihn erreichen.</p>
         <p className="mt-4"><strong>PEER-TO-PEER-LERNEN</strong></p>
         <p>Wenn Sie sich bei 42 bewerben, erwarten Sie nicht, dass eine &bdquo;sachkundige&ldquo; Person Ihnen etwas beibringt. Sie müssen die Antworten selbst finden oder Mitschüler bitten, Ihnen Dinge zu zeigen und zu erklären, die Sie dann wiederum lernen und an andere weitergeben können. Diese Methode ermöglicht es Ihnen, sich weiterzuentwickeln und Ihre Fähigkeiten durch Nachforschungen, Experimente und die Verteidigung Ihres persönlichen Ansatzes für ein bestimmtes Problem zu verbessern.</p>
         <p className="mt-4"><strong>PEER-TO-PEER-BEWERTUNG</strong></p>
@@ -80,11 +80,11 @@ const content = {
         <p className="mt-4"><strong>PEDAGOGÍA BASADA EN PROYECTOS</strong></p>
         <p>En 42, los estudiantes actúan para su propio éxito dentro de un plan de estudios 100% práctico. Superarse a sí mismo es la única manera de avanzar: Siempre se puede contar con la fuerza del grupo; dar y compartir información, así como aprender y formarse al mismo tiempo. Esta creciente inteligencia colectiva ayuda a los alumnos a comprender cómo funciona un entorno profesional. Cada parte debe apoyarse en la otra para realizar correctamente un proyecto.</p>
         <p className="mt-4"><strong>FRACASAR ES PROGRESAR</strong></p>
-        <p>A los 42 años, fracasar no es el fin. Es un fin. Es el camino hacia el éxito: probar un programa, comprender sus errores, corregirlos y avanzar. A los 42 años, se te recompensa por encontrar tus propias soluciones. No se trata de copiar un modelo sin sentido. El éxito es lo único que importa, sea cual sea el camino que utilices para alcanzarlo.</p>
+        <p>En 42, fracasar no es el fin. Es un fin. Es el camino hacia el éxito: probar un programa, comprender sus errores, corregirlos y avanzar. En 42, se te recompensa por encontrar tus propias soluciones. No se trata de copiar un modelo sin sentido. El éxito es lo único que importa, sea cual sea el camino que utilices para alcanzarlo.</p>
         <p className="mt-4"><strong>APRENDIZAJE ENTRE IGUALES</strong></p>
-        <p>Si te presentas a los 42, no esperes que un &ldquo;entendido&rdquo; te enseñe nada. Tienes que encontrar las respuestas por ti mismo o pedir a tus compañeros que te muestren y expliquen cosas que tú a su vez aprenderás y transmitirás a otra persona. Este método te permite avanzar y perfeccionar tus habilidades mediante la investigación, la experimentación y la defensa de tu enfoque personal ante un problema determinado.</p>
+        <p>Si te presentas a 42, no esperes que un &ldquo;entendido&rdquo; te enseñe nada. Tienes que encontrar las respuestas por ti mismo o pedir a tus compañeros que te muestren y expliquen cosas que tú a su vez aprenderás y transmitirás a otra persona. Este método te permite avanzar y perfeccionar tus habilidades mediante la investigación, la experimentación y la defensa de tu enfoque personal ante un problema determinado.</p>
         <p className="mt-4"><strong>EVALUACIÓN DE IGUAL A IGUAL</strong></p>
-        <p>En el aprendizaje clásico, la evaluación tiene lugar al final del plan de estudios. En 42, es cuando más se aprende. La evaluación entre pares requiere que los estudiantes evalúen el trabajo de los demás con la ayuda de una escala de calificaciones establecida por el personal pedagógico. Este sistema favorece el diálogo y permite compartir consejos que ayuden a los estudiantes a avanzar y buscar métodos alternativos. Nunca hay una respuesta específica a los 42 años. No hay un único modelo que deban reproducir y aprender de memoria.</p>
+        <p>En el aprendizaje clásico, la evaluación tiene lugar al final del plan de estudios. En 42, es cuando más se aprende. La evaluación entre pares requiere que los estudiantes evalúen el trabajo de los demás con la ayuda de una escala de calificaciones establecida por el personal pedagógico. Este sistema favorece el diálogo y permite compartir consejos que ayuden a los estudiantes a avanzar y buscar métodos alternativos. Nunca hay una respuesta específica en 42. No hay un único modelo que deban reproducir y aprender de memoria.</p>
         <p className="mt-4"><strong>EL TRABAJO EN GRUPO NO ES UNA TRAMPA</strong></p>
         <p>En una clase, suele ser desaconsejable unir fuerzas o compartir consejos para resolver un problema. En 42, es al revés. Cuando los proyectos son demasiado difíciles de abordar, crear un grupo ayuda a compartir diferentes puntos de vista. Al acercarse a alguien que está luchando con el mismo problema, puede compartir sus pensamientos y perspectivas. Todo el mundo aporta algo para que, juntos, podáis entender y recordar las claves para conseguir un proyecto.</p>
       </>
@@ -109,12 +109,11 @@ export default async function FortyTwoParisPage({params}: {params: Promise<{loca
       section="education"
       sectionLabel={tr('nav.education')}
       indexLabel={tr('nav.index')}
-      eyebrow="// 2019 → 2022 · Paris"
-      title={`${t.title}<em>.</em>`}
-      meta="01 / Education"
+      eyebrow={`${tr('education.years_01')} · Paris`}
+      title={t.title}
+      subtitle={tr('education.title_01')}
       summary={t.summary}
       body={t.body}
-      footerLabel="01 / Education"
     />
   );
 }

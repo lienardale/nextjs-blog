@@ -1,5 +1,6 @@
-import RadarChart from '../../components/RadarChart';
-import SkillBar from '../../components/SkillBar';
+import {getTranslations} from 'next-intl/server';
+import HardSkills from '../../components/HardSkills';
+import SkillsHeader from '../../components/SkillsHeader';
 
 const skills = [
   {name: 'TypeScript / JavaScript', level: 90},
@@ -29,16 +30,14 @@ export async function generateMetadata({params}: {params: Promise<{locale: strin
 
 export default async function StackPage({params}: {params: Promise<{locale: string}>}) {
   const {locale} = await params;
-  const t = content[locale as Locale] ?? content.en;
+  const t = await getTranslations({locale});
 
   return (
-    <>      <article>
-        <h1 className="text-3xl font-extrabold tracking-tight my-4">{t.title}</h1>
-        <div className="text-ink-muted mb-4">2022-05-12</div>
-        <RadarChart skills={skills} />
-        <h2 className="text-xl font-bold mt-8 mb-4">Proficiency</h2>
-        <SkillBar skills={skills} />
-      </article>
-    </>
+    <div className="flex flex-col gap-8">
+      <SkillsHeader active="stack" t={t} />
+      <div className="pt-2">
+        <HardSkills skills={skills} variant="compact" rowsLabel={t('skills.stack_label')} />
+      </div>
+    </div>
   );
 }

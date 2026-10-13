@@ -68,8 +68,10 @@ describe('TableOfContents', () => {
 
     render(<TableOfContents />);
 
-    // Mobile toggle should be present
     expect(screen.getByText('On this page')).toBeInTheDocument();
+    expect(screen.getByRole('link', {name: 'First Section'})).toHaveAttribute('href', '#first-section');
+    expect(screen.getByRole('link', {name: 'Sub Section'})).toHaveAttribute('href', '#sub-section');
+    expect(screen.getByRole('link', {name: 'Second Section'})).toHaveAttribute('href', '#second-section');
   });
 
   it('assigns slugified ids to headings without ids', () => {
@@ -94,7 +96,7 @@ describe('TableOfContents', () => {
     expect(heading?.id).toBe('custom-id');
   });
 
-  it('toggles mobile panel open and closed', () => {
+  it('is open by default and can be collapsed and reopened', () => {
     setupArticleWithHeadings([
       {tag: 'h2', text: 'Section One'},
       {tag: 'h2', text: 'Section Two'},
@@ -104,42 +106,31 @@ describe('TableOfContents', () => {
 
     const toggle = screen.getByText('On this page');
 
-    // Initially closed - no nav in mobile panel
-    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    // Open on arrival, links visible
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    expect(screen.getAllByRole('link')).toHaveLength(2);
 
-    // Open
+    // Collapse
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.queryAllByRole('link')).toHaveLength(0);
+
+    // Reopen
     fireEvent.click(toggle);
     expect(toggle).toHaveAttribute('aria-expanded', 'true');
-
-    // Links should be visible
-    const links = screen.getAllByRole('link');
-    expect(links.length).toBeGreaterThan(0);
-
-    // Close
-    fireEvent.click(toggle);
-    expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getAllByRole('link')).toHaveLength(2);
   });
 
-  it('closes mobile panel when a link is clicked', () => {
+  it('stays open when a link is clicked', () => {
     setupArticleWithHeadings([
       {tag: 'h2', text: 'Section One', id: 'section-one'},
     ]);
 
     render(<TableOfContents />);
 
-    // Open panel
-    fireEvent.click(screen.getByText('On this page'));
+    fireEvent.click(screen.getByRole('link', {name: 'Section One'}));
+
     expect(screen.getByText('On this page')).toHaveAttribute('aria-expanded', 'true');
-
-    // Find the mobile nav (inside xl:hidden div) and click the link in it
-    const allLinks = screen.getAllByText('Section One');
-    // The mobile link is the second one (desktop nav is first but hidden via CSS)
-    const mobileLink = allLinks.filter((el) => el.tagName === 'A')[1];
-    if (mobileLink) {
-      fireEvent.click(mobileLink);
-    }
-
-    expect(screen.getByText('On this page')).toHaveAttribute('aria-expanded', 'false');
   });
 
   it('sets up IntersectionObserver on headings', () => {
@@ -165,7 +156,7 @@ describe('TableOfContents', () => {
     expect(disconnectMock).toHaveBeenCalled();
   });
 
-  it('renders desktop nav with correct aria-label', () => {
+  it('renders a single nav with the correct aria-label', () => {
     setupArticleWithHeadings([
       {tag: 'h2', text: 'Heading'},
     ]);
@@ -173,10 +164,11 @@ describe('TableOfContents', () => {
     render(<TableOfContents />);
 
     const navs = screen.getAllByRole('navigation');
-    expect(navs.some((nav) => nav.getAttribute('aria-label') === 'Table of Contents')).toBe(true);
+    expect(navs).toHaveLength(1);
+    expect(navs[0]).toHaveAttribute('aria-label', 'Table of Contents');
   });
 
-  it('indents h3 headings more than h2 headings', () => {
+  it('indents h3 headings under h2 headings', () => {
     setupArticleWithHeadings([
       {tag: 'h2', text: 'Main Section', id: 'main'},
       {tag: 'h3', text: 'Sub Section', id: 'sub'},
@@ -184,17 +176,12 @@ describe('TableOfContents', () => {
 
     render(<TableOfContents />);
 
-    // Open mobile panel to see links
-    fireEvent.click(screen.getByText('On this page'));
+    const mainItem = screen.getByRole('link', {name: 'Main Section'}).closest('li');
+    const subItem = screen.getByRole('link', {name: 'Sub Section'}).closest('li');
 
-    const mainLinks = screen.getAllByText('Main Section');
-    const subLinks = screen.getAllByText('Sub Section');
-
-    // Find link elements
-    const mainLink = mainLinks.find((el) => el.tagName === 'A');
-    const subLink = subLinks.find((el) => el.tagName === 'A');
-
-    expect(mainLink).toHaveClass('pl-3');
-    expect(subLink).toHaveClass('pl-6');
+    expect(mainItem).toHaveAttribute('data-level', '2');
+    expect(mainItem).not.toHaveClass('pl-[14px]');
+    expect(subItem).toHaveAttribute('data-level', '3');
+    expect(subItem).toHaveClass('pl-[14px]');
   });
 });

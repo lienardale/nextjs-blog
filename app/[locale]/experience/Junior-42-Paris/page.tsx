@@ -77,12 +77,11 @@ export default async function Junior42Page({params}: {params: Promise<{locale: s
       section="experience"
       sectionLabel={tr('nav.experience')}
       indexLabel={tr('nav.index')}
-      eyebrow="// 2020 → 2022 · Paris"
-      title={`${t.title}<em>.</em>`}
-      meta="02 / Experience"
+      eyebrow={`${tr('experience.years_02')} · Paris`}
+      title={t.title}
+      subtitle={tr('experience.role_02')}
       summary={t.summary}
       body={t.body}
-      footerLabel="02 / Experience"
     />
   );
 }
