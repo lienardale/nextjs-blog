@@ -21,6 +21,7 @@
     "contact_mail_subject": "Message from {name}",
     "contact_mail_opened": "Your email app should have opened with your message ready to send. If nothing happened, write to {email}.",
     "cv_open": "Open in new tab",
+    "opens_new_tab": "(opens in a new tab)",
 
     "nav": {
         "index": "Index",

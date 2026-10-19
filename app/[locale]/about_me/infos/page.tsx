@@ -1,6 +1,7 @@
 import {getTranslations} from 'next-intl/server';
 import AboutHeader from '../../components/AboutHeader';
 import ContactForm from '../../components/ContactForm';
+import ExternalRow from '../../components/ExternalRow';
 import SectionLabel from '../../components/SectionLabel';
 
 const content = {
@@ -51,22 +52,16 @@ export default async function InfosPage({params}: {params: Promise<{locale: stri
       <div className="flex flex-col gap-10 pt-2">
         <div>
           <p className="lede mb-3">{t.intro}</p>
-          {rows.map((row) => {
-            const external = row.href.startsWith('http');
-            return (
-              <a
-                key={row.href}
-                href={row.href}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noopener noreferrer' : undefined}
-                className="row grid-cols-[96px_minmax(0,1fr)_auto] py-3 text-[14px]"
-              >
-                <span className="text-[13px] text-ink-muted">{row.label}</span>
-                <span className="break-words">{row.value}</span>
-                <span className="text-ink-muted" aria-hidden="true">↗</span>
-              </a>
-            );
-          })}
+          {rows.map((row) => (
+            <ExternalRow
+              key={row.href}
+              href={row.href}
+              className="grid-cols-[96px_minmax(0,1fr)_auto] py-3 text-[14px]"
+            >
+              <span className="text-[13px] text-ink-muted">{row.label}</span>
+              <span className="break-words">{row.value}</span>
+            </ExternalRow>
+          ))}
         </div>
 
         <div className="max-w-[440px]">

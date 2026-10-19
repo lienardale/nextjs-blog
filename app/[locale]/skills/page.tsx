@@ -87,11 +87,11 @@ export default async function SkillsPage({params}: {params: Promise<{locale: str
                   {p.title} <span className="font-normal text-ink-muted">— {p.tagline}</span>
                 </span>
                 <div className="flex shrink-0 gap-[14px] text-[13px]">
-                  <a href={p.github} target="_blank" rel="noopener" className="link-muted">
+                  <a href={p.github} target="_blank" rel="noopener noreferrer" className="link-muted">
                     GitHub ↗
                   </a>
                   {p.live ? (
-                    <a href={p.live} target="_blank" rel="noopener" className="link-muted">
+                    <a href={p.live} target="_blank" rel="noopener noreferrer" className="link-muted">
                       {t('projects.live')} ↗
                     </a>
                   ) : null}
