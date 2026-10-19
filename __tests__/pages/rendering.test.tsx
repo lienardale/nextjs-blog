@@ -140,7 +140,11 @@ describe('Home page', () => {
 
     // Selected work links out to the full list
     expect(screen.getByRole('link', {name: 'All projects →'})).toHaveAttribute('href', '/skills/projects');
-    expect(screen.getByText('ft_transcendence')).toBeInTheDocument();
+    // Each selected project opens its own repository
+    expect(screen.getByText('ft_transcendence').closest('a')).toHaveAttribute(
+      'href',
+      'https://github.com/lienardale/ft_transcendence',
+    );
 
     // Now
     expect(screen.getByText('Reading')).toBeInTheDocument();

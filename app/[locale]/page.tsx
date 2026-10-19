@@ -88,13 +88,20 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
           {t('home.selected_label')}
         </SectionLabel>
         {selected.map((p) => (
-          <Link key={p.id} href="/skills" className="row grid-cols-[minmax(0,1fr)_auto]">
+          <a
+            key={p.id}
+            href={p.github}
+            target="_blank"
+            rel="noopener"
+            className="row grid-cols-[minmax(0,1fr)_auto_auto]"
+          >
             <span>
               <span className="font-medium">{p.title}</span>{' '}
               <span className="text-ink-muted">— {p.tagline}</span>
             </span>
             <span className="font-mono text-[11px] text-ink-muted">{p.stamp}</span>
-          </Link>
+            <span className="text-ink-muted" aria-hidden="true">↗</span>
+          </a>
         ))}
       </section>
 
