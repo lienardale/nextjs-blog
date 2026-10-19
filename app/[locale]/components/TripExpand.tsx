@@ -62,7 +62,7 @@ export default function TripExpand({trips}: {trips: Trip[]}) {
                     <a
                       href={`https://www.komoot.com/tour/${trip.id}`}
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                       className="link-muted self-end text-[12px]"
                     >
                       {t('open_komoot')}

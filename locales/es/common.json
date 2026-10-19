@@ -21,6 +21,7 @@
     "contact_mail_subject": "Mensaje de {name}",
     "contact_mail_opened": "Tu aplicación de correo debería haberse abierto con el mensaje listo para enviar. Si no ha pasado nada, escribe a {email}.",
     "cv_open": "Abrir en pestaña nueva",
+    "opens_new_tab": "(se abre en una pestaña nueva)",
 
     "nav": {
         "index": "Inicio",

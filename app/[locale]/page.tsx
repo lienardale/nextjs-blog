@@ -2,6 +2,7 @@ import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
 import {Link} from '../../lib/i18n/navigation';
 import {getProjects, getSortedItems} from '../../lib/registry';
+import ExternalRow from './components/ExternalRow';
 import SectionLabel from './components/SectionLabel';
 
 const sections = [
@@ -56,7 +57,7 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
               <a
                 href="https://github.com/lienardale/nextjs-blog"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="text-ink underline decoration-ink-muted underline-offset-[3px]"
               >
                 {chunks}
@@ -87,22 +88,28 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
         >
           {t('home.selected_label')}
         </SectionLabel>
-        {selected.map((p) => (
-          <a
-            key={p.id}
-            href={p.github}
-            target="_blank"
-            rel="noopener"
-            className="row grid-cols-[minmax(0,1fr)_auto_auto]"
-          >
-            <span>
-              <span className="font-medium">{p.title}</span>{' '}
-              <span className="text-ink-muted">— {p.tagline}</span>
-            </span>
-            <span className="font-mono text-[11px] text-ink-muted">{p.stamp}</span>
-            <span className="text-ink-muted" aria-hidden="true">↗</span>
-          </a>
-        ))}
+        {selected.map((p) => {
+          const label = (
+            <>
+              <span>
+                <span className="font-medium">{p.title}</span>{' '}
+                <span className="text-ink-muted">— {p.tagline}</span>
+              </span>
+              <span className="font-mono text-[11px] text-ink-muted">{p.stamp}</span>
+            </>
+          );
+          // getProjects() turns a missing repo into '', which would render a
+          // link back to this page; such a project opens the on-site list.
+          return p.github ? (
+            <ExternalRow key={p.id} href={p.github} className="grid-cols-[minmax(0,1fr)_auto_auto]">
+              {label}
+            </ExternalRow>
+          ) : (
+            <Link key={p.id} href="/skills/projects" className="row grid-cols-[minmax(0,1fr)_auto]">
+              {label}
+            </Link>
+          );
+        })}
       </section>
 
       <section>

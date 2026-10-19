@@ -85,7 +85,7 @@ export default async function AboutPage({params}: {params: Promise<{locale: stri
               <a
                 href="https://www.komoot.com/user/1617431265877"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="link-muted text-[13px]"
               >
                 {t('about.komoot_full_log')} Komoot ↗

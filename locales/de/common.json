@@ -21,6 +21,7 @@
     "contact_mail_subject": "Nachricht von {name}",
     "contact_mail_opened": "Ihr E-Mail-Programm sollte sich mit der fertigen Nachricht geöffnet haben. Falls nichts passiert ist, schreiben Sie an {email}.",
     "cv_open": "In neuem Tab öffnen",
+    "opens_new_tab": "(öffnet in einem neuen Tab)",
 
     "nav": {
         "index": "Index",

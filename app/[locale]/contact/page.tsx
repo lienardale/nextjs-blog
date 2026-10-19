@@ -1,5 +1,6 @@
 import {getTranslations} from 'next-intl/server';
 import {Link} from '../../../lib/i18n/navigation';
+import ExternalRow from '../components/ExternalRow';
 import PageHeader from '../components/PageHeader';
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
@@ -25,22 +26,12 @@ export default async function ContactPage({params}: {params: Promise<{locale: st
       <PageHeader title={t('nav.contact')} lede={t('contact.lede')} />
 
       <div>
-        {channels.map((channel) => {
-          const external = channel.href.startsWith('http');
-          return (
-            <a
-              key={channel.href}
-              href={channel.href}
-              target={external ? '_blank' : undefined}
-              rel={external ? 'noopener' : undefined}
-              className="row grid-cols-[96px_minmax(0,1fr)_auto]"
-            >
-              <span className="text-[13px] text-ink-muted">{channel.label}</span>
-              <span className="break-words">{channel.value}</span>
-              <span className="text-ink-muted" aria-hidden="true">↗</span>
-            </a>
-          );
-        })}
+        {channels.map((channel) => (
+          <ExternalRow key={channel.href} href={channel.href} className="grid-cols-[96px_minmax(0,1fr)_auto]">
+            <span className="text-[13px] text-ink-muted">{channel.label}</span>
+            <span className="break-words">{channel.value}</span>
+          </ExternalRow>
+        ))}
       </div>
 
       <Link href="/about_me/infos" className="link-muted self-start text-[13px]">

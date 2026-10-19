@@ -140,11 +140,21 @@ describe('Home page', () => {
 
     // Selected work links out to the full list
     expect(screen.getByRole('link', {name: 'All projects →'})).toHaveAttribute('href', '/skills/projects');
-    // Each selected project opens its own repository
-    expect(screen.getByText('ft_transcendence').closest('a')).toHaveAttribute(
-      'href',
+    // Each selected project opens its own repository, in a new tab
+    const selected = within(screen.getByText('Selected work').closest('section')!).getAllByRole('link');
+    const projectRows = selected.filter((a) => a.classList.contains('row'));
+    expect(projectRows.map((a) => a.getAttribute('href'))).toEqual([
       'https://github.com/lienardale/ft_transcendence',
-    );
+      'https://github.com/lienardale/mini_rt',
+      'https://github.com/lienardale/bdi_2023',
+      'https://github.com/lienardale/nextjs-blog',
+      'https://github.com/lienardale/gpx-to-video',
+    ]);
+    for (const row of projectRows) {
+      expect(row).toHaveAttribute('target', '_blank');
+      expect(row).toHaveAttribute('rel', 'noopener noreferrer');
+      expect(row).toHaveTextContent('(opens in a new tab)');
+    }
 
     // Now
     expect(screen.getByText('Reading')).toBeInTheDocument();
@@ -153,6 +163,33 @@ describe('Home page', () => {
     // The editorial headline and its markup are gone
     expect(container.textContent).not.toMatch(/Welcome/);
     expect(container.textContent).not.toMatch(/<\/?(em|b|br)\b/);
+  });
+
+  it('sends a selected project without a repo to the on-site list', async () => {
+    const registry = await import('../../lib/registry');
+    const realGetProjects = registry.getProjects;
+    const spy = jest
+      .spyOn(registry, 'getProjects')
+      .mockImplementation((locale) =>
+        realGetProjects(locale).map((p) => (p.id === 'mini_rt' ? {...p, github: ''} : p)),
+      );
+
+    try {
+      const Page = (await import('../../app/[locale]/page')).default;
+      render(await Page({params}));
+
+      const row = screen.getByText('mini_rt').closest('a');
+      expect(row).toHaveAttribute('href', '/skills/projects');
+      expect(row).not.toHaveAttribute('target');
+      expect(row).not.toHaveTextContent('↗');
+      // The others still go to GitHub
+      expect(screen.getByText('bdi_2023').closest('a')).toHaveAttribute(
+        'href',
+        'https://github.com/lienardale/bdi_2023',
+      );
+    } finally {
+      spy.mockRestore();
+    }
   });
 });
 
